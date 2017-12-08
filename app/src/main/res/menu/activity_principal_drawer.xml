@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_codigo_policia"
+            android:icon="@drawable/ic_book_black"
+            android:title="CNPC" />
+        <item
+            android:id="@+id/nav_funcionario"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Identificar Fucionario" />
+        <item
+            android:id="@+id/nav_psc"
+            android:icon="@drawable/ic_menu_send"
+            android:title="PSC" />
+        <item
+            android:id="@+id/nav_games"
+            android:icon="@drawable/ic_videogame_asset_black"
+            android:title="Juegos" />
+    </group>
+
+    <item android:title="Sección para uniformados">
+        <menu>
+            <item
+                android:id="@+id/nav_language"
+                android:icon="@drawable/ic_language_black"
+                android:title="Idioma" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_account_circle_black"
+                android:title="Capacitacion" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_vpn_key_black"
+                android:title="LOGIN" />
+        </menu>
+    </item>
+
+</menu>

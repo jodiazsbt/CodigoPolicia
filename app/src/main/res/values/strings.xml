@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Código De Policía</string>
+
+    <string name="title_activity_principal">Codigo De Policia</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Configuracion</string>
+
+    <string name="dbpath">/data/data/com.policia.codigopolicia/databases/</string>
+    <string name="dbname">codigopolicia</string>
+    <string name="dbversion">1</string>
+    <string name="SCRIPT">SCRIPT.sql</string>
+    <string name="Ley">LEY 1801 DE 2016</string>
+    <string name="LeyFecha">(Julio 29)</string>
+    <string name="LeySubtitulo">Por la cual se expide el:</string>
+    <string name="LeyCongreso">EL CONGRESO DE LA REPÚBLICA</string>
+    <string name="LeyDecreta">DECRETA:</string>
+    <string name="title_activity_idioma">Idioma</string>
+    <string name="LeyNombre">Código Nacional de Policía y Convivencia</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
