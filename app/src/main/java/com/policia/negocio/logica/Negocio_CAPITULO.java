@@ -25,6 +25,6 @@ public class Negocio_CAPITULO {
 
     public ArrayList<Modelo_CAPITULO> CapitulosPorTitulo(String Titulo) {
 
-        return rutinasCapitulo.CapitulosPorTitulo(sesion.getIdioma(), Titulo);
+        return rutinasCapitulo.CapitulosPorTitulo(sesion.getIdiomaCodigo(), Titulo);
     }
 }

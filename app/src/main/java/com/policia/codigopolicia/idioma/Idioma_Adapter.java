@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.policia.codigopolicia.R;
@@ -18,8 +17,8 @@ import java.util.ArrayList;
 
 public class Idioma_Adapter extends BaseAdapter {
 
-    Activity context;
-    ArrayList<Modelo_IDIOMA> idiomas;
+    private Activity context;
+    private ArrayList<Modelo_IDIOMA> idiomas;
 
     public Idioma_Adapter(Activity context, ArrayList<Modelo_IDIOMA> idiomas) {
 
@@ -29,30 +28,27 @@ public class Idioma_Adapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-
         return idiomas.size();
     }
 
     @Override
-    public Object getItem(int posicion) {
-
-        return idiomas.get(posicion);
+    public Object getItem(int i) {
+        return null;
     }
 
     @Override
-    public long getItemId(int posicion) {
-
-        return posicion;
+    public long getItemId(int i) {
+        return 0;
     }
 
     @Override
-    public View getView(int posicion, View view, ViewGroup parent) {
-        view = context.getLayoutInflater().inflate(R.layout.idioma_listitem, null);
-
-        ((ListView)parent).setItemChecked(posicion, true);
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        if (view == null) {
+            view = context.getLayoutInflater().from(context).inflate(R.layout.idioma_listitem, viewGroup, false);
+        }
 
         TextView textViewIdioma = view.findViewById(R.id.textViewIdioma);
-        textViewIdioma.setText(idiomas.get(posicion).IDIOMA);
+        textViewIdioma.setText(idiomas.get(i).IDIOMA);
 
         return view;
     }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--LOGIN -->
+    <string name="prompt_email">User</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="preferencia_idioma">ENG</string>
+
+    <!--NAV HEADER-->
+    <string name="nav_header_title">Colombia National Police</string>
+    <string name="nav_header_subtitle">National Code of Police and Coexistence</string>
+
+    <!--MENU-->
+    <string name="menu_cnpc">CNPC</string>
+    <string name="multas">Fines</string>
+    <string name="menu_funcionario">Official Identification</string>
+    <string name="menu_psc">PSC</string>
+    <string name="menu_games">Games</string>
+    <string name="menu_group_title">Section for policemen</string>
+    <string name="menu_idioma">Language</string>
+    <string name="menu_capacitacion">Training</string>
+    <string name="menu_login">Log in</string>
+    <string name="menu_puntos">Puntos de referencia</string>
+
+    <!--CNPC CODIGO POLICIA-->
+    <string name="Ley">LAW 1801 OF 2016</string>
+    <string name="LeyFecha">(July 29)</string>
+    <string name="LeySubtitulo">By which the:</string>
+    <string name="LeyCongreso">THE CONGRESS OF THE REPUBLIC OF COLOMBIA</string>
+    <string name="LeyDecreta">DECREE:</string>
+    <string name="LeyNombre">National Code of Police and Coexistence</string>
+
+    <!--IDIOMA-->
+    <string name="title_activity_idioma">Language</string>
+    <string name="button_aceptar">Ok</string>
+    <string name="button_cancelar">Cancel</string>
+    <string name="toast_locale_success">New language</string>
+    <string name="toast_locale_exception">The language could not be changed</string>
+    <string name="idioma_header_title">LANGUAGE</string>
+    <string name="idioma_header_subtitle">Choose a language</string>
+
+    <!--PSC-->
+    <string-array name="listadoMenuPsc">
+        <item>!ADenunciar!</item>
+        <item>CONSULTATION OF CRIMINAL BACKGROUND</item>
+        <item>REGISTRO DE DOCUMENTOS EXTRAVIADOS</item>
+        <item>RECORD OF LOST DOCUMENTS</item>
+        <item>REGISTRATION QUESTIONS, COMPLAINTS, CLAIMS AND SUGGESTIONS (PQRS)</item>
+    </string-array>
+</resources>

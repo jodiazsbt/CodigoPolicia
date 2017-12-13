@@ -25,6 +25,6 @@ public class Negocio_LIBRO {
 
     public ArrayList<Modelo_LIBRO> Libros() {
 
-        return rutinasLibro.Libros(sesion.getIdioma());
+        return rutinasLibro.Libros(sesion.getIdiomaCodigo());
     }
 }

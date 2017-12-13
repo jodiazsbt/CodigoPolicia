@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:cropToPadding="false"
-        android:src="@mipmap/img_caricatura_1080"
+        android:src="@mipmap/img_01_img_cnpc"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout

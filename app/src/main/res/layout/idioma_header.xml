@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:cropToPadding="false"
-        android:src="@mipmap/img_caricatura_1080"
+        android:src="@mipmap/img_01_img_idiomas"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -25,14 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="IDIOMA/LANGUAGE"
+            android:text="@string/idioma_header_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Escoge un idioma"
+            android:text="@string/idioma_header_subtitle"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     </LinearLayout>

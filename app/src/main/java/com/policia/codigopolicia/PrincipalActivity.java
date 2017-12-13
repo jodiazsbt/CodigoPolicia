@@ -2,6 +2,7 @@ package com.policia.codigopolicia;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,15 +16,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.NavegacionCNPC.Fragment_LIBRO;
-import com.policia.codigopolicia.adapter.Busqueda_Adapter;
+import com.policia.codigopolicia.NavegacionMULTAS.Fragment_MULTA;
 import com.policia.codigopolicia.adapter.Fragment_METEDATA;
 import com.policia.codigopolicia.adapter.IActualizarListadoBusqueda;
-import com.policia.negocio.logica.Negocio_METADATA;
+import com.policia.codigopolicia.idioma.Idioma_Configuracion;
+import com.policia.negocio.seguridad.Seguridad;
+import com.policia.remote.RemoteClient;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +39,14 @@ public class PrincipalActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            Seguridad sesion = Seguridad.Sesion(getBaseContext());
+            Idioma_Configuracion.updateResources(this, sesion.getIdiomaCodigo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         setContentView(R.layout.principal_activity);
 
         activity = this;
@@ -53,7 +62,7 @@ public class PrincipalActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        menuCodigoPolicia(navigationView.getMenu().getItem(0));//codigo de policia
+        menuCodigoPolicia(navigationView.getMenu().getItem(1));//codigo de policia
     }
 
     @Override
@@ -139,10 +148,17 @@ public class PrincipalActivity extends AppCompatActivity
             menuIdentificarFuncionario(item);
         } else if (id == R.id.nav_codigo_policia) {
             menuCodigoPolicia(item);
+        } else if (id == R.id.nav_multa) {
+            menuMultas(item);
+        } else if (id == R.id.nav_polis) {
+            menuPolis(item);
+        } else if (id == R.id.nav_psc) {
+            menuPsc(item);
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_login) {
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -152,13 +168,13 @@ public class PrincipalActivity extends AppCompatActivity
 
     private void menuIdentificarFuncionario(MenuItem item) {
 
-        fragment = new IdentificacionFuncionario();
+        fragment = new NavegadorApp();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
 
-        item.setChecked(true);
+        //item.setChecked(true);
         getSupportActionBar().setTitle(item.getTitle());
     }
 
@@ -170,7 +186,7 @@ public class PrincipalActivity extends AppCompatActivity
                 .replace(R.id.content_frame, fragment)
                 .commit();
 
-        item.setChecked(true);
+        //item.setChecked(true);
         getSupportActionBar().setTitle(item.getTitle());
     }
 
@@ -182,4 +198,57 @@ public class PrincipalActivity extends AppCompatActivity
                 .replace(R.id.content_frame, fragment)
                 .commit();
     }
+
+    private void menuPsc(MenuItem item) {
+
+        Intent intent = new Intent(this, PortalCiudadano.class);
+        startActivity(intent);
+
+        //item.setChecked(true);
+        getSupportActionBar().setTitle(item.getTitle());
+    }
+
+    private void menuPolis(MenuItem item) {
+        item.setChecked(true);
+
+        PackageManager pm = getPackageManager();
+        String pn = "com.policia.polis";
+        if (this.isPackageInstalled(pn, pm)) {
+            this.openApp(pn);
+        } else {
+            Intent intent = new Intent(this, PolisActivity.class);
+            startActivity(intent);
+        }
+
+
+    }
+
+    private void menuMultas(MenuItem item) {
+        fragment = new Fragment_MULTA();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
+        //item.setChecked(true);
+        getSupportActionBar().setTitle(item.getTitle());
+
+    }
+
+
+    private boolean isPackageInstalled(String packagename, PackageManager packageManager) {
+        try {
+            packageManager.getPackageInfo(packagename, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    private void openApp(String packageName) {
+
+        startActivity(getPackageManager().getLaunchIntentForPackage(packageName));
+
+    }
+
 }

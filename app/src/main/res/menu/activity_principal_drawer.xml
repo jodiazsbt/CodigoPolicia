@@ -3,40 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_codigo_policia"
-            android:icon="@drawable/ic_book_black"
-            android:title="CNPC" />
-        <item
-            android:id="@+id/nav_funcionario"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Identificar Fucionario" />
-        <item
-            android:id="@+id/nav_psc"
-            android:icon="@drawable/ic_menu_send"
-            android:title="PSC" />
-        <item
-            android:id="@+id/nav_games"
-            android:icon="@drawable/ic_videogame_asset_black"
-            android:title="Juegos" />
-    </group>
-
-    <item android:title="Sección para uniformados">
-        <menu>
-            <item
-                android:id="@+id/nav_language"
-                android:icon="@drawable/ic_language_black"
-                android:title="Idioma" />
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_account_circle_black"
-                android:title="Capacitacion" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_vpn_key_black"
-                android:title="LOGIN" />
-        </menu>
-    </item>
-
+    <item
+        android:id="@+id/nav_language"
+        android:icon="@mipmap/img_01_btn_idioma"
+        android:title="@string/menu_idioma" />
+    <item
+        android:id="@+id/nav_codigo_policia"
+        android:icon="@mipmap/img_02_btn_cnpc"
+        android:title="@string/menu_cnpc" />
+    <item
+        android:id="@+id/nav_multa"
+        android:icon="@mipmap/img_04_btn_multas"
+        android:title="@string/multas" />
+    <item
+        android:id="@+id/nav_funcionario"
+        android:icon="@mipmap/img_03_btn_id_pol"
+        android:title="@string/menu_funcionario" />
+    <item
+        android:id="@+id/nav_polis"
+        android:icon="@mipmap/img_04_btn_polis"
+        android:title="POLIS" />
+    <item
+        android:id="@+id/nav_psc"
+        android:icon="@mipmap/img_05_btn_psc"
+        android:title="@string/menu_psc" />
+    <item
+        android:id="@+id/nav_games"
+        android:icon="@mipmap/img_06_btn_juegos"
+        android:title="@string/menu_games" />
+    <item
+        android:id="@+id/nav_share"
+        android:icon="@mipmap/img_07_btn_puntos_ref"
+        android:title="@string/menu_puntos" />
+    <item
+        android:id="@+id/nav_login"
+        android:icon="@mipmap/img_08_btn_login"
+        android:title="@string/menu_login" />
 </menu>

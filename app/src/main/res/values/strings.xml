@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Código De Policía</string>
-
     <string name="title_activity_principal">Codigo De Policia</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -12,14 +11,18 @@
     <string name="dbname">codigopolicia</string>
     <string name="dbversion">1</string>
     <string name="SCRIPT">SCRIPT.sql</string>
-    <string name="Ley">LEY 1801 DE 2016</string>
-    <string name="LeyFecha">(Julio 29)</string>
-    <string name="LeySubtitulo">Por la cual se expide el:</string>
-    <string name="LeyCongreso">EL CONGRESO DE LA REPÚBLICA</string>
-    <string name="LeyDecreta">DECRETA:</string>
-    <string name="title_activity_idioma">Idioma</string>
-    <string name="LeyNombre">Código Nacional de Policía y Convivencia</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="srvappmoviles">https://srvdenuncia.policia.gov.co:444/wsCnpcApp/CNPC.svc/</string>
+    <!--
+    <string name="srvappmoviles">https://srvappmoviles.policia.gov.co/wsCnpcApp/CNPC.svc/</string>-->
+
+    <string-array name="listadoUrlPsc">
+        <item>https://play.google.com/store/apps/details?id=com.policia.polis</item>
+        <item>https://antecedentes.policia.gov.co:7005/WebJudicial/index.xhtml</item>
+        <item>https://www.policia.gov.co/documentos-extraviados</item>
+        <item>https://www.policia.gov.co/codigo-nacional-policia/comunicaci%C3%B3n-apertura-establecimientos</item>
+        <item>https://www.policia.gov.co/pqrs</item>
+    </string-array>
+    <string name="title_activity_login">Log in</string>
+
 </resources>

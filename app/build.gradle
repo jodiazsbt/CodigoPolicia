@@ -20,9 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
+    compile 'com.google.code.gson:gson:2.3.1'
     implementation 'com.android.support:support-v4:26.1.0'
     compile 'com.github.bluejamesbond:textjustify-android:2.1.6'
     implementation fileTree(include: ['*.jar'], dir: 'libs')

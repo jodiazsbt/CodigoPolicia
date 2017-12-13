@@ -11,7 +11,7 @@
         android:id="@+id/action_search"
         android:layout_width="wrap_content"
         android:icon="@drawable/ic_magnify"
-        android:title="Search"
+        android:title="sdasd"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="collapseActionView|always" />
 </menu>

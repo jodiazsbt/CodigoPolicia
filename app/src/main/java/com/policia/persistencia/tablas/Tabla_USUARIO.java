@@ -6,12 +6,14 @@ package com.policia.persistencia.tablas;
 
 public class Tabla_USUARIO {
 
-    public Tabla_USUARIO(){}
+    public Tabla_USUARIO() {
+    }
 
     public String ID;
     public String CONSECUTIVO;
     public String FISICA;
     public String FUNCIONARIO;
+    public String GRADO;
     public String IDENTIFICACION;
     public String PLACA;
     public String UNDECONSECUTIVO;

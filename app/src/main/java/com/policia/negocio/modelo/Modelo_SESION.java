@@ -9,7 +9,8 @@ import java.util.Date;
 public class Modelo_SESION {
 
     private String usuario;
-    private String idioma;
+    private String idiomaCodigo;
+    private String idiomaNombre;
     private Date fecha;
 
     public Date getFecha() {
@@ -22,9 +23,14 @@ public class Modelo_SESION {
         return usuario;
     }
 
-    public String getIdioma() {
+    public String getIdiomaCodigo() {
 
-        return idioma;
+        return idiomaCodigo;
+    }
+
+    public String getIdiomaNombre() {
+
+        return idiomaNombre;
     }
 
     public void setUsuario(String usuario) {
@@ -32,9 +38,14 @@ public class Modelo_SESION {
         this.usuario = usuario;
     }
 
-    public void setIdioma(String idioma) {
+    public void setIdiomaCodigo(String idioma) {
 
-        this.idioma = idioma;
+        this.idiomaCodigo = idioma;
+    }
+
+    public void setIdiomaNombre(String idioma) {
+
+        this.idiomaNombre = idioma;
     }
 
     public void setFecha(Date fecha) {

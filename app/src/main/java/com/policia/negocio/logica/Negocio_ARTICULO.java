@@ -30,6 +30,6 @@ public class Negocio_ARTICULO {
 
     public ArrayList<Modelo_ARTICULO> ArticulosPorCapitulo(String Capitulo, int position) {
 
-        return rutinasArticulo.ArticulosPorCapitulo(sesion.getIdioma(), Capitulo, position);
+        return rutinasArticulo.ArticulosPorCapitulo(sesion.getIdiomaCodigo(), Capitulo, position);
     }
 }

@@ -27,15 +27,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#FFF"
-            android:text="Cancelar"
+            android:onClick="clickCancelar"
+            android:text="@string/button_cancelar"
             android:textColor="@color/colorPrimaryDark" />
 
         <Button
+            android:id="@+id/buttonAceptar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
-            android:text="Aceptar"
+            android:onClick="clickAceptar"
+            android:text="@string/button_aceptar"
             android:textColor="#FFF" />
 
     </LinearLayout>

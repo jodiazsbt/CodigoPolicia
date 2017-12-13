@@ -24,7 +24,7 @@ public class Negocio_METADATA {
 
     public ArrayList<Modelo_Busqueda_Articulo> BusquedaMETADATA(String termino_busqueda) {
 
-        return rutinas_metadata.BusquedaMETADATA(sesion.getIdioma(), termino_busqueda);
+        return rutinas_metadata.BusquedaMETADATA(sesion.getIdiomaCodigo(), termino_busqueda);
     }
 
 }
