@@ -4,21 +4,19 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,7 +31,6 @@ import android.widget.Toast;
 
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.remote.RemoteClient;
-import com.policia.remote.response.LoginPoliciaNal;
 import com.policia.remote.response.LoginPoliciaNalResult;
 
 import java.util.ArrayList;
@@ -71,6 +68,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private final Activity activity = this;
 
+    private String usuarioID;
+
+    private Seguridad sesion;
+
+    @Override
+    public void finish() {
+        try {
+            super.finish();
+            if (!sesion.getUsuario().equals(usuarioID)) {
+                String funcionario = sesion.getFuncionario();
+                String[] partes = funcionario.split(" ");
+                if (partes.length == 5)
+                    funcionario = partes[0] + " " + partes[3] + " " + partes[1];
+
+                Toast.makeText(activity, getString(R.string.login_welcome) + "\r\n" + funcionario, Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +119,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        try {
+            sesion = Seguridad.Sesion(getBaseContext());
+
+            usuarioID = sesion.getUsuario();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void populateAutoComplete() {
@@ -318,7 +344,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 LoginPoliciaNalResult result = RemoteClient.connect(activity).login(mUsuario, mContrasena);
-                return Seguridad.Sesion(activity).ingresoUsuario(result);
+                return Seguridad.Sesion(activity).abrirSesionPolicia(result);
             } catch (Exception e) {
                 e.printStackTrace();
             }

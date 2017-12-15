@@ -9,6 +9,10 @@ import java.util.Date;
 public class Modelo_SESION {
 
     private String usuario;
+
+    private String funcionario;
+
+    private String fisica;
     private String idiomaCodigo;
     private String idiomaNombre;
     private Date fecha;
@@ -21,6 +25,14 @@ public class Modelo_SESION {
     public String getUsuario() {
 
         return usuario;
+    }
+
+    public String getFisica() {
+        return fisica;
+    }
+
+    public String getFuncionario() {
+        return funcionario;
     }
 
     public String getIdiomaCodigo() {
@@ -38,6 +50,10 @@ public class Modelo_SESION {
         this.usuario = usuario;
     }
 
+    public void setFuncionario(String funcionario) {
+        this.funcionario = funcionario;
+    }
+
     public void setIdiomaCodigo(String idioma) {
 
         this.idiomaCodigo = idioma;
@@ -46,6 +62,10 @@ public class Modelo_SESION {
     public void setIdiomaNombre(String idioma) {
 
         this.idiomaNombre = idioma;
+    }
+
+    public void setFisica(String fisica) {
+        this.fisica = fisica;
     }
 
     public void setFecha(Date fecha) {

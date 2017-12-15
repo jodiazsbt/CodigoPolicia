@@ -27,7 +27,7 @@ public class Rutinas_IDIOMA {
     public ArrayList<Modelo_IDIOMA> Idiomas() {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
-        Cursor cursor = DB.rawQuery("SELECT " +
+        Cursor cursor = DB.rawQuery("SELECT DISTINCT " +
                 "IDIOMA.CODIGO," +
                 "IDIOMA.IDIOMA," +
                 "COALESCE(PREFERENCIA.IDIOMA_CODIGO=IDIOMA.CODIGO,0) SELECCION " +

@@ -1,12 +1,13 @@
 package com.policia.codigopolicia;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -17,8 +18,6 @@ import android.webkit.WebViewClient;
 public class NavegadorApp extends Fragment {
 
     WebView webViewFuncionario;
-    Activity activity ;
-    ProgressDialog progDailog;
 
     private final String currentUrl;
 
@@ -29,42 +28,17 @@ public class NavegadorApp extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        activity = getActivity();
+        View v=inflater.inflate(R.layout.fragment_funcionario, container, false);
+        webViewFuncionario = (WebView) v.findViewById(R.id.webViewFuncionario);
+        webViewFuncionario.loadUrl(currentUrl);
 
-        View x = inflater.inflate(R.layout.fragment_funcionario, container, false);
-        webViewFuncionario = (WebView) x.findViewById(R.id.webViewFuncionario);
+        // Enable Javascript
+        WebSettings webSettings = webViewFuncionario.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
-        /*
-        progDailog = ProgressDialog.show(activity, "Cargando","Un momento por favor...", true);
-        progDailog.setCancelable(false);
-        */
+        // Force links and redirects to open in the WebView instead of in a browser
+        webViewFuncionario.setWebViewClient(new WebViewClient());
 
-        String url = currentUrl;
-        // probably a good idea to check it's not null, to avoid these situations:
-        if (webViewFuncionario != null) {
-            webViewFuncionario.getSettings().setJavaScriptEnabled(true);
-            webViewFuncionario.getSettings().setLoadWithOverviewMode(true);
-            webViewFuncionario.getSettings().setUseWideViewPort(true);
-            webViewFuncionario.setWebViewClient(new WebViewClient() {
-
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    //progDailog.show();
-                    if (url.equals(currentUrl)) {
-                        view.loadUrl(url);
-                    }
-                    return true;
-                }
-                @Override
-                public void onPageFinished(WebView view, final String url) {
-                    //progDailog.dismiss();
-                }
-            });
-
-            webViewFuncionario.loadUrl(currentUrl);
-
-        }
-
-        return x;
+        return v;
     }
 }

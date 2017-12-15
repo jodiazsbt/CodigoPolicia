@@ -1,5 +1,6 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,8 +25,25 @@ public class Rutinas_USUARIO {
     }
 
     public boolean crearUsuario(Tabla_USUARIO usuario) {
+        long id = 0;
 
-        return true;
+        ContentValues parameters = new ContentValues();
+        parameters.put("CONSECUTIVO", usuario.CONSECUTIVO);
+        parameters.put("FISICA", usuario.FISICA);
+        parameters.put("FUNCIONARIO", usuario.FUNCIONARIO);
+        parameters.put("GRADO", usuario.GRADO);
+        parameters.put("IDENTIFICACION", usuario.IDENTIFICACION);
+        parameters.put("PLACA", usuario.PLACA);
+        parameters.put("UNDECONSECUTIVO", usuario.UNDECONSECUTIVO);
+        parameters.put("UNDEFUERZA", usuario.UNDEFUERZA);
+        parameters.put("UNDELABORA", usuario.UNDELABORA);
+        parameters.put("UNIDAD", usuario.UNIDAD);
+        parameters.put("VERIFICA", usuario.VERIFICA);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'USUARIO'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
     public boolean existeUsuario(String Placa) {

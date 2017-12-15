@@ -54,17 +54,25 @@ public class Rutinas_PREFERENCIA {
     }
 
     public boolean crearPreferencia(Tabla_PREFERENCIA preferencia) {
+        long id = 0;
 
-        return true;
+        ContentValues parameters = new ContentValues();
+        parameters.put("USUARIO_ID", preferencia.USUARIO_ID);
+        parameters.put("IDIOMA_CODIGO", preferencia.IDIOMA_CODIGO);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'PREFERENCIA'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
-    public boolean existePreferenciaUsuario(String Placa) {
+    public boolean existePreferenciaUsuario(String usuarioId) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
         String[] parameters = new String[]{
-                Placa + ""};
+                usuarioId + ""};
 
-        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM USUARIO INNER JOIN PREFERENCIA ON USUARIO.ID=PREFERENCIA.USUARIO_ID WHERE USUARIO.PLACA=?;", parameters);
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM PREFERENCIA WHERE USUARIO_ID=?;", parameters);
 
         int cantidad = 0;
         while (cursor.moveToNext()) {

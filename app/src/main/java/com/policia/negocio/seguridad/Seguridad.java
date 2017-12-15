@@ -28,6 +28,8 @@ public class Seguridad {
 
     private Seguridad(Context context) throws Exception {
 
+        this.context = context;
+
         rutinasSesion = new Rutinas_SESION(context);
         rutinasUsuario = new Rutinas_USUARIO(context);
         rutinasPreferencia = new Rutinas_PREFERENCIA(context);
@@ -43,6 +45,8 @@ public class Seguridad {
             throw new Exception("No existe sesion");
 
         this.usuario = sesion.getUsuario();
+        this.funcionario = sesion.getFuncionario();
+        this.fisica = sesion.getFisica();
         this.idiomaCodigo = sesion.getIdiomaCodigo();
         this.idiomaNombre = sesion.getIdiomaNombre();
     }
@@ -58,12 +62,22 @@ public class Seguridad {
     }
 
     private String usuario;
-    private String nombre;
+    private String funcionario;
+    private String fisica;
+
     private String idiomaCodigo;
     private String idiomaNombre;
 
     public String getUsuario() {
         return usuario;
+    }
+
+    public String getFisica() {
+        return fisica;
+    }
+
+    public String getFuncionario() {
+        return funcionario;
     }
 
     public String getIdiomaCodigo() {
@@ -84,7 +98,21 @@ public class Seguridad {
         return true;
     }
 
-    public boolean ingresoUsuario(LoginPoliciaNalResult usuario) {
+    public boolean cerrarSesionPolicia() throws Exception {
+
+        Tabla_SESION tablaSesion = new Tabla_SESION();
+        tablaSesion.USUARIO_ID = "1";
+        tablaSesion.FECHA = new Date();
+
+        rutinasSesion.borrarSesiones();
+        rutinasSesion.crearSesion(tablaSesion);
+
+        actualizarSesion();
+
+        return true;
+    }
+
+    public boolean abrirSesionPolicia(LoginPoliciaNalResult usuario) throws Exception {
 
         String usuarioID = "0";
 
@@ -112,24 +140,26 @@ public class Seguridad {
 
         usuarioID = rutinasUsuario.usuarioID(usuario.Placa);
 
-        if (!rutinasPreferencia.existePreferenciaUsuario(usuario.Placa)) {
+        if (!rutinasPreferencia.existePreferenciaUsuario(usuarioID)) {
 
             tablaPreferencia = new Tabla_PREFERENCIA();
             tablaPreferencia.USUARIO_ID = usuarioID;
             tablaPreferencia.IDIOMA_CODIGO = context.getString(R.string.preferencia_idioma);
 
-            rutinasPreferencia.crearPreferencia(null);
+            rutinasPreferencia.crearPreferencia(tablaPreferencia);
         }
 
-        if (!rutinasSesion.existeSesionUsuario(usuario.Placa)) {
+        if (!rutinasSesion.existeSesionUsuario(usuarioID)) {
 
             tablaSesion = new Tabla_SESION();
             tablaSesion.USUARIO_ID = usuarioID;
             tablaSesion.FECHA = new Date();
 
+            rutinasSesion.borrarSesiones();
             rutinasSesion.crearSesion(tablaSesion);
         }
 
+        actualizarSesion();
         return true;
     }
 }

@@ -39,4 +39,8 @@
         android:id="@+id/nav_login"
         android:icon="@mipmap/img_08_btn_login"
         android:title="@string/menu_login" />
+    <item
+        android:id="@+id/nav_cerrar"
+        android:icon="@mipmap/img_08_btn_login"
+        android:title="@string/menu_cerrar" />
 </menu>

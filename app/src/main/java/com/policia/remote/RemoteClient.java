@@ -31,6 +31,7 @@ public class RemoteClient {
 
     private RemoteClient(Context context) {
         this.context = context;
+        this.client = new DefaultHttpClient();
         this.direccionServicio = context.getResources().getString(R.string.srvappmoviles);
     }
 
@@ -46,8 +47,6 @@ public class RemoteClient {
         HttpPost request = new HttpPost(operation);
         request.setHeader("accept", "application/json");
         request.setHeader("content-type", "application/json; charset=utf-8");
-        //request.setEntity(new StringEntity(null));
-        client = new DefaultHttpClient();
         HttpResponse response = client.execute(request);
         StatusLine statusLine = response.getStatusLine();
         int statusCode = statusLine.getStatusCode();

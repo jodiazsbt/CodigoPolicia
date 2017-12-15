@@ -1,5 +1,6 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,9 @@ import com.policia.negocio.modelo.Modelo_SESION;
 import com.policia.persistencia.conexion.SQLiteProvider;
 import com.policia.persistencia.tablas.Tabla_SESION;
 import com.policia.persistencia.tablas.Tabla_USUARIO;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * Created by 1085253556 on 7/12/2017.
@@ -27,6 +31,8 @@ public class Rutinas_SESION {
 
         Cursor cursor = DB.rawQuery("SELECT " +
                 "USUARIO.ID," +
+                "USUARIO.FUNCIONARIO, " +
+                "USUARIO.FISICA, " +
                 "IDIOMA.IDIOMA, " +
                 "PREFERENCIA.IDIOMA_CODIGO " +
                 "FROM USUARIO " +
@@ -38,26 +44,42 @@ public class Rutinas_SESION {
         while (cursor.moveToNext()) {
             sesion = new Modelo_SESION();
             sesion.setUsuario(cursor.getString(0));
-            sesion.setIdiomaNombre(cursor.getString(1));
-            sesion.setIdiomaCodigo(cursor.getString(2));
+            sesion.setFuncionario(cursor.getString(1));
+            sesion.setFisica(cursor.getString(2));
+            sesion.setIdiomaNombre(cursor.getString(3));
+            sesion.setIdiomaCodigo(cursor.getString(4));
         }
         cursor.close();
         DB.close();
         return sesion;
     }
 
-    public boolean crearSesion(Tabla_SESION sesion) {
-
-        return true;
+    public void borrarSesiones() {
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        DB.delete("SESION", null, null);
+        DB.close();
     }
 
-    public boolean existeSesionUsuario(String Placa) {
+    public boolean crearSesion(Tabla_SESION sesion) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("USUARIO_ID", sesion.USUARIO_ID);
+        parameters.put("FECHA", sesion.FECHA + "");
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'SESION'", null, parameters);
+        DB.close();
+        return id > 0;
+    }
+
+    public boolean existeSesionUsuario(String usuarioId) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
         String[] parameters = new String[]{
-                Placa + ""};
+                usuarioId + ""};
 
-        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM USUARIO INNER JOIN SESION ON USUARIO.ID=SESION.USUARIO_ID WHERE USUARIO.PLACA=?", parameters);
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM SESION WHERE USUARIO_ID=?;", parameters);
 
         int cantidad = 0;
         while (cursor.moveToNext()) {

@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.NavegacionCNPC.Fragment_LIBRO;
@@ -24,7 +25,6 @@ import com.policia.codigopolicia.adapter.Fragment_METEDATA;
 import com.policia.codigopolicia.adapter.IActualizarListadoBusqueda;
 import com.policia.codigopolicia.idioma.Idioma_Configuracion;
 import com.policia.negocio.seguridad.Seguridad;
-import com.policia.remote.RemoteClient;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +35,9 @@ public class PrincipalActivity extends AppCompatActivity
     MenuItem searchItem;
     SearchView searchView;
     NavigationView navigationView;
+    DrawerLayout drawer;
+
+    Seguridad sesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class PrincipalActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -62,7 +65,49 @@ public class PrincipalActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        cargaSesion();
         menuCodigoPolicia(navigationView.getMenu().getItem(1));//codigo de policia
+    }
+
+    private void cargaSesion() {
+
+        try {
+            sesion = Seguridad.Sesion(activity);
+
+            if (!sesion.getUsuario().equals("1")) {
+
+                String funcionario = sesion.getFuncionario();
+                Toast.makeText(activity, getResources().getString(R.string.login_welcome) + "\r\n" + funcionario, Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cerrarSesionPolicia() {
+        try {
+            sesion.cerrarSesionPolicia();
+            finish();
+            startActivity(getIntent());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!sesion.getUsuario().equals("1")) {
+
+            TextView textViewFuncionario = navigationView.getHeaderView(0).findViewById(R.id.textViewFuncionario);
+            TextView textViewFisica = navigationView.getHeaderView(0).findViewById(R.id.textViewFisica);
+
+            textViewFuncionario.setText(sesion.getFuncionario());
+            textViewFisica.setText(sesion.getFisica());
+        }
+        navigationView.getMenu().findItem(R.id.nav_login).setVisible(sesion.getUsuario().equals("1"));
+        navigationView.getMenu().findItem(R.id.nav_cerrar).setVisible(!sesion.getUsuario().equals("1"));
     }
 
     @Override
@@ -151,11 +196,13 @@ public class PrincipalActivity extends AppCompatActivity
         } else if (id == R.id.nav_multa) {
             menuMultas(item);
         } else if (id == R.id.nav_polis) {
-            menuPolis(item);
+            menuPOLIS(item);
         } else if (id == R.id.nav_psc) {
-            menuPsc(item);
+            menuPSC(item);
         } else if (id == R.id.nav_share) {
 
+        } else if (id == R.id.nav_cerrar) {
+            cerrarSesionPolicia();
         } else if (id == R.id.nav_login) {
             intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -199,7 +246,7 @@ public class PrincipalActivity extends AppCompatActivity
                 .commit();
     }
 
-    private void menuPsc(MenuItem item) {
+    private void menuPSC(MenuItem item) {
 
         Intent intent = new Intent(this, PortalCiudadano.class);
         startActivity(intent);
@@ -208,7 +255,7 @@ public class PrincipalActivity extends AppCompatActivity
         getSupportActionBar().setTitle(item.getTitle());
     }
 
-    private void menuPolis(MenuItem item) {
+    private void menuPOLIS(MenuItem item) {
         item.setChecked(true);
 
         PackageManager pm = getPackageManager();
@@ -219,8 +266,6 @@ public class PrincipalActivity extends AppCompatActivity
             Intent intent = new Intent(this, PolisActivity.class);
             startActivity(intent);
         }
-
-
     }
 
     private void menuMultas(MenuItem item) {
@@ -234,7 +279,6 @@ public class PrincipalActivity extends AppCompatActivity
         getSupportActionBar().setTitle(item.getTitle());
 
     }
-
 
     private boolean isPackageInstalled(String packagename, PackageManager packageManager) {
         try {
