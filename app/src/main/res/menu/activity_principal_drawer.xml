@@ -20,6 +20,10 @@
         android:icon="@mipmap/img_03_btn_id_pol"
         android:title="@string/menu_funcionario" />
     <item
+        android:id="@+id/nav_policia"
+        android:icon="@mipmap/img_03_btn_id_pol"
+        android:title="@string/menu_policia" />
+    <item
         android:id="@+id/nav_polis"
         android:icon="@mipmap/img_04_btn_polis"
         android:title="POLIS" />

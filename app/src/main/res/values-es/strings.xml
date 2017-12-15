@@ -21,7 +21,7 @@
     <!--MENU-->
     <string name="menu_cnpc">CNPC</string>
     <string name="multas">Multas</string>
-    <string name="menu_funcionario">Identificación Fucionario</string>
+    <string name="menu_funcionario">Consulta ciudadano</string>
     <string name="menu_psc">PSC</string>
     <string name="menu_games">Juegos</string>
     <string name="menu_group_title">Sección para policías</string>
@@ -30,6 +30,7 @@
     <string name="menu_login">Iniciar sesión</string>
     <string name="menu_puntos">Puntos de referencia</string>
     <string name="menu_cerrar">Cerrar sesión</string>
+    <string name="menu_policia">Consulta policía</string>
 
     <!--CNPC CODIGO POLICIA-->
     <string name="Ley">LEY 1801 DE 2016</string>
@@ -47,6 +48,20 @@
     <string name="toast_locale_exception">El idioma no se pudo cambiar</string>
     <string name="idioma_header_title">IDIOMA</string>
     <string name="idioma_header_subtitle">Escoge un idioma</string>
+
+    <!--CAMERA-->
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="title_activity_main">Barcode Reader Sample</string>
+    <string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
+    <string name="read_barcode">Read Barcode</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="barcode_success">Barcode read successfully</string>
+    <string name="barcode_failure">No barcode captured</string>
+    <string name="barcode_error">"Error reading barcode: %1$s"</string>
 
     <!--PSC-->
     <string-array name="listadoMenuPsc">

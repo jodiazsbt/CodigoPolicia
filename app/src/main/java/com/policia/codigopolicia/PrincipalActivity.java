@@ -191,6 +191,8 @@ public class PrincipalActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_funcionario) {
             menuIdentificarFuncionario(item);
+        } else if (id == R.id.nav_policia) {
+            scanPolicia();
         } else if (id == R.id.nav_codigo_policia) {
             menuCodigoPolicia(item);
         } else if (id == R.id.nav_multa) {
@@ -252,7 +254,7 @@ public class PrincipalActivity extends AppCompatActivity
         startActivity(intent);
 
         //item.setChecked(true);
-        getSupportActionBar().setTitle(item.getTitle());
+        //getSupportActionBar().setTitle(item.getTitle());
     }
 
     private void menuPOLIS(MenuItem item) {
@@ -295,4 +297,10 @@ public class PrincipalActivity extends AppCompatActivity
 
     }
 
+    private void scanPolicia() {
+
+        Intent intent = new Intent(this, PoliciaActivity.class);
+        startActivity(intent);
+
+    }
 }
