@@ -47,9 +47,6 @@ import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.policia.codigopolicia.R;
-import com.policia.codigopolicia.barcodeui.CameraSource;
-import com.policia.codigopolicia.barcodeui.CameraSourcePreview;
-import com.policia.codigopolicia.barcodeui.GraphicOverlay;
 
 import java.io.IOException;
 
@@ -137,7 +134,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
                         RC_HANDLE_CAMERA_PERM);
             }
         };
- 
+
         Snackbar.make(mGraphicOverlay, R.string.permission_camera_rationale,
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.ok, listener)

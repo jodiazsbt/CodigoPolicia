@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/topLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/colorPrimary"
-    android:gravity="center"
-    android:keepScreenOn="true">
+    android:layout_height="match_parent">
 
-    <com.policia.codigopolicia.barcodeui.CameraSourcePreview
+    <com.policia.codigopolicia.barcodescanner.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.policia.codigopolicia.barcodeui.GraphicOverlay
+        <com.policia.codigopolicia.barcodescanner.GraphicOverlay
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.policia.codigopolicia.barcodeui.CameraSourcePreview>
+    </com.policia.codigopolicia.barcodescanner.CameraSourcePreview>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/action_toggle_flash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="64dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/ic_radio_button_unchecked_48px" />
-
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

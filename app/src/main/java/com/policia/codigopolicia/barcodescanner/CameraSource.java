@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.policia.codigopolicia.barcodeui;
+package com.policia.codigopolicia.barcodescanner;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -48,7 +48,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.os.Build.VERSION_CODES.JELLY_BEAN;
+// Note: This requires Google Play Services 8.1 or higher, due to using indirect byte buffers for
+// storing images.
 
 /**
  * Manages the camera in conjunction with an underlying
@@ -71,7 +72,6 @@ import static android.os.Build.VERSION_CODES.JELLY_BEAN;
  */
 @SuppressWarnings("deprecation")
 public class CameraSource {
-
     @SuppressLint("InlinedApi")
     public static final int CAMERA_FACING_BACK = CameraInfo.CAMERA_FACING_BACK;
     @SuppressLint("InlinedApi")
@@ -101,9 +101,7 @@ public class CameraSource {
             Camera.Parameters.FOCUS_MODE_MACRO
     })
     @Retention(RetentionPolicy.SOURCE)
-    public @interface FocusMode {
-    }
-
+    private @interface FocusMode {}
 
     @StringDef({
             Camera.Parameters.FLASH_MODE_ON,
@@ -113,9 +111,7 @@ public class CameraSource {
             Camera.Parameters.FLASH_MODE_TORCH
     })
     @Retention(RetentionPolicy.SOURCE)
-    public @interface FlashMode {
-    }
-
+    private @interface FlashMode {}
 
     private Context mContext;
 
@@ -347,8 +343,13 @@ public class CameraSource {
 
             // SurfaceTexture was introduced in Honeycomb (11), so if we are running and
             // old version of Android. fall back to use SurfaceView.
-            mDummySurfaceTexture = new SurfaceTexture(DUMMY_TEXTURE_NAME);
-            mCamera.setPreviewTexture(mDummySurfaceTexture);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                mDummySurfaceTexture = new SurfaceTexture(DUMMY_TEXTURE_NAME);
+                mCamera.setPreviewTexture(mDummySurfaceTexture);
+            } else {
+                mDummySurfaceView = new SurfaceView(mContext);
+                mCamera.setPreviewDisplay(mDummySurfaceView.getHolder());
+            }
             mCamera.startPreview();
 
             mProcessingThread = new Thread(mFrameProcessor);
@@ -418,8 +419,13 @@ public class CameraSource {
                     // wasn't introduced until Honeycomb.  Since the interface cannot use a SurfaceTexture, if the
                     // developer wants to display a preview we must use a SurfaceHolder.  If the developer doesn't
                     // want to display a preview we use a SurfaceTexture if we are running at least Honeycomb.
-                    mCamera.setPreviewTexture(null);
 
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        mCamera.setPreviewTexture(null);
+
+                    } else {
+                        mCamera.setPreviewDisplay(null);
+                    }
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to clear camera preview: " + e);
                 }
@@ -634,9 +640,9 @@ public class CameraSource {
      * @param cb the callback to run
      * @return {@code true} if the operation is supported (i.e. from Jelly Bean), {@code false} otherwise
      */
-    @TargetApi(JELLY_BEAN)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public boolean setAutoFocusMoveCallback(@Nullable AutoFocusMoveCallback cb) {
-        if (Build.VERSION.SDK_INT < JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             return false;
         }
 
@@ -715,7 +721,7 @@ public class CameraSource {
     /**
      * Wraps the camera1 auto focus move callback so that the deprecated API isn't exposed.
      */
-    @TargetApi(JELLY_BEAN)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private class CameraAutoFocusMoveCallback implements Camera.AutoFocusMoveCallback {
         private AutoFocusMoveCallback mDelegate;
 

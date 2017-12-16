@@ -18,7 +18,6 @@ package com.policia.codigopolicia.barcodescanner;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.policia.codigopolicia.barcodeui.GraphicOverlay;
 
 /**
  * Generic tracker which is used for tracking or reading a barcode (and can really be used for
@@ -27,7 +26,6 @@ import com.policia.codigopolicia.barcodeui.GraphicOverlay;
  * goes away.
  */
 class BarcodeGraphicTracker extends Tracker<Barcode> {
-
     private GraphicOverlay<BarcodeGraphic> mOverlay;
     private BarcodeGraphic mGraphic;
 

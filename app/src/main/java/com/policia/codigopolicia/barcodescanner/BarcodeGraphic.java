@@ -21,8 +21,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 import com.google.android.gms.vision.barcode.Barcode;
-import com.policia.codigopolicia.barcodeui.GraphicOverlay;
-
 
 /**
  * Graphic instance for rendering barcode position, size, and ID within an associated graphic
