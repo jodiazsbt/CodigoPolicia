@@ -202,7 +202,7 @@ public class PrincipalActivity extends AppCompatActivity
         } else if (id == R.id.nav_psc) {
             menuPSC(item);
         } else if (id == R.id.nav_share) {
-
+            menuPSC(item);
         } else if (id == R.id.nav_cerrar) {
             cerrarSesionPolicia();
         } else if (id == R.id.nav_login) {
@@ -213,6 +213,17 @@ public class PrincipalActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void menuShare(MenuItem item) {
+
+        fragment = new ArgisActivity();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
+        getSupportActionBar().setTitle(item.getTitle());
     }
 
     private void menuIdentificarFuncionario(MenuItem item) {

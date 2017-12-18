@@ -1,9 +1,11 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.policia.negocio.modelo.Capitulos.CapitulosResultEntry;
 import com.policia.negocio.modelo.Modelo_CAPITULO;
 import com.policia.persistencia.conexion.SQLiteProvider;
 
@@ -21,6 +23,40 @@ public class Rutinas_CAPITULO {
     public Rutinas_CAPITULO(Context context) {
 
         this.context = context;
+    }
+
+    public String getUltimaActualizacion() {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery("SELECT MAX(FECHA) FROM 'CAPITULO';", null);
+
+        String maxFecha = null;
+        while (cursor.moveToNext()) {
+            maxFecha = cursor.getString(0);
+        }
+        maxFecha = "01.12.2017";
+
+        cursor.close();
+        DB.close();
+        return maxFecha;
+    }
+
+    public boolean updateRecord(CapitulosResultEntry cre) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("CAPITULO_ESP", cre.NombreCapitulo);
+            contentValues.put("CAPITULO_ENG", cre.NombreCapitulo);
+            contentValues.put("VIGENTE",cre.Vigente_Capitulo);
+            contentValues.put("NIVEL_ID",cre.ID_Nivel_Capitulo);
+            contentValues.put("FECHA",cre.Fecha_Capitulo);
+            DB.update("CAPITULO", contentValues, "ID" + " = " + cre.Id_Capitulo, null);
+            DB.close();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public ArrayList<Modelo_CAPITULO> CapitulosPorTitulo(String Idioma, String Titulo) {
