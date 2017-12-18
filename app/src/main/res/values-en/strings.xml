@@ -33,12 +33,12 @@
     <string name="menu_policia">Policemen consults</string>
 
     <!--CNPC CODIGO POLICIA-->
-    <string name="Ley">LAW 1801 OF 2016</string>
-    <string name="LeyFecha">(July 29)</string>
-    <string name="LeySubtitulo">By which the:</string>
-    <string name="LeyCongreso">THE CONGRESS OF THE REPUBLIC OF COLOMBIA</string>
-    <string name="LeyDecreta">DECREE:</string>
-    <string name="LeyNombre">National Code of Police and Coexistence</string>
+    <string name="Ley">ACT 1801 OF 2016</string>
+    <string name="LeyFecha">(July 29th)</string>
+    <string name="LeySubtitulo">BY WHICH THE:</string>
+    <string name="LeyCongreso">THE CONGRESS OF COLOMBIA</string>
+    <string name="LeyDecreta">DECREES:</string>
+    <string name="LeyNombre">NATIONAL POLICE CODE AND COEXISTENCE</string>
 
     <!--IDIOMA-->
     <string name="title_activity_idioma">Language</string>

@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import com.bluejamesbond.text.DocumentView;
 import com.policia.codigopolicia.R;
+import com.policia.negocio.logica.Negocio_MEDIDA;
+import com.policia.negocio.logica.Negocio_NUMERAL;
+import com.policia.negocio.modelo.Modelo_MEDIDA;
+import com.policia.negocio.modelo.Modelo_NUMERAL;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.negocio.logica.Negocio_ARTICULO;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
@@ -25,6 +29,8 @@ public class CNPC_Fragment extends Fragment {
 
     private ListView listViewArticulo;
     private Negocio_ARTICULO negocioArticulo;
+    private Negocio_NUMERAL negocioNumeral;
+    private Negocio_MEDIDA negocioMedida;
 
     private TextView textViewNIVEL;
     private TextView textViewTITULO;
@@ -68,6 +74,8 @@ public class CNPC_Fragment extends Fragment {
         ArrayList<String> items = new ArrayList<String>();
         try {
             negocioArticulo = new Negocio_ARTICULO(context);
+            negocioNumeral = new Negocio_NUMERAL(context);
+            negocioMedida = new Negocio_MEDIDA(context);
 
             ArrayList<Modelo_ARTICULO> articulos = null;
             articulos = negocioArticulo.ArticulosPorCapitulo(capitulo, position + 1);
@@ -81,7 +89,34 @@ public class CNPC_Fragment extends Fragment {
                 items.add(articulo.Capitulo_Descripcion);
                 items.add(articulo.Articulo_Nivel);
                 items.add(articulo.Articulo_Titulo);
-                items.add(articulo.Articulo_Descripcion);
+
+                ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
+
+                if (!(numerales.size() == 0)) {
+
+                    String texto_numerales = "";
+
+                    for (Modelo_NUMERAL numeral : numerales) {
+                        texto_numerales += "\r\n" + numeral.Nivel + "\t" + numeral.Numeral;
+                    }
+
+                    items.add(articulo.Articulo_Descripcion + "\r\n" + texto_numerales);
+
+                }
+
+                ArrayList<Modelo_MEDIDA> medidas = negocioMedida.MedidasPorParagrafo(articulo.ID);
+
+                if (!(medidas.size() == 0)) {
+
+                    String texto_medidas = "";
+
+                    for (Modelo_MEDIDA medida : medidas) {
+                        texto_medidas += "\r\n" + medida.Comportamiento + "\t" + medida.Medida;
+                    }
+
+                    items.add(articulo.Articulo_Descripcion + "\r\n" + texto_medidas);
+
+                }
 
                 break;
             }

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_ARTICULO;
+import com.policia.negocio.modelo.Modelo_NUMERAL;
 import com.policia.persistencia.conexion.SQLiteProvider;
 
 import java.util.ArrayList;
@@ -23,41 +24,22 @@ public class Rutinas_NUMERAL {
         this.context = context;
     }
 
-    public ArrayList<Modelo_ARTICULO> ArticulosPorCapitulo(String Idioma, String Capitulo, int position) {
+    public ArrayList<Modelo_NUMERAL> NumeralesPorArticulo(String Idioma, String Articulo) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
-        Cursor cursor = DB.rawQuery("SELECT * FROM ( " +
-                "SELECT " +
-                "ARTICULO.ID , " +
-                "NIVEL.NIVEL_" + Idioma + " NIVEL, " +
-                "NIVEL_TITULO.NIVEL_" + Idioma + " TITULO , " +
-                "NIVEL_CAPITULO.NIVEL_" + Idioma + " CAPITULO , " +
-                "CAPITULO.CAPITULO_" + Idioma + " CAPITULO , " +
-                "NIVEL_ARTICULO.NIVEL_" + Idioma + " ARTICULO , " +
-                "ARTICULO.TITULO_" + Idioma + " TITULO, " +
-                "ARTICULO.ARTICULO_" + Idioma + " ARTICULO " +
-                "FROM NIVEL " +
-                "INNER JOIN LIBRO ON NIVEL.ID=LIBRO.NIVEL_ID " +
-                "INNER JOIN TITULO ON LIBRO.ID=TITULO.LIBRO_ID " +
-                "INNER JOIN NIVEL NIVEL_TITULO ON TITULO.NIVEL_ID=NIVEL_TITULO.ID " +
-                "INNER JOIN CAPITULO ON TITULO.ID=CAPITULO.TITULO_ID " +
-                "INNER JOIN NIVEL NIVEL_CAPITULO ON CAPITULO.NIVEL_ID=NIVEL_CAPITULO.ID " +
-                "INNER JOIN ARTICULO ON CAPITULO.ID=ARTICULO.CAPITULO_ID " +
-                "INNER JOIN NIVEL NIVEL_ARTICULO ON ARTICULO.NIVEL_ID=NIVEL_ARTICULO.ID " +
-                "WHERE ARTICULO.CAPITULO_ID=" + Capitulo + " ) Q " +
-                "WHERE ( SELECT COUNT(*)+1 FROM ARTICULO WHERE CAPITULO_ID=" + Capitulo + " AND ID <Q.ID ) =" + position + " ;", null);
+        Cursor cursor = DB.rawQuery("SELECT " +
+                "NIVEL.NIVEL_" + Idioma + ", " +
+                "NUMERAL.NUMERAL_" + Idioma + " " +
+                "FROM NUMERAL " +
+                "INNER JOIN NIVEL ON NUMERAL.NIVEL_ID=NIVEL.ID " +
+                "WHERE ARTICULO_ID=" + Articulo + " " +
+                "ORDER BY CAST(NIVEL.NIVEL_ESP AS INT);", null);
 
-        ArrayList<Modelo_ARTICULO> result = new ArrayList<Modelo_ARTICULO>();
+        ArrayList<Modelo_NUMERAL> result = new ArrayList<Modelo_NUMERAL>();
         while (cursor.moveToNext()) {
-            Modelo_ARTICULO articulo = new Modelo_ARTICULO(
-                    cursor.getString(0),//ID
-                    cursor.getString(1),//NIVEL
-                    cursor.getString(2),//TITULO
-                    cursor.getString(3),//CAPITULO
-                    cursor.getString(4),//CAPITULO
-                    cursor.getString(5),//ARTICULO
-                    cursor.getString(6),//TITULO
-                    cursor.getString(7)//DESCRIPCION
+            Modelo_NUMERAL articulo = new Modelo_NUMERAL(
+                    cursor.getString(0),//NIVEL
+                    cursor.getString(1)//NUMERAL
             );
             result.add(articulo);
         }

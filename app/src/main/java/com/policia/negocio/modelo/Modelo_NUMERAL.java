@@ -5,4 +5,13 @@ package com.policia.negocio.modelo;
  */
 
 public class Modelo_NUMERAL {
+
+    public Modelo_NUMERAL(String Nivel, String Numeral) {
+
+        this.Nivel = Nivel;
+        this.Numeral = Numeral;
+    }
+
+    public String Nivel;
+    public String Numeral;
 }

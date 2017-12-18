@@ -35,10 +35,10 @@
     <!--CNPC CODIGO POLICIA-->
     <string name="Ley">LEY 1801 DE 2016</string>
     <string name="LeyFecha">(Julio 29)</string>
-    <string name="LeySubtitulo">Por la cual se expide el:</string>
-    <string name="LeyCongreso">EL CONGRESO DE LA REPÚBLICA  DE COLOMBIA</string>
+    <string name="LeySubtitulo">POR LA CUAL:</string>
+    <string name="LeyCongreso">EL CONGRESO DE COLOMBIA</string>
     <string name="LeyDecreta">DECRETA:</string>
-    <string name="LeyNombre">Código Nacional de Policía y Convivencia</string>
+    <string name="LeyNombre">CÓDIGO NACIONAL DE POLICÍA Y CONVIVENCIA.</string>
 
     <!--IDIOMA-->
     <string name="title_activity_idioma">Idioma</string>
