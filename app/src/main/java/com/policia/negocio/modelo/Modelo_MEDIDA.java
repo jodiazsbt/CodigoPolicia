@@ -6,12 +6,14 @@ package com.policia.negocio.modelo;
 
 public class Modelo_MEDIDA {
 
-    public Modelo_MEDIDA(String Comportamiento, String Medida) {
+    public Modelo_MEDIDA(String Comportamiento, String Medida, String Nivel) {
 
         this.Comportamiento = Comportamiento;
         this.Medida = Medida;
+        this.Nivel = Nivel;
     }
 
     public String Comportamiento;
     public String Medida;
+    public String Nivel;
 }

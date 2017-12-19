@@ -1,5 +1,6 @@
 package com.policia.codigopolicia.NavegacionMULTAS;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.policia.codigopolicia.ArticuloActivity;
 import com.policia.codigopolicia.R;
 import com.policia.negocio.logica.Negocio_MULTA;
 
@@ -33,7 +35,19 @@ public class Fragment_MULTA extends Fragment {
         try {
             expandableMulta = getView().findViewById(R.id.expandableMulta);
             expandableMulta.addHeaderView(getLayoutInflater().inflate(R.layout.multa_expandable_header, null));
-            expandableMulta.setAdapter(new Nivel_BaseExpandableListAdapter(this, new Negocio_MULTA(getContext()).Libros()));
+            expandableMulta.setAdapter(new Multa_BaseExpandableListAdapter(this, new Negocio_MULTA(getContext()).Multas()));
+            expandableMulta.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long id) {
+
+                    Intent intent = new Intent(view.getContext(), ArticuloActivity.class);
+                    intent.putExtra("capitulo", 100);
+                    intent.putExtra("posicion", 0);//primera página
+                    getContext().startActivity(intent);
+
+                    return true;
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

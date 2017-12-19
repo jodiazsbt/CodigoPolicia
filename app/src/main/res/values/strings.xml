@@ -17,7 +17,7 @@
     <string name="srvappmoviles">https://srvappmoviles.policia.gov.co/wsCnpcApp/CNPC.svc/</string>-->
 
     <string-array name="listadoUrlPsc">
-        <item>https://play.google.com/store/apps/details?id=com.policia.polis</item>
+        <item>https://play.google.com/store/apps/details?id=policia.denunciavirtual</item>
         <item>https://antecedentes.policia.gov.co:7005/WebJudicial/index.xhtml</item>
         <item>https://www.policia.gov.co/documentos-extraviados</item>
         <item>https://www.policia.gov.co/codigo-nacional-policia/comunicaci%C3%B3n-apertura-establecimientos</item>

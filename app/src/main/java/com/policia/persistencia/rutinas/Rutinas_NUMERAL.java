@@ -33,7 +33,7 @@ public class Rutinas_NUMERAL {
                 "FROM NUMERAL " +
                 "INNER JOIN NIVEL ON NUMERAL.NIVEL_ID=NIVEL.ID " +
                 "WHERE ARTICULO_ID=" + Articulo + " " +
-                "ORDER BY CAST(NIVEL.NIVEL_ESP AS INT);", null);
+                "ORDER BY NUMERAL.ID;", null);
 
         ArrayList<Modelo_NUMERAL> result = new ArrayList<Modelo_NUMERAL>();
         while (cursor.moveToNext()) {

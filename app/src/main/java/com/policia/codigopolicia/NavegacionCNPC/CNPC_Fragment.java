@@ -92,6 +92,8 @@ public class CNPC_Fragment extends Fragment {
 
                 ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
 
+                String texto_articulo = articulo.Articulo_Descripcion;
+
                 if (!(numerales.size() == 0)) {
 
                     String texto_numerales = "";
@@ -100,8 +102,7 @@ public class CNPC_Fragment extends Fragment {
                         texto_numerales += "\r\n" + numeral.Nivel + "\t" + numeral.Numeral;
                     }
 
-                    items.add(articulo.Articulo_Descripcion + "\r\n" + texto_numerales);
-
+                    texto_articulo += "\r\n" + texto_numerales;
                 }
 
                 ArrayList<Modelo_MEDIDA> medidas = negocioMedida.MedidasPorParagrafo(articulo.ID);
@@ -111,12 +112,13 @@ public class CNPC_Fragment extends Fragment {
                     String texto_medidas = "";
 
                     for (Modelo_MEDIDA medida : medidas) {
-                        texto_medidas += "\r\n" + medida.Comportamiento + "\t" + medida.Medida;
+                        texto_medidas += "\r\n" + medida.Nivel + "\t" + medida.Comportamiento + ":\t" + medida.Medida;
                     }
 
-                    items.add(articulo.Articulo_Descripcion + "\r\n" + texto_medidas);
-
+                    texto_articulo += "\r\n" + texto_medidas;
                 }
+
+                items.add(texto_articulo);
 
                 break;
             }

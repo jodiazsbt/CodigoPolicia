@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewLabel"
             android:layout_marginTop="10dp"
-            android:text="TITULO"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 

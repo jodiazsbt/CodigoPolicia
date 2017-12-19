@@ -29,15 +29,19 @@ public class Rutinas_MEDIDA {
         Cursor cursor = DB.rawQuery("SELECT " +
                 "MEDIDA.ID," +
                 "COMPORTAMIENTO_" + Idioma + "," +
-                "MEDIDA_" + Idioma + " " +
+                "MEDIDA_" + Idioma + ", " +
+                "NIVEL.NIVEL_" + Idioma + " " +
                 "FROM MEDIDA " +
-                "WHERE ARTICULO_ID=" + Paragrafo + ";", null);
+                "INNER JOIN NIVEL ON MEDIDA.NIVEL_ID=NIVEL.ID " +
+                "WHERE ARTICULO_ID=" + Paragrafo + " " +
+                "ORDER BY MEDIDA.ID;", null);
 
         ArrayList<Modelo_MEDIDA> result = new ArrayList<Modelo_MEDIDA>();
         while (cursor.moveToNext()) {
             Modelo_MEDIDA medida = new Modelo_MEDIDA(
-                    cursor.getString(0),//COMPORTAMIENTO
-                    cursor.getString(1)//MEDIDA
+                    cursor.getString(1),//COMPORTAMIENTO
+                    cursor.getString(2),//MEDIDA
+                    cursor.getString(3)//NIVEL
             );
             result.add(medida);
         }

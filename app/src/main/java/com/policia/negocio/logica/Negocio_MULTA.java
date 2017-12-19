@@ -23,8 +23,8 @@ public class Negocio_MULTA {
         rutinasMulta = new Rutinas_MULTA(context);
     }
 
-    public ArrayList<Modelo_MULTA> Libros() {
+    public ArrayList<Modelo_MULTA> Multas() {
 
-        return rutinasMulta.Libros(sesion.getIdiomaCodigo());
+        return rutinasMulta.Multas(sesion.getIdiomaCodigo());
     }
 }

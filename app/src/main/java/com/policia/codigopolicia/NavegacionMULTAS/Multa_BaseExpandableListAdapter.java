@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.policia.codigopolicia.ArgisActivity;
 import com.policia.codigopolicia.R;
-import com.policia.negocio.logica.Negocio_CAPITULO_MULTA;
-import com.policia.negocio.modelo.Modelo_TITULO_MULTA;
+import com.policia.negocio.logica.Negocio_CATEGORIA;
+import com.policia.negocio.modelo.Modelo_CATEGORIA;
+import com.policia.negocio.modelo.Modelo_MULTA;
 
 import java.util.ArrayList;
 
@@ -18,24 +20,27 @@ import java.util.ArrayList;
  * Created by 1085253556 on 29/11/2017.
  */
 
-public class Titulo_BaseExpandableListAdapter extends BaseExpandableListAdapter {
+public class Multa_BaseExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Fragment context;
-    private ArrayList<Modelo_TITULO_MULTA> titulos;
-    private ArrayList<Detalle_CAPITULO> capitulos;
+    private ArrayList<Modelo_MULTA> multas;
+    private ArrayList<Detalle_CATEGORIA> categorias;
 
-    public Titulo_BaseExpandableListAdapter(Fragment context, ArrayList<Modelo_TITULO_MULTA> titulos) {
+    private Negocio_CATEGORIA negocio_categoria;
+
+    public Multa_BaseExpandableListAdapter(Fragment context, ArrayList<Modelo_MULTA> multas) {
 
         this.context = context;
 
-        this.titulos = titulos;
-        this.capitulos = new ArrayList<Detalle_CAPITULO>();
+        this.multas = multas;
+        this.categorias = new ArrayList<Detalle_CATEGORIA>();
+
         try {
-            Negocio_CAPITULO_MULTA negocio_capitulo = new Negocio_CAPITULO_MULTA(context.getContext());
+            negocio_categoria = new Negocio_CATEGORIA(context.getContext());
 
-            for (Modelo_TITULO_MULTA titulo : titulos) {
+            for (Modelo_MULTA multa : multas) {
 
-                capitulos.add(new Detalle_CAPITULO(context, titulo, negocio_capitulo.CapitulosPorTitulo(titulo.ID)));
+                categorias.add(new Detalle_CATEGORIA(context, multa, negocio_categoria.CategoriaPorTipoMulta(multa.ID)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,29 +50,29 @@ public class Titulo_BaseExpandableListAdapter extends BaseExpandableListAdapter 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) context.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.multa_titulo, null);
+        LayoutInflater inflater = context.getLayoutInflater();
+        view = inflater.inflate(R.layout.multa_adapter, null, true);
 
         TextView textViewLabel = view.findViewById(R.id.textViewLabel);
         TextView textViewValue = view.findViewById(R.id.textViewValue);
 
-        textViewLabel.setText(titulos.get(groupPosition).Nivel);
-        textViewValue.setText(titulos.get(groupPosition).Titulo);
+        textViewLabel.setText(multas.get(groupPosition).Nivel);
+        textViewValue.setText(multas.get(groupPosition).Multa);
 
         return view;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup viewGroup) {
 
         LayoutInflater inflater = (LayoutInflater) context.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.multa_capitulo, null);
+        view = inflater.inflate(R.layout.multa_titulo, null);
 
         TextView textViewLabel = view.findViewById(R.id.textViewLabel);
-        TextView textViewValue = view.findViewById(R.id.textViewValue);
+        //TextView textViewValue = view.findViewById(R.id.textViewValue);
 
-        textViewLabel.setText(capitulos.get(groupPosition).getCapitulos().get(childPosition).Nivel);
-        textViewValue.setText(capitulos.get(groupPosition).getCapitulos().get(childPosition).Capitulo);
+        textViewLabel.setText(categorias.get(groupPosition).getCategorias().get(childPosition).Categoria);
+        //textViewValue.setText(categorias.get(groupPosition).getCategorias().get(childPosition).Categoria);
 
         return view;
     }
@@ -87,13 +92,13 @@ public class Titulo_BaseExpandableListAdapter extends BaseExpandableListAdapter 
     @Override
     public int getGroupCount() {
 
-        return titulos.size();
+        return multas.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
 
-        return capitulos.get(groupPosition).getCapitulos().size();
+        return categorias.get(groupPosition).getCategorias().size();
     }
 
     @Override
@@ -105,7 +110,7 @@ public class Titulo_BaseExpandableListAdapter extends BaseExpandableListAdapter 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
 
-        return Long.parseLong(capitulos.get(groupPosition).getCapitulos().get(childPosition).ID);
+        return Long.parseLong(categorias.get(groupPosition).getCategorias().get(childPosition).ID);
     }
 
     @Override

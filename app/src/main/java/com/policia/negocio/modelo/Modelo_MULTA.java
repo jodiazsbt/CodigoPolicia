@@ -6,15 +6,15 @@ package com.policia.negocio.modelo;
 
 public class Modelo_MULTA {
 
-    public Modelo_MULTA(String ID, String Nivel, String Libro) {
+    public Modelo_MULTA(String ID, String Nivel, String Multa) {
 
 
         this.Nivel = Nivel;
-        this.Libro = Libro;
+        this.Multa = Multa;
         this.ID = ID;
     }
 
     public String ID;
-    public String Libro;
+    public String Multa;
     public String Nivel;
 }

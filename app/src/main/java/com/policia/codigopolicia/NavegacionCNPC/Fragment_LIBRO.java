@@ -20,16 +20,6 @@ public class Fragment_LIBRO extends Fragment {
 
     private ExpandableListView expandableLibro;
 
-    public Fragment_LIBRO() {
-
-        try {
-            Seguridad sesion = Seguridad.Sesion(this.getContext());
-            Idioma_Configuracion.updateResources(this.getContext(), sesion.getIdiomaCodigo());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,

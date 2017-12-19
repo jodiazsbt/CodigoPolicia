@@ -11,8 +11,9 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-    <!--BARCODE-->
+    <!-- BARCODE -->
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -50,12 +51,12 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".PoliciaActivity"></activity>
-
+        <activity android:name=".PoliciaActivity" />
         <activity
             android:name=".barcodescanner.BarcodeCaptureActivity"
             android:label="Read Barcode" />
-        <activity android:name=".ArgisActivity"></activity>
+        <activity android:name=".ArgisActivity" />
+        <activity android:name=".PuntosActivity"></activity>
     </application>
 
 </manifest>

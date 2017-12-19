@@ -22,27 +22,18 @@ public class Rutinas_MULTA {
         this.context = context;
     }
 
-    public ArrayList<Modelo_MULTA> Libros(String Idioma){
+    public ArrayList<Modelo_MULTA> Multas(String Idioma) {
         DB = new SQLiteProvider(context).getReadableDatabase();
-        /*
-        Cursor cursor = DB.rawQuery("SELECT " +
-                "MULTA.ID, " +
-                "NIVEL.NIVEL_"+Idioma+" NIVEL, " +
-                "MULTA.MULTA_"+Idioma+" MULTA " +
+        Cursor cursor = DB.rawQuery("SELECT DISTINCT  " +
+                "MULTA.TIPOMULTA_ID, " +
+                "CASE   " +
+                "WHEN MULTA.TIPOMULTA_ID IN (1004) THEN 'MULTAS ESPECIALES'  " +
+                "WHEN MULTA.TIPOMULTA_ID IN (1820) THEN 'COMPARENDO' " +
+                "ELSE REPLACE(UPPER(NIVEL.NIVEL_ESP),':','') END NIVEL_ESP, " +
+                "UPPER(NUMERAL.NUMERAL_ESP) NUMERAL_ESP " +
                 "FROM MULTA " +
-                "INNER JOIN NIVEL ON MULTA.NIVEL_ID=NIVEL.ID " +
-                "WHERE NIVEL.ID IN (16,17,18);", null);//SOLO MULTAS
-        */
-
-        Cursor cursor = DB.rawQuery(
-        "SELECT      DISTINCT MA.TIPOMULTA_ID,NI.NIVEL_" + Idioma + ", NC.NUMERAL_" + Idioma +
-                " FROM        NUMERAL NC" +
-                " INNER JOIN  MULTA MA" +
-                " ON MA.TIPOMULTA_ID = NC.ID" +
-                " INNER JOIN  NIVEL NI" +
-                " ON NI.ID = NC.NIVEL_ID" +
-                " ORDER BY    NC.ID, NI.ID;", null);
-
+                "INNER JOIN NUMERAL ON MULTA.TIPOMULTA_ID=NUMERAL.ID " +
+                "INNER JOIN NIVEL ON NUMERAL.NIVEL_ID=NIVEL.ID;", null);
 
         ArrayList<Modelo_MULTA> result = new ArrayList<Modelo_MULTA>();
         while (cursor.moveToNext()) {
