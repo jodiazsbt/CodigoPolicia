@@ -3,6 +3,7 @@ package com.policia.negocio.logica;
 import android.content.Context;
 
 import com.policia.negocio.modelo.Modelo_ARTICULO;
+import com.policia.negocio.modelo.Modelo_ARTICULO_MULTA;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_ARTICULO;
 
@@ -31,5 +32,15 @@ public class Negocio_ARTICULO {
     public ArrayList<Modelo_ARTICULO> ArticulosPorCapitulo(String Capitulo, int position) {
 
         return rutinasArticulo.ArticulosPorCapitulo(sesion.getIdiomaCodigo(), Capitulo, position);
+    }
+
+    public int CantidadArticulosPorMultaCategoria(String Multa, String Categoria) {
+
+        return rutinasArticulo.CantidadArticulosPorMultaCategoria(Multa, Categoria);
+    }
+
+    public ArrayList<Modelo_ARTICULO> ArticulosPorMultaCategoria(String Multa, String Categoria, int position) {
+
+        return rutinasArticulo.ArticulosPorMultaCategoria(sesion.getIdiomaCodigo(), Multa, Categoria, position);
     }
 }

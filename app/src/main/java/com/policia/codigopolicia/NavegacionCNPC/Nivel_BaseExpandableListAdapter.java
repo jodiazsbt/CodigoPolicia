@@ -9,9 +9,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.policia.codigopolicia.ArticuloActivity;
+import com.policia.codigopolicia.ArticuloCapituloActivity;
 import com.policia.codigopolicia.R;
-import com.policia.negocio.seguridad.Seguridad;
 import com.policia.negocio.logica.Negocio_TITULO;
 import com.policia.negocio.modelo.Modelo_LIBRO;
 
@@ -74,7 +73,7 @@ public class Nivel_BaseExpandableListAdapter extends BaseExpandableListAdapter {
             public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
 
 
-                Intent intent = new Intent(view.getContext(), ArticuloActivity.class);
+                Intent intent = new Intent(view.getContext(), ArticuloCapituloActivity.class);
                 intent.putExtra("capitulo", id);
                 intent.putExtra("posicion", 0);//primera página
                 context.startActivity(intent);

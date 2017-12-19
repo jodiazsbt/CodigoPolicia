@@ -21,16 +21,16 @@
     <!--MENU-->
     <string name="menu_cnpc">CNPC</string>
     <string name="multas">Multas</string>
-    <string name="menu_funcionario">Consulta ciudadano</string>
-    <string name="menu_psc">PSC</string>
+    <string name="menu_funcionario">Consultas ciudadano</string>
+    <string name="menu_policia">Identifica al policía</string>
+    <string name="menu_psc">Portal ciudadano</string>
     <string name="menu_games">Juegos</string>
     <string name="menu_group_title">Sección para policías</string>
     <string name="menu_idioma">Idioma</string>
     <string name="menu_capacitacion">Capacitación</string>
-    <string name="menu_login">Iniciar sesión</string>
+    <string name="menu_login">Iniciar sesión policial</string>
     <string name="menu_puntos">Puntos de referencia</string>
     <string name="menu_cerrar">Cerrar sesión</string>
-    <string name="menu_policia">Consulta policía</string>
 
     <!--CNPC CODIGO POLICIA-->
     <string name="Ley">LEY 1801 DE 2016</string>

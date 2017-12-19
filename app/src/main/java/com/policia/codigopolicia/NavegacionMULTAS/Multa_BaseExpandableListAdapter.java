@@ -125,4 +125,7 @@ public class Multa_BaseExpandableListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
+    public String MultaID(int groupPosition) {
+        return multas.get(groupPosition).ID;
+    }
 }

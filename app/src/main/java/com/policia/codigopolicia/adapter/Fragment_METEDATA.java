@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.policia.codigopolicia.ArticuloActivity;
+import com.policia.codigopolicia.ArticuloCapituloActivity;
 import com.policia.codigopolicia.R;
-import com.policia.negocio.seguridad.Seguridad;
 import com.policia.negocio.logica.Negocio_METADATA;
 import com.policia.negocio.modelo.Modelo_Busqueda_Articulo;
 
@@ -39,7 +38,7 @@ public class Fragment_METEDATA extends Fragment implements IActualizarListadoBus
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
 
-                Intent intent = new Intent(view.getContext(), ArticuloActivity.class);
+                Intent intent = new Intent(view.getContext(), ArticuloCapituloActivity.class);
                 intent.putExtra("capitulo", id);
                 intent.putExtra("posicion", ((Modelo_Busqueda_Articulo) adapterView.getItemAtPosition(pos)).PosicionArticulo);
                 startActivity(intent);

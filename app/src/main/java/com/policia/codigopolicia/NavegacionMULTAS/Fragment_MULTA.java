@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import com.policia.codigopolicia.ArticuloActivity;
+import com.policia.codigopolicia.ArticuloCapituloActivity;
+import com.policia.codigopolicia.ArticuloMultaActivity;
 import com.policia.codigopolicia.R;
 import com.policia.negocio.logica.Negocio_MULTA;
 
@@ -38,10 +39,11 @@ public class Fragment_MULTA extends Fragment {
             expandableMulta.setAdapter(new Multa_BaseExpandableListAdapter(this, new Negocio_MULTA(getContext()).Multas()));
             expandableMulta.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                 @Override
-                public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long id) {
+                public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
 
-                    Intent intent = new Intent(view.getContext(), ArticuloActivity.class);
-                    intent.putExtra("capitulo", 100);
+                    Intent intent = new Intent(view.getContext(), ArticuloMultaActivity.class);
+                    intent.putExtra("multa", ((Multa_BaseExpandableListAdapter) parent.getExpandableListAdapter()).MultaID(0));
+                    intent.putExtra("categoria", id);
                     intent.putExtra("posicion", 0);//primera página
                     getContext().startActivity(intent);
 

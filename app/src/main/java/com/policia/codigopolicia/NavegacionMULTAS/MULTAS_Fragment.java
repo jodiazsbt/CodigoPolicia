@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.bluejamesbond.text.DocumentView;
 import com.policia.codigopolicia.R;
-import com.policia.negocio.logica.Negocio_ARTICULO_MULTA;
+import com.policia.negocio.logica.Negocio_ARTICULO;
+import com.policia.negocio.modelo.Modelo_ARTICULO;
 import com.policia.negocio.modelo.Modelo_ARTICULO_MULTA;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class MULTAS_Fragment extends Fragment {
 
     private ListView listViewArticulo;
-    private Negocio_ARTICULO_MULTA negocioArticulo;
+    private Negocio_ARTICULO negocioArticulo;
 
     private TextView textViewNIVEL;
     private TextView textViewTITULO;
@@ -34,17 +35,20 @@ public class MULTAS_Fragment extends Fragment {
     private DocumentView documentViewARTICULODESCRIPCION;
 
     private int position;
-    private String capitulo;
+    private String multa;
+    private String categoria;
 
-    public static MULTAS_Fragment newInstance(int position, String capitulo) {
+    public static MULTAS_Fragment newInstance(int position, String multa, String categoria) {
         MULTAS_Fragment _cnpcFragment = new MULTAS_Fragment();
         Bundle args = new Bundle();
-        args.putString("capitulo", capitulo);
+        args.putString("multa", multa);
+        args.putString("categoria", categoria);
         args.putInt("position", position);
         _cnpcFragment.setArguments(args);
 
         _cnpcFragment.position = position;
-        _cnpcFragment.capitulo = capitulo;
+        _cnpcFragment.multa = multa;
+        _cnpcFragment.categoria = categoria;
 
         return _cnpcFragment;
     }
@@ -66,12 +70,12 @@ public class MULTAS_Fragment extends Fragment {
 
         ArrayList<String> items = new ArrayList<String>();
         try {
-            negocioArticulo = new Negocio_ARTICULO_MULTA(context);
+            negocioArticulo = new Negocio_ARTICULO(context);
 
-            ArrayList<Modelo_ARTICULO_MULTA> articulos = null;
-            articulos = negocioArticulo.ArticulosPorCapitulo(capitulo, position + 1);
+            ArrayList<Modelo_ARTICULO> articulos = null;
+            articulos = negocioArticulo.ArticulosPorMultaCategoria(multa, categoria, position + 1);
 
-            for (Modelo_ARTICULO_MULTA articulo : articulos) {
+            for (Modelo_ARTICULO articulo : articulos) {
 
                 items.add(articulo.ID);
                 items.add(articulo.Nivel);

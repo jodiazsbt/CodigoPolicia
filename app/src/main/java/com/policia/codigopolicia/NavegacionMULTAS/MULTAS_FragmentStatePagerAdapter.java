@@ -11,19 +11,21 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class MULTAS_FragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
     private int paginas;
-    private String capitulo;
+    private String multa;
+    private String categoria;
 
-    public MULTAS_FragmentStatePagerAdapter(FragmentManager fm, String capitulo, int paginas) {
+    public MULTAS_FragmentStatePagerAdapter(FragmentManager fm, String multa, String categoria, int paginas) {
         super(fm);
 
         this.paginas = paginas;
-        this.capitulo = capitulo;
+        this.multa = multa;
+        this.categoria = categoria;
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        return MULTAS_Fragment.newInstance(position, capitulo);
+        return MULTAS_Fragment.newInstance(position, multa, categoria);
     }
 
     @Override
