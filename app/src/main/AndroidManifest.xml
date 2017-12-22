@@ -43,20 +43,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".IdiomaActivity" />
-        <activity android:name=".ArticuloCapituloActivity" />
-        <activity android:name=".PolisActivity" />
-        <activity android:name=".PortalCiudadano" />
-        <activity android:name=".GenericWebviewActivity" />
+        <activity
+            android:name=".IdiomaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ArticuloCapituloActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ArticuloMultaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PortalCiudadano"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GenericWebviewActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".PoliciaActivity" />
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".barcodescanner.BarcodeCaptureActivity"
-            android:label="Read Barcode" />
-        <activity android:name=".ArgisActivity" />
-        <activity android:name=".PuntosActivity"></activity>
+            android:name=".PoliciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IdentificacionPolicia.BarcodeCaptureActivity"
+            android:label="Read Barcode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ArgisActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PuntosActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

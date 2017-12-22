@@ -87,8 +87,7 @@ public class Rutinas_ARTICULO {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
         String[] parameters = new String[]{
-                Multa + "",
-                Categoria};
+                Categoria, Multa};
 
         Cursor cursor = DB.rawQuery("SELECT " +
                 "COUNT(DISTINCT ARTICULO.ID) " +
@@ -96,7 +95,7 @@ public class Rutinas_ARTICULO {
                 "INNER JOIN NUMERAL ON ARTICULO.ID = NUMERAL.ARTICULO_ID " +
                 "INNER JOIN MULTA ON MULTA.NUMERAL_ID = NUMERAL.ID " +
                 "INNER JOIN CATEGORIA ON MULTA.CATEGORIA_ID = CATEGORIA.ID " +
-                "WHERE CATEGORIA.ID = "+Categoria+" AND MULTA.TIPOMULTA_ID = "+Multa+";", parameters);
+                "WHERE CATEGORIA.ID = ? AND MULTA.TIPOMULTA_ID = ?;", parameters);
 
         int cantidad = 0;
         while (cursor.moveToNext()) {
@@ -118,6 +117,7 @@ public class Rutinas_ARTICULO {
                 "NIVEL_CAPITULO.NIVEL_" + Idioma + " CAPITULO," +
                 "CAPITULO.CAPITULO_" + Idioma + " CAPITULO," +
                 "NIVEL_ARTICULO.NIVEL_" + Idioma + " TITULO," +
+                "ARTICULO.TITULO_" + Idioma + " TITULO, " +
                 "ARTICULO.ARTICULO_" + Idioma + " ARTICULO " +
                 "FROM ARTICULO " +
                 "INNER JOIN NIVEL NIVEL_ARTICULO ON ARTICULO.NIVEL_ID = NIVEL_ARTICULO.ID " +

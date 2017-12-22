@@ -16,29 +16,34 @@
 
 package com.policia.codigopolicia;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.policia.codigopolicia.barcodescanner.BarcodeCaptureActivity;
+import com.google.gson.Gson;
+import com.policia.codigopolicia.IdentificacionPolicia.BarcodeCaptureActivity;
+import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Identificacion;
+import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Opciones;
+import com.policia.codigopolicia.IdentificacionPolicia.IClickScan;
+import com.policia.codigopolicia.parser.DocumentoPolicia;
+
+import org.json.JSONException;
+import org.json.XML;
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
  * reads barcodes.
  */
-public class PoliciaActivity extends Activity implements View.OnClickListener {
+public class PoliciaActivity extends AppCompatActivity {
 
-    // use a compound button so either checkbox or switch widgets work.
-    private CompoundButton autoFocus;
-    private CompoundButton useFlash;
-    private TextView statusMessage;
-    private TextView barcodeValue;
+    private Fragment fragment;
+    private final Activity activity = this;
 
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
@@ -48,31 +53,46 @@ public class PoliciaActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.policia_activity);
 
-        statusMessage = (TextView)findViewById(R.id.status_message);
-        barcodeValue = (TextView)findViewById(R.id.barcode_value);
-
-        autoFocus = (CompoundButton) findViewById(R.id.auto_focus);
-        useFlash = (CompoundButton) findViewById(R.id.use_flash);
-
-        findViewById(R.id.read_barcode).setOnClickListener(this);
+        inflarFragmentOpciones();
     }
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.read_barcode) {
-            // launch barcode activity.
-            Intent intent = new Intent(this, BarcodeCaptureActivity.class);
-            intent.putExtra(BarcodeCaptureActivity.AutoFocus, autoFocus.isChecked());
-            intent.putExtra(BarcodeCaptureActivity.UseFlash, useFlash.isChecked());
+    private void inflarFragmentOpciones() {
 
-            startActivityForResult(intent, RC_BARCODE_CAPTURE);
-        }
+        fragment = Fragment_Opciones.newInstance(new IClickScan() {
+            @Override
+            public void ClickScan(View view, boolean autoFocus, boolean useFlash) {
 
+                inflarFragmentIdentificacion(autoFocus, useFlash);
+            }
+        });
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
+        getSupportActionBar().setTitle(getResources().getString(R.string.menu_policia));
+    }
+
+    private void abrirCamara(boolean autoFocus, boolean useFlash) {
+
+        Intent intent = new Intent(activity, BarcodeCaptureActivity.class);
+        intent.putExtra(BarcodeCaptureActivity.AutoFocus, autoFocus);
+        intent.putExtra(BarcodeCaptureActivity.UseFlash, useFlash);
+
+        startActivityForResult(intent, RC_BARCODE_CAPTURE);
+    }
+
+    private void inflarFragmentIdentificacion(boolean autoFocus, boolean useFlash) {
+
+        fragment = new Fragment_Identificacion();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
+        getSupportActionBar().setTitle(getResources().getString(R.string.menu_policia));
+
+        abrirCamara(autoFocus, useFlash);
     }
 
     /**
@@ -103,20 +123,40 @@ public class PoliciaActivity extends Activity implements View.OnClickListener {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
-                    statusMessage.setText(R.string.barcode_success);
-                    barcodeValue.setText(barcode.displayValue);
+                    //statusMessage.setText(R.string.barcode_success);
+
+                    //inflarFragmentIdentificacion(barcode.displayValue);
+
+                    if (fragment instanceof Fragment_Identificacion) {
+                        ((Fragment_Identificacion) fragment).mostrarCarnet(barcode.displayValue);
+                    }
+
                     Log.d(TAG, "Barcode read: " + barcode.displayValue);
                 } else {
-                    statusMessage.setText(R.string.barcode_failure);
+                    //statusMessage.setText(R.string.barcode_failure);
                     Log.d(TAG, "No barcode captured, intent data is null");
                 }
             } else {
-                statusMessage.setText(String.format(getString(R.string.barcode_error),
-                        CommonStatusCodes.getStatusCodeString(resultCode)));
+                //statusMessage.setText(String.format(getString(R.string.barcode_error),
+                //       CommonStatusCodes.getStatusCodeString(resultCode)));
             }
-        }
-        else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    public void clickCancelar(View v) {
+
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragment instanceof Fragment_Identificacion) {
+            inflarFragmentOpciones();
+        } else {
+
+            super.onBackPressed();
         }
     }
 }

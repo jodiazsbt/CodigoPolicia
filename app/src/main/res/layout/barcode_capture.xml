@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.policia.codigopolicia.barcodescanner.CameraSourcePreview
+    <com.policia.codigopolicia.IdentificacionPolicia.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.policia.codigopolicia.barcodescanner.GraphicOverlay
+        <com.policia.codigopolicia.IdentificacionPolicia.GraphicOverlay
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.policia.codigopolicia.barcodescanner.CameraSourcePreview>
+    </com.policia.codigopolicia.IdentificacionPolicia.CameraSourcePreview>
 
 </android.support.constraint.ConstraintLayout>

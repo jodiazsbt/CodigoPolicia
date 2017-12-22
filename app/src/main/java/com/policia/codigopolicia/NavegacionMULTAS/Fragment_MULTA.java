@@ -42,7 +42,7 @@ public class Fragment_MULTA extends Fragment {
                 public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
 
                     Intent intent = new Intent(view.getContext(), ArticuloMultaActivity.class);
-                    intent.putExtra("multa", ((Multa_BaseExpandableListAdapter) parent.getExpandableListAdapter()).MultaID(0));
+                    intent.putExtra("multa", ((Multa_BaseExpandableListAdapter) parent.getExpandableListAdapter()).MultaID(groupPosition));
                     intent.putExtra("categoria", id);
                     intent.putExtra("posicion", 0);//primera página
                     getContext().startActivity(intent);

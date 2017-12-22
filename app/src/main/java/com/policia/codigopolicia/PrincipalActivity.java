@@ -3,6 +3,8 @@ package com.policia.codigopolicia;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -227,15 +229,27 @@ public class PrincipalActivity extends AppCompatActivity
     }
 
     private void menuIdentificarFuncionario(MenuItem item) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            /*
+            fragment = new NavegadorApp();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+            //item.setChecked(true);
+            getSupportActionBar().setTitle(item.getTitle());
+            */
 
-        fragment = new NavegadorApp();
+            Intent intent = new Intent(PrincipalActivity.this, GenericWebviewActivity.class);
+            Bundle b = new Bundle();
+            b.putString("url", "https://srvpsi.policia.gov.co/PSC/frm_cnp_consulta.aspx"); //Your id
+            intent.putExtras(b); //Put your id to your next Intent
+            startActivity(intent);
+        } else {
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .commit();
-
-        //item.setChecked(true);
-        getSupportActionBar().setTitle(item.getTitle());
+            Uri uri = Uri.parse("https://srvpsi.policia.gov.co/PSC/frm_cnp_consulta.aspx");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
     }
 
     private void menuCodigoPolicia(MenuItem item) {
@@ -269,15 +283,19 @@ public class PrincipalActivity extends AppCompatActivity
     }
 
     private void menuPOLIS(MenuItem item) {
-        item.setChecked(true);
+        //item.setChecked(true);
 
         PackageManager pm = getPackageManager();
         String pn = "com.policia.polis";
         if (this.isPackageInstalled(pn, pm)) {
             this.openApp(pn);
         } else {
-            Intent intent = new Intent(this, PolisActivity.class);
-            startActivity(intent);
+            final String appPackageName = pn; // getPackageName() from Context or Activity object
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
         }
     }
 
