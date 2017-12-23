@@ -12,7 +12,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     repositories {
-        maven { url 'http://repo1.maven.org/maven2' }
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+        maven {
+            url 'http://repo1.maven.org/maven2'
+        }
     }
     buildTypes {
         release {
@@ -34,6 +40,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'com.google.android.gms:play-services-vision:9.4.0+'
+    compile 'com.google.android.gms:play-services-vision:11.2.0'
     implementation files('libs/java-json.jar')
+    compile 'com.google.android.gms:play-services-maps:11.2.0'
+    compile 'com.google.android.gms:play-services-location:11.2.0'
+    compile 'com.google.android.gms:play-services-places:11.2.0'
 }

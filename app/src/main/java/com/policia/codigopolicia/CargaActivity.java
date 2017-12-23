@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.policia.remote.RestGetUpdates;
+
 public class CargaActivity extends Activity {
     /**
      * Duration of wait
@@ -18,6 +20,9 @@ public class CargaActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                //new RestGetUpdates(getApplicationContext()).execute("LIBROS");
+
                 /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(CargaActivity.this, PrincipalActivity.class);
                 CargaActivity.this.startActivity(mainIntent);

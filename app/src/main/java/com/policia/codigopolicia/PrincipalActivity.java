@@ -203,10 +203,12 @@ public class PrincipalActivity extends AppCompatActivity
             menuPOLIS(item);
         } else if (id == R.id.nav_psc) {
             menuPSC(item);
-        } else if (id == R.id.nav_share) {
-            menuPSC(item);
         } else if (id == R.id.nav_cerrar) {
             cerrarSesionPolicia();
+        } else if (id == R.id.nav_games) {
+            menuJuegos();
+        } else if (id == R.id.nav_puntos) {
+            menuPuntos(item);
         } else if (id == R.id.nav_login) {
             intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -217,15 +219,10 @@ public class PrincipalActivity extends AppCompatActivity
         return true;
     }
 
-    private void menuShare(MenuItem item) {
+    private void menuPuntos(MenuItem item) {
 
-        fragment = new ArgisActivity();
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .commit();
-
-        getSupportActionBar().setTitle(item.getTitle());
+        Intent intent = new Intent(PrincipalActivity.this, PuntosActivity.class);
+        startActivity(intent);
     }
 
     private void menuIdentificarFuncionario(MenuItem item) {
@@ -249,6 +246,22 @@ public class PrincipalActivity extends AppCompatActivity
             Uri uri = Uri.parse("https://srvpsi.policia.gov.co/PSC/frm_cnp_consulta.aspx");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
+        }
+    }
+
+    private void menuJuegos() {
+
+        PackageManager pm = getPackageManager();
+        String pn = "com.ponal.cnpcjuegos";
+        if (this.isPackageInstalled(pn, pm)) {
+            this.openApp(pn);
+        } else {
+            final String appPackageName = pn; // getPackageName() from Context or Activity object
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
         }
     }
 

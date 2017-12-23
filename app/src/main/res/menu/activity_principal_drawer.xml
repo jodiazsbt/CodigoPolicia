@@ -36,7 +36,7 @@
         android:icon="@mipmap/img_06_btn_juegos"
         android:title="@string/menu_games" />
     <item
-        android:id="@+id/nav_share"
+        android:id="@+id/nav_puntos"
         android:icon="@mipmap/img_07_btn_puntos_ref"
         android:title="@string/menu_puntos" />
     <item
