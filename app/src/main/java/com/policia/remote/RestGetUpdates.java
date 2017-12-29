@@ -106,7 +106,7 @@ public class RestGetUpdates extends AsyncTask<String, Void, Boolean> {
         switch(mod) {
             case "LIBROS":
                 Rutinas_LIBRO rl = new Rutinas_LIBRO(this.context);
-                lastUpdate = rl.getUltimaActualizacion();
+                lastUpdate = rl.maxFecha();
                 body = mod + "/ENG," + lastUpdate;
 
                 try {
@@ -119,7 +119,7 @@ public class RestGetUpdates extends AsyncTask<String, Void, Boolean> {
 
                 if (resultLibros.LibrosResult.size() > 0) {
                     for(int i = 0; i < resultLibros.LibrosResult.size(); i++){
-                        boolean res = rl.updateRecord(resultLibros.LibrosResult.get(i));
+                        boolean res = false;//rl.updateRecord(resultLibros.LibrosResult.get(i));
                     }
                 }
 
@@ -127,7 +127,7 @@ public class RestGetUpdates extends AsyncTask<String, Void, Boolean> {
             case "NIVELES":
                 /*
                 Rutinas_NIVELES rn = new Rutinas_NIVELES(this.context);
-                lastUpdate = rn.getUltimaActualizacion();
+                lastUpdate = rn.maxFecha();
                 body = mod + "/ENG," + lastUpdate;
 
                 try {
@@ -147,7 +147,7 @@ public class RestGetUpdates extends AsyncTask<String, Void, Boolean> {
                 break;
             case "TITULOS":
                 Rutinas_TITULO rt = new Rutinas_TITULO(this.context);
-                lastUpdate = rt.getUltimaActualizacion();
+                lastUpdate = rt.maxFecha();
                 body = mod + "/ENG," + lastUpdate;
 
                 try {
@@ -160,13 +160,13 @@ public class RestGetUpdates extends AsyncTask<String, Void, Boolean> {
 
                 if (resultTitulos.TitulosResult.size() > 0) {
                     for(int i = 0; i < resultTitulos.TitulosResult.size(); i++){
-                        boolean res = rt.updateRecord(resultTitulos.TitulosResult.get(i));
+                        boolean res = false;//rt.updateRecord(resultTitulos.TitulosResult.get(i));
                     }
                 }
                 break;
             case "CAPITULOS":
                 Rutinas_CAPITULO rc = new Rutinas_CAPITULO(this.context);
-                lastUpdate = rc.getUltimaActualizacion();
+                lastUpdate = rc.maxFecha();
                 body = mod + "/ENG," + lastUpdate;
 
                 try {
@@ -179,7 +179,7 @@ public class RestGetUpdates extends AsyncTask<String, Void, Boolean> {
 
                 if (resultCapitulos.CapitulosResult.size() > 0) {
                     for(int i = 0; i < resultCapitulos.CapitulosResult.size(); i++){
-                        boolean res = rc.updateRecord(resultCapitulos.CapitulosResult.get(i));
+                        boolean res = false;//rc.updateRecord(resultCapitulos.CapitulosResult.get(i));
                     }
                 }
                 break;

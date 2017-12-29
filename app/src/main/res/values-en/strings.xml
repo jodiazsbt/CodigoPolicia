@@ -64,6 +64,14 @@
     <string name="policia_header_title">IDENTIFICATION OF POLICE</string>
     <string name="policia_header_subtitle">Scan the barcode of the police card.</string>
 
+
+    <!--ENCUESTA-->
+    <string name="encuesta_header_title">SURVEY</string>
+    <string name="encuesta_header_subtitle">Help us answer this short survey</string>
+    <string name="button_responder">JOIN</string>
+    <string name="button_no_responder">FALSE</string>
+    <string name="button_si_responder">TRUE</string>
+
     <!--PSC-->
     <string-array name="listadoMenuPsc">
         <item>!ADenunciar!</item>
@@ -71,5 +79,6 @@
         <item>REGISTRO DE DOCUMENTOS EXTRAVIADOS</item>
         <item>RECORD OF LOST DOCUMENTS</item>
         <item>REGISTRATION QUESTIONS, COMPLAINTS, CLAIMS AND SUGGESTIONS (PQRS)</item>
+        <item>TUNING INSTITUTIONAL RADIO</item>
     </string-array>
 </resources>

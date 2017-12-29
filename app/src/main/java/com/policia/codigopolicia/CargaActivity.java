@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.policia.remote.RemoteENCUESTA;
+import com.policia.remote.RemoteServices;
 import com.policia.remote.RestGetUpdates;
 
 public class CargaActivity extends Activity {
@@ -17,17 +19,21 @@ public class CargaActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carga_activity);
+        /*
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 //new RestGetUpdates(getApplicationContext()).execute("LIBROS");
 
-                /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(CargaActivity.this, PrincipalActivity.class);
                 CargaActivity.this.startActivity(mainIntent);
                 CargaActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
+
+         */
+        RemoteENCUESTA.newInstance(this).execute();
     }
 }

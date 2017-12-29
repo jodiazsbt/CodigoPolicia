@@ -18,7 +18,8 @@
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -35,6 +36,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDgTht78gxEZKTRSFZ1liL9AWgaYdFvN6U" />
+
         <activity
             android:name=".PrincipalActivity"
             android:label="@string/title_activity_principal"
@@ -79,6 +81,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".PuntosActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".EncuestaActivity"
             android:screenOrientation="portrait" />
     </application>
 

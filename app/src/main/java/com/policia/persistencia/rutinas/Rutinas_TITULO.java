@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Titulos.TitulosResultEntry;
 import com.policia.negocio.modelo.Modelo_TITULO;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_LIBRO;
+import com.policia.persistencia.tablas.Tabla_TITULO;
 
 import java.util.ArrayList;
 
@@ -24,38 +26,34 @@ public class Rutinas_TITULO {
         this.context = context;
     }
 
-    public String getUltimaActualizacion() {
+    public String maxFecha() {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
-        Cursor cursor = DB.rawQuery("SELECT MAX(FECHA) FROM 'TITULO';", null);
+        Cursor cursor = DB.rawQuery("SELECT STRFTIME('%d.%m.%Y',MAX(CASE WHEN LENGTH(FECHA)=8 THEN '20'||SUBSTR(FECHA,7,2) ELSE SUBSTR(FECHA,7,4) END ||'-'||SUBSTR(FECHA,4,2)||'-'||SUBSTR(FECHA,1,2))) FROM 'TITULO';", null);
 
         String maxFecha = null;
         while (cursor.moveToNext()) {
             maxFecha = cursor.getString(0);
         }
-        maxFecha = "01.12.2017";
 
         cursor.close();
         DB.close();
         return maxFecha;
     }
 
-    public boolean updateRecord(TitulosResultEntry tre) {
-        DB = new SQLiteProvider(context).getReadableDatabase();
+    public void update(Tabla_TITULO titulo) {
+        String[] parameters = new String[]{
+                titulo.TITULO_ESP,
+                titulo.VIGENTE + "",
+                titulo.NIVEL_ID + "",
+                titulo.LIBRO_ID + "",
+                titulo.FECHA + "",
+                titulo.TITULO_ENG + "",
+                titulo.ID + ""};
 
-        try {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("TITULO_ESP", tre.NombreTitulo);
-            contentValues.put("TITULO_ENG", tre.NombreTitulo);
-            contentValues.put("VIGENTE",tre.Vigente_Titulo);
-            contentValues.put("NIVEL_ID",tre.ID_Nivel_Titulo);
-            contentValues.put("FECHA",tre.Fecha_Titulo);
-            DB.update("TITULO", contentValues, "ID" + " = " + tre.ID_Libro_Titulo, null);
-            DB.close();
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        DB.execSQL("UPDATE 'TITULO' SET TITULO_ESP=?,VIGENTE=?,NIVEL_ID=?,LIBRO_ID=?,FECHA=?,TITULO_ENG=? WHERE ID=?", parameters);
+        DB.close();
     }
 
     public ArrayList<Modelo_TITULO> TitulosPorLibro(String Idioma, String Libro) {

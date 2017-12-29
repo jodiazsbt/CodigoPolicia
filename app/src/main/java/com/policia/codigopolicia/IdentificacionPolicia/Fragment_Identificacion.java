@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.policia.codigopolicia.R;
 import com.policia.codigopolicia.parser.DocumentoPolicia;
+import com.policia.remote.RemotePolicia;
 
 import org.json.JSONException;
 import org.json.XML;
@@ -38,25 +39,13 @@ public class Fragment_Identificacion extends Fragment {
 
     public void mostrarCarnet(String barcode) {
 
-        DocumentoPolicia document = null;
+        ListView listviewIdentificacion = getView().findViewById(R.id.listviewIdentificacion);
         try {
-            document = new Gson().fromJson(String.valueOf(XML.toJSONObject(barcode)), DocumentoPolicia.class);
+            new RemotePolicia(this, listviewIdentificacion, barcode).execute();
 
-            String[] values = new String[]{
-                    String.valueOf(document.getDocumentElement().getTable().getE2()),//CEDULA
-                    String.valueOf(document.getDocumentElement().getTable().getE4()),//APELLIDO
-                    String.valueOf(document.getDocumentElement().getTable().getE5()),//NOMBRE
-                    String.valueOf(document.getDocumentElement().getTable().getE11()),//GRADO
-                    String.valueOf(document.getDocumentElement().getTable().getE15())//CARNET
-            };
-
-            ListView listviewIdentificacion = getView().findViewById(R.id.listviewIdentificacion);
-            listviewIdentificacion.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, values));
-
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 }

@@ -19,7 +19,7 @@ public class ValuePar {
         return label;
     }
 
-    public String getText() {
+    public String getValue() {
         return text;
     }
 

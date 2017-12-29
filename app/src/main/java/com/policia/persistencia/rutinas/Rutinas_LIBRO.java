@@ -8,8 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Libros.LibrosResultEntry;
 import com.policia.negocio.modelo.Modelo_LIBRO;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_LIBRO;
+import com.policia.persistencia.tablas.Tabla_TITULO;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by 1085253556 on 24/11/2017.
@@ -24,46 +27,41 @@ public class Rutinas_LIBRO {
         this.context = context;
     }
 
-    public String getUltimaActualizacion() {
+    public String maxFecha() {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
-        Cursor cursor = DB.rawQuery("SELECT MAX(FECHA) FROM 'LIBRO';", null);
+        Cursor cursor = DB.rawQuery("SELECT STRFTIME('%d.%m.%Y',MAX(CASE WHEN LENGTH(FECHA)=8 THEN '20'||SUBSTR(FECHA,7,2) ELSE SUBSTR(FECHA,7,4) END ||'-'||SUBSTR(FECHA,4,2)||'-'||SUBSTR(FECHA,1,2))) FROM LIBRO;", null);
 
         String maxFecha = null;
         while (cursor.moveToNext()) {
             maxFecha = cursor.getString(0);
         }
-        maxFecha = "01.12.2017";
 
         cursor.close();
         DB.close();
         return maxFecha;
     }
 
-    public boolean updateRecord(LibrosResultEntry lre) {
-        DB = new SQLiteProvider(context).getReadableDatabase();
+    public void update(Tabla_LIBRO libro) {
+        String[] parameters = new String[]{
+                libro.LIBRO_ESP,
+                libro.VIGENTE + "",
+                libro.NIVEL_ID + "",
+                libro.FECHA + "",
+                libro.LIBRO_ENG + "",
+                libro.ID + ""};
 
-        try {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("LIBRO_ESP", lre.NombreLibro);
-            contentValues.put("LIBRO_ENG", lre.NombreLibro);
-            contentValues.put("VIGENTE",lre.Vigente_Libro);
-            contentValues.put("NIVEL_ID",lre.Id_Nivel_Libro);
-            contentValues.put("FECHA",lre.Fecha_Libro);
-            DB.update("LIBRO", contentValues, "ID" + " = " + lre.ID_Libro, null);
-            DB.close();
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        DB.execSQL("UPDATE 'LIBRO' SET LIBRO_ESP=?,VIGENTE=?,NIVEL_ID=?,FECHA=?,LIBRO_ENG=? WHERE ID=?", parameters);
+        DB.close();
     }
 
-    public ArrayList<Modelo_LIBRO> Libros(String Idioma){
+    public ArrayList<Modelo_LIBRO> Libros(String Idioma) {
         DB = new SQLiteProvider(context).getReadableDatabase();
         Cursor cursor = DB.rawQuery("SELECT " +
                 "LIBRO.ID, " +
-                "NIVEL.NIVEL_"+Idioma+" NIVEL, " +
-                "LIBRO.LIBRO_"+Idioma+" LIBRO " +
+                "NIVEL.NIVEL_" + Idioma + " NIVEL, " +
+                "LIBRO.LIBRO_" + Idioma + " LIBRO " +
                 "FROM LIBRO " +
                 "INNER JOIN NIVEL ON LIBRO.NIVEL_ID=NIVEL.ID " +
                 "WHERE NIVEL.ID IN (16,17,18);", null);//SOLO LIBROS

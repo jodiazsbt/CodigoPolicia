@@ -11,7 +11,8 @@ public class LibrosResultEntry  implements Serializable {
 
 	public Boolean Vigente_Libro;
 	public Integer ID_Libro;
-	public String NombreLibro;
+	public String NombreLibroESP;
+	public String NombreLibroENG;
 	public Integer Id_Nivel_Libro;
 	public String Fecha_Libro;
 }

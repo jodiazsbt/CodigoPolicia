@@ -17,5 +17,5 @@ public class Tabla_CAPITULO {
     public boolean VIGENTE;
     public String NIVEL_ID;
     public String TITULO_ID;
-    public Date FECHA;
+    public String FECHA;
 }

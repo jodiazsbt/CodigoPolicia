@@ -1,5 +1,6 @@
 package com.policia.codigopolicia;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,8 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -33,9 +38,18 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.policia.codigopolicia.Puntos.PuntosAdapter;
+import com.policia.codigopolicia.Puntos.PuntosCercanos;
+import com.policia.remote.RemoteGEO;
+import com.policia.remote.request.RequestGEO;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class PuntosActivity extends AppCompatActivity
         implements OnMapReadyCallback {
+
+    private final Activity activity = this;
 
     private static final String TAG = PuntosActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -70,6 +84,8 @@ public class PuntosActivity extends AppCompatActivity
     private String[] mLikelyPlaceAttributions;
     private LatLng[] mLikelyPlaceLatLngs;
 
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +114,31 @@ public class PuntosActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
 
+        listView = findViewById(R.id.listviewPuntos);
+
+        /*
+        final ArrayList<PuntosCercanos> puntos = new ArrayList<PuntosCercanos>();
+
+        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.650150, -74.100942, 50));
+        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.645135, -74.102669, 50));
+        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.639842, -74.094441, 50));
+        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.646215, -74.088390, 50));
+        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.654877, -74.097702, 50));
+
+        listView.setAdapter(new PuntosAdapter(this, puntos));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                PuntosCercanos punto = puntos.get(i);
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions()
+                        .title(punto.Nombre)
+                        .position(new LatLng(punto.Latitud, punto.Longitud))
+                        .snippet(punto.Direccion));
+
+            }
+        });
+        */
     }
 
     /**
@@ -114,17 +155,19 @@ public class PuntosActivity extends AppCompatActivity
 
     /**
      * Sets up the options menu.
+     *
      * @param menu The options menu.
      * @return Boolean.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.current_place_menu, menu);
+        //getMenuInflater().inflate(R.menu.current_place_menu, menu);
         return true;
     }
 
     /**
      * Handles a click on the menu option to get a place.
+     *
      * @param item The menu item to handle.
      * @return Boolean.
      */
@@ -197,9 +240,21 @@ public class PuntosActivity extends AppCompatActivity
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            if (mLastKnownLocation == null) {
+                                Log.d(TAG, "No se puede conocer la última ubicación");
+                                Toast.makeText(PuntosActivity.this, "No se puede conocer la última ubicación", Toast.LENGTH_SHORT).show();
+                            } else {
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                        new LatLng(mLastKnownLocation.getLatitude(),
+                                                mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
+                                RequestGEO geo = new RequestGEO();
+                                geo.Latitud = String.valueOf(mLastKnownLocation.getLatitude()).replace(".", ",");
+                                geo.Longitud = String.valueOf(mLastKnownLocation.getLongitude()).replace(".", ",");
+                                geo.Tipo = "001";//Buscar todos los sitios que se puedan encontrar
+
+                                new RemoteGEO(activity, listView, mMap).execute(geo);
+                            }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
@@ -210,7 +265,7 @@ public class PuntosActivity extends AppCompatActivity
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -268,8 +323,7 @@ public class PuntosActivity extends AppCompatActivity
         if (mLocationPermissionGranted) {
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
-            @SuppressWarnings("MissingPermission") final
-            Task<PlaceLikelihoodBufferResponse> placeResult =
+            @SuppressWarnings("MissingPermission") final Task<PlaceLikelihoodBufferResponse> placeResult =
                     mPlaceDetectionClient.getCurrentPlace(null);
             placeResult.addOnCompleteListener
                     (new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
@@ -386,7 +440,7 @@ public class PuntosActivity extends AppCompatActivity
                 mLastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }

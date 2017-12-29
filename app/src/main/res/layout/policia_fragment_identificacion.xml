@@ -4,24 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.policia.codigopolicia.IdiomaActivity">
-
-    <ImageView
-        android:id="@+id/imageViewCaricatura"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:cropToPadding="false"
-        android:src="@mipmap/img_policia_activity"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_gravity="top">
 
     <ListView
         android:id="@+id/listviewIdentificacion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@id/imageViewFranja"
-        app:layout_constraintTop_toBottomOf="@id/imageViewCaricatura"
-        tools:listitem="@android:layout/simple_list_item_1" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listheader="@layout/policia_identificacion_header"
+        tools:listitem="@android:layout/simple_list_item_2" />
 
     <ImageView
         android:id="@+id/imageViewFranja"

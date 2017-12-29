@@ -42,6 +42,7 @@ public class CNPC_Fragment extends Fragment {
 
     private int position;
     private String capitulo;
+    private ListView listviewNumeral;
 
     public static CNPC_Fragment newInstance(int position, String capitulo) {
         CNPC_Fragment _cnpcFragment = new CNPC_Fragment();
@@ -80,6 +81,8 @@ public class CNPC_Fragment extends Fragment {
             ArrayList<Modelo_ARTICULO> articulos = null;
             articulos = negocioArticulo.ArticulosPorCapitulo(capitulo, position + 1);
 
+            NumeralAdapter adapter = null;
+
             for (Modelo_ARTICULO articulo : articulos) {
 
                 items.add(articulo.ID);
@@ -90,9 +93,10 @@ public class CNPC_Fragment extends Fragment {
                 items.add(articulo.Articulo_Nivel);
                 items.add(articulo.Articulo_Titulo);
 
-                ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
-
                 String texto_articulo = articulo.Articulo_Descripcion;
+
+                //adapter = new NumeralAdapter(getActivity(), negocioNumeral.NumeralesPorArticulo(articulo.ID));
+                ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
 
                 if (!(numerales.size() == 0)) {
 
@@ -130,6 +134,7 @@ public class CNPC_Fragment extends Fragment {
             textViewARTICULO = view.findViewById(R.id.textViewARTICULO);
             textViewARTICULOTITULO = view.findViewById(R.id.textViewARTICULOTITULO);
             documentViewARTICULODESCRIPCION = view.findViewById(R.id.documentViewARTICULODESCRIPCION);
+            //listviewNumeral = view.findViewById(R.id.listviewNumeral);
 
             textViewNIVEL.setText(items.get(1));
             textViewTITULO.setText(items.get(2));
@@ -138,7 +143,11 @@ public class CNPC_Fragment extends Fragment {
             textViewARTICULO.setText(items.get(5));
             textViewARTICULOTITULO.setText(items.get(6));
             documentViewARTICULODESCRIPCION.setText(items.get(7));
-
+            /*
+            if (adapter != null) {
+                listviewNumeral.setAdapter(adapter);
+            }
+            */
             return view;
         } catch (Exception e) {
             e.printStackTrace();

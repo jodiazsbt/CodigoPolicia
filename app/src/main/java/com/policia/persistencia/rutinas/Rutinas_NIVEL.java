@@ -23,13 +23,12 @@ public class Rutinas_NIVEL {
     public String maxFecha() {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
-        Cursor cursor = DB.rawQuery("SELECT MAX(FECHA) FROM 'NIVEL';", null);
+        Cursor cursor = DB.rawQuery("SELECT STRFTIME('%d.%m.%Y',MAX(CASE WHEN LENGTH(FECHA)=8 THEN '20'||SUBSTR(FECHA,7,2) ELSE SUBSTR(FECHA,7,4) END ||'-'||SUBSTR(FECHA,4,2)||'-'||SUBSTR(FECHA,1,2))) FROM 'NIVEL';", null);
 
         String maxFecha = null;
         while (cursor.moveToNext()) {
             maxFecha = cursor.getString(0);
         }
-        maxFecha = "01.12.2017";
 
         cursor.close();
         DB.close();

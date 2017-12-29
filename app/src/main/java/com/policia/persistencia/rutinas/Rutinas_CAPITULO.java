@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Capitulos.CapitulosResultEntry;
 import com.policia.negocio.modelo.Modelo_CAPITULO;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_CAPITULO;
+import com.policia.persistencia.tablas.Tabla_LIBRO;
 
 import java.util.ArrayList;
 
@@ -25,38 +27,34 @@ public class Rutinas_CAPITULO {
         this.context = context;
     }
 
-    public String getUltimaActualizacion() {
+    public String maxFecha() {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
-        Cursor cursor = DB.rawQuery("SELECT MAX(FECHA) FROM 'CAPITULO';", null);
+        Cursor cursor = DB.rawQuery("SELECT STRFTIME('%d.%m.%Y',MAX(CASE WHEN LENGTH(FECHA)=8 THEN '20'||SUBSTR(FECHA,7,2) ELSE SUBSTR(FECHA,7,4) END ||'-'||SUBSTR(FECHA,4,2)||'-'||SUBSTR(FECHA,1,2))) FROM 'CAPITULO';", null);
 
         String maxFecha = null;
         while (cursor.moveToNext()) {
             maxFecha = cursor.getString(0);
         }
-        maxFecha = "01.12.2017";
 
         cursor.close();
         DB.close();
         return maxFecha;
     }
 
-    public boolean updateRecord(CapitulosResultEntry cre) {
-        DB = new SQLiteProvider(context).getReadableDatabase();
+    public void update(Tabla_CAPITULO capitulo) {
+        String[] parameters = new String[]{
+                capitulo.CAPITULO_ESP,
+                capitulo.VIGENTE + "",
+                capitulo.NIVEL_ID + "",
+                capitulo.TITULO_ID + "",
+                capitulo.FECHA + "",
+                capitulo.CAPITULO_ENG + "",
+                capitulo.ID + ""};
 
-        try {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("CAPITULO_ESP", cre.NombreCapitulo);
-            contentValues.put("CAPITULO_ENG", cre.NombreCapitulo);
-            contentValues.put("VIGENTE",cre.Vigente_Capitulo);
-            contentValues.put("NIVEL_ID",cre.ID_Nivel_Capitulo);
-            contentValues.put("FECHA",cre.Fecha_Capitulo);
-            DB.update("CAPITULO", contentValues, "ID" + " = " + cre.Id_Capitulo, null);
-            DB.close();
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        DB.execSQL("UPDATE 'CAPITULO' SET CAPITULO_ESP=?,VIGENTE=?,NIVEL_ID=?,TITULO_ID=?,FECHA=?,CAPITULO_ENG=? WHERE ID=?", parameters);
+        DB.close();
     }
 
     public ArrayList<Modelo_CAPITULO> CapitulosPorTitulo(String Idioma, String Titulo) {

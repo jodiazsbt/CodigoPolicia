@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import com.policia.codigopolicia.ArticuloCapituloActivity;
 import com.policia.codigopolicia.ArticuloMultaActivity;
 import com.policia.codigopolicia.R;
 import com.policia.negocio.logica.Negocio_MULTA;

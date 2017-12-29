@@ -14,7 +14,9 @@ import com.policia.negocio.logica.Negocio_CATEGORIA;
 import com.policia.negocio.modelo.Modelo_CATEGORIA;
 import com.policia.negocio.modelo.Modelo_MULTA;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by 1085253556 on 29/11/2017.
@@ -56,8 +58,15 @@ public class Multa_BaseExpandableListAdapter extends BaseExpandableListAdapter {
         TextView textViewLabel = view.findViewById(R.id.textViewLabel);
         TextView textViewValue = view.findViewById(R.id.textViewValue);
 
+        String multa = multas.get(groupPosition).Multa;
+        Double valor = multas.get(groupPosition).Valor;
+
         textViewLabel.setText(multas.get(groupPosition).Nivel);
-        textViewValue.setText(multas.get(groupPosition).Multa);
+
+        if (valor == 0)
+            textViewValue.setText(multa);
+        else
+            textViewValue.setText(multa + " " + NumberFormat.getCurrencyInstance(new Locale("es", "CO")).format(valor));
 
         return view;
     }

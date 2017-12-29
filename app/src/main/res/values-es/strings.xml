@@ -64,6 +64,14 @@
     <string name="policia_header_title">IDENTIFICACION POLICÍA</string>
     <string name="policia_header_subtitle">Escanee el código de barras del carnet del policía.</string>
 
+
+    <!--ENCUESTA-->
+    <string name="encuesta_header_title">ENCUESTA</string>
+    <string name="encuesta_header_subtitle">Ayúdenos a responder esta breve encuesta</string>
+    <string name="button_responder">PARTICIPAR</string>
+    <string name="button_no_responder">FALSO</string>
+    <string name="button_si_responder">CIERTO</string>
+
     <!--PSC-->
     <string-array name="listadoMenuPsc">
         <item>!ADenunciar!</item>
@@ -71,5 +79,6 @@
         <item>REGISTRO DE DOCUMENTOS EXTRAVIADOS</item>
         <item>COMUNICACIÓN DE APERTURA DE ESTABLECIMIENTOS</item>
         <item>REGISTRO PREGUNTAS, QUEJAS, RECLAMOS Y SUGERENCIAS (PQRS)</item>
+        <item>SINTONIZAR RADIO INSTITUCIONAL</item>
     </string-array>
 </resources>

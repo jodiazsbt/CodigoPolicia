@@ -16,5 +16,5 @@ public class Tabla_LIBRO {
     public String LIBRO_ENG;
     public boolean VIGENTE;
     public String NIVEL_ID;
-    public Date FECHA;
+    public String FECHA;
 }

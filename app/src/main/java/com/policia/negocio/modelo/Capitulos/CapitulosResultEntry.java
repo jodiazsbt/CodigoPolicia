@@ -9,7 +9,8 @@ public class CapitulosResultEntry  implements Serializable {
 
 	public Boolean Vigente_Capitulo;
 	public Integer Id_Capitulo;
-	public String NombreCapitulo;
+	public String NombreCapituloESP;
+	public String NombreCapituloENG;
 	public Integer ID_Titulo_Capitulo;
 	public String Fecha_Capitulo;
 	public Integer ID_Nivel_Capitulo;

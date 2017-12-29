@@ -1,8 +1,10 @@
 package com.policia.codigopolicia;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 
 import com.policia.codigopolicia.NavegacionCNPC.CNPC_FragmentStatePagerAdapter;
 import com.policia.codigopolicia.NavegacionCNPC.WrapContentViewPager;
