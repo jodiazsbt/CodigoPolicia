@@ -14,5 +14,5 @@ public class Tabla_NIVEL {
     public String NIVEL_ESP;
     public String NIVEL_ENG;
     public boolean VIGENTE;
-    public Date FECHA;
+    public String FECHA;
 }

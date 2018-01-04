@@ -2,9 +2,9 @@ package com.policia.codigopolicia;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.policia.negocio.logica.Negocio_ENCUESTA;
 import com.policia.negocio.modelo.Modelo_ENCUESTA;
 import com.policia.remote.RemoteRESPUESTA;
-import com.policia.remote.RemoteServices;
 import com.policia.remote.request.RequestRESPUESTA;
 
 public class EncuestaActivity extends AppCompatActivity implements View.OnClickListener {

@@ -1,8 +1,8 @@
 package com.policia.codigopolicia;
 
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -19,7 +19,7 @@ public class GenericWebviewActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         String url = ""; // or other values
-        if(b != null)
+        if (b != null)
             url = b.getString("url");
 
         mWebView = new WebView(this);
@@ -36,8 +36,7 @@ public class GenericWebviewActivity extends AppCompatActivity {
                 super.onReceivedError(view, request, error);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     Toast.makeText(GenericWebviewActivity.this, error.getDescription(), Toast.LENGTH_SHORT).show();
-                }
-                else
+                } else
                     Toast.makeText(GenericWebviewActivity.this, "Tenemos problemas para cargar esta página en la aplicación", Toast.LENGTH_SHORT).show();
             }
         });

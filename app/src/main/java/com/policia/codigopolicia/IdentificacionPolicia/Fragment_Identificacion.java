@@ -6,16 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
 import com.policia.codigopolicia.R;
-import com.policia.codigopolicia.parser.DocumentoPolicia;
 import com.policia.remote.RemotePolicia;
-
-import org.json.JSONException;
-import org.json.XML;
 
 /**
  * Created by 1085253556 on 21/12/2017.

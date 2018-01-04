@@ -10,11 +10,17 @@ import com.policia.negocio.modelo.Capitulos.CapitulosOutput;
 import com.policia.negocio.modelo.Libros.LibrosOutput;
 import com.policia.negocio.modelo.Niveles.NivelesOutput;
 import com.policia.negocio.modelo.Titulos.TitulosOutput;
+import com.policia.remote.response.ArticulosyParagrafosResponse;
 import com.policia.remote.response.CONSULTAPOLICIAResponse;
 import com.policia.remote.response.ENCUESTASCNPCResponse;
 import com.policia.remote.response.GEOPOCICIONCNPCResponse;
 import com.policia.remote.response.LoginPoliciaNal;
 import com.policia.remote.response.LoginPoliciaNalResult;
+import com.policia.remote.response.MULTAAARTICULOYPARAGRAFOResponse;
+import com.policia.remote.response.MedidasCNPCResponse;
+import com.policia.remote.response.MetadataResponse;
+import com.policia.remote.response.NivelesResponse;
+import com.policia.remote.response.NumeralesResponse;
 import com.policia.remote.response.RESPUESTAENCUESTAResponse;
 
 import org.apache.http.HttpEntity;
@@ -115,7 +121,7 @@ public class RemoteClient {
 
     }
 
-    public LoginPoliciaNalResult login(String usuario, String contrasena) throws Exception {
+    public LoginPoliciaNalResult LoginPoliciaNal(String usuario, String contrasena) throws Exception {
         String body = "LoginPoliciaNal/" + usuario + "," + contrasena + ",172.28.3.23,CNPC";
         StringBuilder builder = postInvoke(direccionServicio + body);
         LoginPoliciaNal result = new Gson().fromJson(builder.toString(), LoginPoliciaNal.class);
@@ -125,10 +131,10 @@ public class RemoteClient {
         return result.LoginPoliciaNalResult.get(0);
     }
 
-    public NivelesOutput sincronizarNIVEL(String fecha) throws Exception {
+    public NivelesResponse sincronizarNIVEL(String fecha) throws Exception {
         String body = "Niveles/" + fecha;
         StringBuilder builder = getInvoke(direccionServicio + body);
-        NivelesOutput result = new Gson().fromJson(builder.toString(), NivelesOutput.class);
+        NivelesResponse result = new Gson().fromJson(builder.toString(), NivelesResponse.class);
         return result;
     }
 
@@ -150,6 +156,41 @@ public class RemoteClient {
         String body = "Capitulos/" + fecha;
         StringBuilder builder = getInvoke(direccionServicio + body);
         CapitulosOutput result = new Gson().fromJson(builder.toString(), CapitulosOutput.class);
+        return result;
+    }
+
+    public ArticulosyParagrafosResponse sincronizarARTICULO(String fecha) throws Exception {
+        String body = "ArticulosyParagrafos/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        ArticulosyParagrafosResponse result = new Gson().fromJson(builder.toString(), ArticulosyParagrafosResponse.class);
+        return result;
+    }
+
+    public MetadataResponse sincronizarMETADATA(String fecha) throws Exception {
+        String body = "Metadata/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        MetadataResponse result = new Gson().fromJson(builder.toString(), MetadataResponse.class);
+        return result;
+    }
+
+    public NumeralesResponse sincronizarNUMERAL(String fecha) throws Exception {
+        String body = "Numerales/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        NumeralesResponse result = new Gson().fromJson(builder.toString(), NumeralesResponse.class);
+        return result;
+    }
+
+    public MedidasCNPCResponse sincronizarMEDIDA(String fecha) throws Exception {
+        String body = "MedidasCNPC/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        MedidasCNPCResponse result = new Gson().fromJson(builder.toString(), MedidasCNPCResponse.class);
+        return result;
+    }
+
+    public MULTAAARTICULOYPARAGRAFOResponse sincronizarCOMPETENCIA_NUMERAL(String fecha) throws Exception {
+        String body = "MULTA_A_ARTICULOYPARAGRAFO/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        MULTAAARTICULOYPARAGRAFOResponse result = new Gson().fromJson(builder.toString(), MULTAAARTICULOYPARAGRAFOResponse.class);
         return result;
     }
 

@@ -4,11 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--
     <com.bluejamesbond.text.DocumentView
         android:id="@+id/documentViewNUMERAL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:documentView_textAlignment="justified" />
-
+    -->
+    <TextView
+        android:id="@+id/textViewNUMERAL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -56,9 +56,11 @@ public class NumeralAdapter extends BaseAdapter {
 
             String texto_numeral = numeral.Nivel + "\t" + numeral.Numeral;
 
-            documentViewNUMERAL = view.findViewById(R.id.documentViewNUMERAL);
-            documentViewNUMERAL.setText(texto_numeral);
+            //documentViewNUMERAL = view.findViewById(R.id.documentViewNUMERAL);
+            //documentViewNUMERAL.setText(texto_numeral);
 
+            TextView textViewNUMERAL = view.findViewById(R.id.textViewNUMERAL);
+            textViewNUMERAL.setText(texto_numeral);
         }
 
         return view;

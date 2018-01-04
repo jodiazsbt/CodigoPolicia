@@ -26,15 +26,10 @@ import android.view.View;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.google.gson.Gson;
 import com.policia.codigopolicia.IdentificacionPolicia.BarcodeCaptureActivity;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Identificacion;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Opciones;
 import com.policia.codigopolicia.IdentificacionPolicia.IClickScan;
-import com.policia.codigopolicia.parser.DocumentoPolicia;
-
-import org.json.JSONException;
-import org.json.XML;
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that

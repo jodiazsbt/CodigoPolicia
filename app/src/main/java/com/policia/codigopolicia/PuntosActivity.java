@@ -14,8 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,13 +36,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.policia.codigopolicia.Puntos.PuntosAdapter;
-import com.policia.codigopolicia.Puntos.PuntosCercanos;
 import com.policia.remote.RemoteGEO;
 import com.policia.remote.request.RequestGEO;
-
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class PuntosActivity extends AppCompatActivity
         implements OnMapReadyCallback {

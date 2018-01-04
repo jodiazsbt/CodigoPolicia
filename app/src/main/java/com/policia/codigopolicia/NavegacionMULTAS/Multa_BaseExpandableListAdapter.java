@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.policia.codigopolicia.ArgisActivity;
 import com.policia.codigopolicia.R;
 import com.policia.negocio.logica.Negocio_CATEGORIA;
-import com.policia.negocio.modelo.Modelo_CATEGORIA;
 import com.policia.negocio.modelo.Modelo_MULTA;
 
 import java.text.NumberFormat;

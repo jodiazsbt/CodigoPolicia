@@ -16,5 +16,5 @@ public class Tabla_METADATA {
     public String METADATA_ENG;
     public boolean ACTIVO;
     public String ARTICULO_ID;
-    public Date FECHA;
+    public String FECHA;
 }

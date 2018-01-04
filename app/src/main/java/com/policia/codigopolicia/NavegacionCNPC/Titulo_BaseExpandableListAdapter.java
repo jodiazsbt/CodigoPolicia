@@ -9,7 +9,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.policia.codigopolicia.R;
-import com.policia.negocio.seguridad.Seguridad;
 import com.policia.negocio.logica.Negocio_CAPITULO;
 import com.policia.negocio.modelo.Modelo_TITULO;
 

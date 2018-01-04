@@ -31,4 +31,5 @@ public class CNPC_FragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
         return paginas;
     }
+
 }

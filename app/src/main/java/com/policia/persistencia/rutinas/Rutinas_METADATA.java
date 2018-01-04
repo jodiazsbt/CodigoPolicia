@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
 import com.policia.negocio.modelo.Modelo_Busqueda_Articulo;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_ARTICULO;
+import com.policia.persistencia.tablas.Tabla_METADATA;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,35 @@ public class Rutinas_METADATA {
     public Rutinas_METADATA(Context context) {
 
         this.context = context;
+    }
+
+    public String maxFecha() {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery("SELECT STRFTIME('%d.%m.%Y',MAX(CASE WHEN LENGTH(FECHA)=8 THEN '20'||SUBSTR(FECHA,7,2) ELSE SUBSTR(FECHA,7,4) END ||'-'||SUBSTR(FECHA,4,2)||'-'||SUBSTR(FECHA,1,2))) FROM 'METADATA';", null);
+
+        String maxFecha = null;
+        while (cursor.moveToNext()) {
+            maxFecha = cursor.getString(0);
+        }
+
+        cursor.close();
+        DB.close();
+        return maxFecha;
+    }
+
+    public void update(Tabla_METADATA metadata) {
+        String[] parameters = new String[]{
+                metadata.METADATA_ESP,
+                metadata.ACTIVO + "",
+                metadata.ARTICULO_ID + "",
+                metadata.FECHA + "",
+                metadata.METADATA_ENG + "",
+                metadata.ID + ""};
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        DB.execSQL("UPDATE 'METADATA' SET METADATA_ESP=?,ACTIVO=?,ARTICULO_ID=?,FECHA=?,METADATA_ENG=? WHERE ID=?", parameters);
+        DB.close();
     }
 
     public ArrayList<Modelo_Busqueda_Articulo> BusquedaMETADATA(String Idioma, String termino_busqueda) {

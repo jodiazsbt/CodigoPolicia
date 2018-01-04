@@ -1,22 +1,43 @@
 package com.policia.codigopolicia.NavegacionCNPC;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bluejamesbond.text.DocumentView;
+import com.bluejamesbond.text.SpannableDocumentLayout;
+import com.bluejamesbond.text.hyphen.SqueezeHyphenator;
+import com.bluejamesbond.text.style.TextAlignment;
+import com.bluejamesbond.text.style.TextAlignmentSpan;
+import com.policia.codigopolicia.IdiomaActivity;
 import com.policia.codigopolicia.R;
+import com.policia.negocio.logica.Negocio_ARTICULO;
 import com.policia.negocio.logica.Negocio_MEDIDA;
 import com.policia.negocio.logica.Negocio_NUMERAL;
-import com.policia.negocio.modelo.Modelo_MEDIDA;
-import com.policia.negocio.modelo.Modelo_NUMERAL;
-import com.policia.negocio.seguridad.Seguridad;
-import com.policia.negocio.logica.Negocio_ARTICULO;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
 
 import java.util.ArrayList;
@@ -95,7 +116,8 @@ public class CNPC_Fragment extends Fragment {
 
                 String texto_articulo = articulo.Articulo_Descripcion;
 
-                //adapter = new NumeralAdapter(getActivity(), negocioNumeral.NumeralesPorArticulo(articulo.ID));
+                adapter = new NumeralAdapter(getActivity(), negocioNumeral.NumeralesPorArticulo(articulo.ID));
+                /*
                 ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
 
                 if (!(numerales.size() == 0)) {
@@ -122,8 +144,8 @@ public class CNPC_Fragment extends Fragment {
                     texto_articulo += "\r\n" + texto_medidas;
                 }
 
+                */
                 items.add(texto_articulo);
-
                 break;
             }
 
@@ -134,7 +156,7 @@ public class CNPC_Fragment extends Fragment {
             textViewARTICULO = view.findViewById(R.id.textViewARTICULO);
             textViewARTICULOTITULO = view.findViewById(R.id.textViewARTICULOTITULO);
             documentViewARTICULODESCRIPCION = view.findViewById(R.id.documentViewARTICULODESCRIPCION);
-            //listviewNumeral = view.findViewById(R.id.listviewNumeral);
+            listviewNumeral = view.findViewById(R.id.listviewNumeral);
 
             textViewNIVEL.setText(items.get(1));
             textViewTITULO.setText(items.get(2));
@@ -142,16 +164,57 @@ public class CNPC_Fragment extends Fragment {
             textViewCAPITULODESCRIPCION.setText(items.get(4));
             textViewARTICULO.setText(items.get(5));
             textViewARTICULOTITULO.setText(items.get(6));
-            documentViewARTICULODESCRIPCION.setText(items.get(7));
-            /*
+            //documentViewARTICULODESCRIPCION.setText(items.get(7));
+            //spanableDocument(getActivity(), documentViewARTICULODESCRIPCION);
             if (adapter != null) {
                 listviewNumeral.setAdapter(adapter);
             }
-            */
             return view;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static void spanabletext(final Activity activity, TextView textView) {
+
+        SpannableString ss = new SpannableString("\r\nAndroid is a Software stack");
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                activity.startActivity(new Intent(activity, IdiomaActivity.class));
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+            }
+        };
+        ss.setSpan(clickableSpan, 22, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        //TextView textView = (TextView) findViewById(R.id.hello);
+        textView.setText(ss);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setHighlightColor(Color.TRANSPARENT);
+
+    }
+
+    class ArticleBuilder extends SpannableStringBuilder {
+        public ArticleBuilder append(CharSequence text, boolean newline, Object... spans) {
+            int start = this.length();
+            this.append(Html.fromHtml("<p>" + text + "</p>" + (newline ? "<br>" : "")));
+            for (Object span : spans) {
+                this.setSpan(span, start, this.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+            return this;
+        }
+    }
+
+    static class JustifiedSpan extends TextAlignmentSpan {
+        @Override
+        public TextAlignment getTextAlignment() {
+            return TextAlignment.JUSTIFIED;
+        }
     }
 }

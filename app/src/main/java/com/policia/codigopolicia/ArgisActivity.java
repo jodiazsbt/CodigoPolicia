@@ -3,6 +3,7 @@ package com.policia.codigopolicia;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -18,14 +19,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.content.Intent;
+
 import java.util.Locale;
 
 public class ArgisActivity extends Fragment implements OnClickListener, TextToSpeech.OnInitListener {
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     protected LocationManager locationManager;
-
 
 
     private int MY_DATA_CHECK_CODE = 0;
@@ -36,7 +36,7 @@ public class ArgisActivity extends Fragment implements OnClickListener, TextToSp
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View v=inflater.inflate(R.layout.fragment_argis, container, false);
+        View v = inflater.inflate(R.layout.fragment_argis, container, false);
 
 
         Intent checkTTSIntent = new Intent();
@@ -45,23 +45,15 @@ public class ArgisActivity extends Fragment implements OnClickListener, TextToSp
 
 
         Button button = (Button) v.findViewById(R.id.speak);
-        final EditText enteredText = (EditText)v.findViewById(R.id.enter);
-        button.setOnClickListener(new OnClickListener()
-        {
+        final EditText enteredText = (EditText) v.findViewById(R.id.enter);
+        button.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 String words = enteredText.getText().toString();
                 speakWords(words);
             }
         });
-
-
-
-
-
-
 
 
         locationManager = (LocationManager) this.getContext().getSystemService(Context.LOCATION_SERVICE);
@@ -80,8 +72,6 @@ public class ArgisActivity extends Fragment implements OnClickListener, TextToSp
         }
 
 
-
-
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 MINIMUM_TIME_BETWEEN_UPDATES,
@@ -90,10 +80,9 @@ public class ArgisActivity extends Fragment implements OnClickListener, TextToSp
         );
 
 
-
-
         return v;
     }
+
     public void onInit(int initStatus) {
         if (initStatus == TextToSpeech.SUCCESS) {
             myTTS.setLanguage(Locale.US);
@@ -136,8 +125,7 @@ public class ArgisActivity extends Fragment implements OnClickListener, TextToSp
         if (requestCode == MY_DATA_CHECK_CODE) {
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
                 myTTS = new TextToSpeech(this.getContext(), this);
-            }
-            else {
+            } else {
                 Intent installTTSIntent = new Intent();
                 installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
                 startActivity(installTTSIntent);

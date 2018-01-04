@@ -18,5 +18,5 @@ public class Tabla_MEDIDA {
     public boolean VIGENTE;
     public String NIVEL_ID;
     public String ARTICULO_ID;
-    public Date FECHA;
+    public String FECHA;
 }

@@ -209,6 +209,8 @@ public class PrincipalActivity extends AppCompatActivity
             menuJuegos();
         } else if (id == R.id.nav_puntos) {
             menuPuntos(item);
+        } else if (id == R.id.nav_clickable) {
+            menuClickableSpanTest(item);
         } else if (id == R.id.nav_login) {
             intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -222,6 +224,12 @@ public class PrincipalActivity extends AppCompatActivity
     private void menuPuntos(MenuItem item) {
 
         Intent intent = new Intent(PrincipalActivity.this, PuntosActivity.class);
+        startActivity(intent);
+    }
+
+    private void menuClickableSpanTest(MenuItem item) {
+
+        Intent intent = new Intent(PrincipalActivity.this, ClickableSpanTest.class);
         startActivity(intent);
     }
 

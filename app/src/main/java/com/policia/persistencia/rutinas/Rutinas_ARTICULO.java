@@ -5,8 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_ARTICULO;
-import com.policia.negocio.modelo.Modelo_ARTICULO_MULTA;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_ARTICULO;
 
 import java.util.ArrayList;
 
@@ -22,6 +22,38 @@ public class Rutinas_ARTICULO {
     public Rutinas_ARTICULO(Context context) {
 
         this.context = context;
+    }
+
+    public String maxFecha() {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery("SELECT STRFTIME('%d.%m.%Y',MAX(CASE WHEN LENGTH(FECHA)=8 THEN '20'||SUBSTR(FECHA,7,2) ELSE SUBSTR(FECHA,7,4) END ||'-'||SUBSTR(FECHA,4,2)||'-'||SUBSTR(FECHA,1,2))) FROM 'ARTICULO';", null);
+
+        String maxFecha = null;
+        while (cursor.moveToNext()) {
+            maxFecha = cursor.getString(0);
+        }
+
+        cursor.close();
+        DB.close();
+        return maxFecha;
+    }
+
+    public void update(Tabla_ARTICULO articulo) {
+        String[] parameters = new String[]{
+                articulo.TITULO_ESP,
+                articulo.ARTICULO_ESP + "",
+                articulo.VIGENTE + "",
+                articulo.NIVEL_ID + "",
+                articulo.CAPITULO_ID + "",
+                articulo.FECHA + "",
+                articulo.ARTICULO_ENG + "",
+                articulo.TITULO_ENG + "",
+                articulo.ID + ""};
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        DB.execSQL("UPDATE 'ARTICULO' SET TITULO_ESP=?,ARTICULO_ESP=?,VIGENTE=?,NIVEL_ID=?,CAPITULO_ID=?,FECHA=?,ARTICULO_ENG=?,TITULO_ENG=? WHERE ID=?", parameters);
+        DB.close();
     }
 
     public int CantidadArticulosPorCapitulo(String Capitulo) {

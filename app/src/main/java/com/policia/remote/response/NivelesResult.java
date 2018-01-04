@@ -1,0 +1,28 @@
+
+package com.policia.remote.response;
+
+import java.io.Serializable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class NivelesResult implements Serializable
+{
+
+    @SerializedName("Fecha_Nivel")
+    @Expose
+    public String fechaNivel;
+    @SerializedName("Id_Nivel")
+    @Expose
+    public int idNivel;
+    @SerializedName("NombreNivelENG")
+    @Expose
+    public String nombreNivelENG;
+    @SerializedName("NombreNivelESP")
+    @Expose
+    public String nombreNivelESP;
+    @SerializedName("Vigente_Nivel")
+    @Expose
+    public boolean vigenteNivel;
+    private final static long serialVersionUID = -6655614439356092489L;
+
+}

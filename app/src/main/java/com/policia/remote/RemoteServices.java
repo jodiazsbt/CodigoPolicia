@@ -6,9 +6,13 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.PrincipalActivity;
+import com.policia.negocio.logica.Negocio_ARTICULO;
 import com.policia.negocio.logica.Negocio_CAPITULO;
 import com.policia.negocio.logica.Negocio_LIBRO;
+import com.policia.negocio.logica.Negocio_MEDIDA;
+import com.policia.negocio.logica.Negocio_METADATA;
 import com.policia.negocio.logica.Negocio_NIVEL;
+import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.logica.Negocio_TITULO;
 
 /**
@@ -26,6 +30,10 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     private Negocio_LIBRO negocioLibro;
     private Negocio_TITULO negocioTitulo;
     private Negocio_CAPITULO negocioCapitulo;
+    private Negocio_ARTICULO negocioArticulo;
+    private Negocio_METADATA negocioMetadata;
+    private Negocio_NUMERAL negocioNumeral;
+    private Negocio_MEDIDA negocioMedida;
 
     long sincronizar = 0;
 
@@ -47,6 +55,10 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             this.negocioLibro = new Negocio_LIBRO(activity);
             this.negocioTitulo = new Negocio_TITULO(activity);
             this.negocioCapitulo = new Negocio_CAPITULO(activity);
+            this.negocioArticulo = new Negocio_ARTICULO(activity);
+            this.negocioMetadata = new Negocio_METADATA(activity);
+            this.negocioNumeral = new Negocio_NUMERAL(activity);
+            this.negocioMedida = new Negocio_MEDIDA(activity);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,11 +68,19 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     protected Long doInBackground(Void... voids) {
 
         try {
+
+            return Long.valueOf(0);
+
+            /*
             sincronizar += negocioNivel.sincronizar();
             sincronizar += negocioLibro.sincronizar();
             sincronizar += negocioTitulo.sincronizar();
             sincronizar += negocioCapitulo.sincronizar();
-
+            sincronizar += negocioArticulo.sincronizar();
+            sincronizar += negocioMetadata.sincronizar();
+            sincronizar += negocioNumeral.sincronizar();
+            sincronizar += negocioMedida.sincronizar();
+            */
         } catch (Exception e) {
             e.printStackTrace();
             sincronizar = -1;

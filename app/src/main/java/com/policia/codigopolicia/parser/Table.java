@@ -1,12 +1,12 @@
 
 package com.policia.codigopolicia.parser;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Table implements Serializable
-{
+import java.io.Serializable;
+
+public class Table implements Serializable {
 
     @SerializedName("E2")
     @Expose

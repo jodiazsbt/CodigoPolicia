@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_NIVEL;
 
 /**
  * Created by 1085253556 on 23/12/2017.
@@ -33,6 +34,19 @@ public class Rutinas_NIVEL {
         cursor.close();
         DB.close();
         return maxFecha;
+    }
+
+    public void update(Tabla_NIVEL nivel) {
+        String[] parameters = new String[]{
+                nivel.NIVEL_ESP,
+                nivel.VIGENTE + "",
+                nivel.FECHA + "",
+                nivel.NIVEL_ENG + "",
+                nivel.ID + ""};
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        DB.execSQL("UPDATE 'NIVEL' SET NIVEL_ESP=?,VIGENTE=?,FECHA=?,NIVEL_ENG=? WHERE ID=?", parameters);
+        DB.close();
     }
 
 }

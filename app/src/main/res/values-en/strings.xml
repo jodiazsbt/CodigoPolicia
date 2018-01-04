@@ -71,6 +71,7 @@
     <string name="button_responder">JOIN</string>
     <string name="button_no_responder">FALSE</string>
     <string name="button_si_responder">TRUE</string>
+    <string name="menu_clickable">SPAN TEXT</string>
 
     <!--PSC-->
     <string-array name="listadoMenuPsc">

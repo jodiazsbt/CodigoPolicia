@@ -1,13 +1,9 @@
 package com.policia.codigopolicia;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 
 import com.policia.remote.RemoteENCUESTA;
-import com.policia.remote.RemoteServices;
-import com.policia.remote.RestGetUpdates;
 
 public class CargaActivity extends Activity {
     /**

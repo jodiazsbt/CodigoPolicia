@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.policia.codigopolicia.R;
-import com.policia.codigopolicia.idioma.Idioma_Configuracion;
-import com.policia.negocio.seguridad.Seguridad;
 import com.policia.negocio.logica.Negocio_LIBRO;
 
 /**

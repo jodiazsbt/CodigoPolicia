@@ -69,4 +69,9 @@
         <item>VAUPÉS</item>
         <item>VICHADA</item>
     </string-array>
+
+    <string name="titlebar">Samples</string>
+    <string name="debug_button">TOGGLE DEBUG</string>
+    <string name="cache_button">CHANGE CACHE</string>
+
 </resources>
