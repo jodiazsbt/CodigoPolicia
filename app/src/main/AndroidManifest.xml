@@ -85,9 +85,6 @@
         <activity
             android:name=".EncuestaActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ClickableSpanTest"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

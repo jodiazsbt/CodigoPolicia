@@ -75,14 +75,13 @@ public class Rutinas_ARTICULO {
     public ArrayList<Modelo_ARTICULO> ArticulosPorCapitulo(String Idioma, String Capitulo, int position) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
-        Cursor cursor = DB.rawQuery("SELECT * FROM ( " +
-                "SELECT " +
-                "ARTICULO.ID , " +
+        Cursor cursor = DB.rawQuery("SELECT * FROM (  " +
+                "SELECT  ARTICULO.ID, " +
                 "NIVEL.NIVEL_" + Idioma + " NIVEL, " +
-                "NIVEL_TITULO.NIVEL_" + Idioma + " TITULO , " +
-                "NIVEL_CAPITULO.NIVEL_" + Idioma + " CAPITULO , " +
-                "CAPITULO.CAPITULO_" + Idioma + " CAPITULO , " +
-                "NIVEL_ARTICULO.NIVEL_" + Idioma + " ARTICULO , " +
+                "NIVEL_TITULO.NIVEL_" + Idioma + " TITULO, " +
+                "NIVEL_CAPITULO.NIVEL_" + Idioma + " CAPITULO," +
+                "CAPITULO.CAPITULO_" + Idioma + " CAPITULO, " +
+                "NIVEL_ARTICULO.NIVEL_" + Idioma + " ARTICULO, " +
                 "ARTICULO.TITULO_" + Idioma + " TITULO, " +
                 "ARTICULO.ARTICULO_" + Idioma + " ARTICULO " +
                 "FROM NIVEL " +
@@ -94,7 +93,7 @@ public class Rutinas_ARTICULO {
                 "INNER JOIN ARTICULO ON CAPITULO.ID=ARTICULO.CAPITULO_ID " +
                 "INNER JOIN NIVEL NIVEL_ARTICULO ON ARTICULO.NIVEL_ID=NIVEL_ARTICULO.ID " +
                 "WHERE ARTICULO.CAPITULO_ID=" + Capitulo + " ) Q " +
-                "WHERE ( SELECT COUNT(*)+1 FROM ARTICULO WHERE CAPITULO_ID=" + Capitulo + " AND ID <Q.ID ) =" + position + " ;", null);
+                "WHERE ( SELECT COUNT(*)+1 FROM ARTICULO WHERE CAPITULO_ID=" + Capitulo + " AND ID <Q.ID )=" + position + ";", null);
 
         ArrayList<Modelo_ARTICULO> result = new ArrayList<Modelo_ARTICULO>();
         while (cursor.moveToNext()) {

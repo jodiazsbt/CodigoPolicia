@@ -40,10 +40,6 @@
         android:icon="@mipmap/img_07_btn_puntos_ref"
         android:title="@string/menu_puntos" />
     <item
-        android:id="@+id/nav_clickable"
-        android:icon="@mipmap/img_07_btn_puntos_ref"
-        android:title="@string/menu_clickable" />
-    <item
         android:id="@+id/nav_login"
         android:icon="@mipmap/img_08_btn_login"
         android:title="@string/menu_login" />

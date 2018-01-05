@@ -74,4 +74,7 @@
     <string name="debug_button">TOGGLE DEBUG</string>
     <string name="cache_button">CHANGE CACHE</string>
 
+    <!--HTML TEMPLATE-->
+    <string name="html_articulo_capitulo">ARTICULO_CAPITULO.html</string>
+
 </resources>

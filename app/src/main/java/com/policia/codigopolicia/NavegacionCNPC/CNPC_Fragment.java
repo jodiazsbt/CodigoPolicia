@@ -21,6 +21,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -35,10 +36,13 @@ import com.bluejamesbond.text.style.TextAlignment;
 import com.bluejamesbond.text.style.TextAlignmentSpan;
 import com.policia.codigopolicia.IdiomaActivity;
 import com.policia.codigopolicia.R;
+import com.policia.codigopolicia.html.HTML_Plantillas;
 import com.policia.negocio.logica.Negocio_ARTICULO;
 import com.policia.negocio.logica.Negocio_MEDIDA;
 import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
+import com.policia.negocio.modelo.Modelo_MEDIDA;
+import com.policia.negocio.modelo.Modelo_NUMERAL;
 
 import java.util.ArrayList;
 
@@ -48,22 +52,14 @@ import java.util.ArrayList;
 
 public class CNPC_Fragment extends Fragment {
 
-    private ListView listViewArticulo;
     private Negocio_ARTICULO negocioArticulo;
     private Negocio_NUMERAL negocioNumeral;
     private Negocio_MEDIDA negocioMedida;
 
-    private TextView textViewNIVEL;
-    private TextView textViewTITULO;
-    private TextView textViewCAPITULONIVEL;
-    private TextView textViewCAPITULODESCRIPCION;
-    private TextView textViewARTICULO;
-    private TextView textViewARTICULOTITULO;
-    private DocumentView documentViewARTICULODESCRIPCION;
+    private WebView webViewArticulo;
 
     private int position;
     private String capitulo;
-    private ListView listviewNumeral;
 
     public static CNPC_Fragment newInstance(int position, String capitulo) {
         CNPC_Fragment _cnpcFragment = new CNPC_Fragment();
@@ -93,7 +89,6 @@ public class CNPC_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.articulo_pager, container, false);
 
-        ArrayList<String> items = new ArrayList<String>();
         try {
             negocioArticulo = new Negocio_ARTICULO(context);
             negocioNumeral = new Negocio_NUMERAL(context);
@@ -102,73 +97,54 @@ public class CNPC_Fragment extends Fragment {
             ArrayList<Modelo_ARTICULO> articulos = null;
             articulos = negocioArticulo.ArticulosPorCapitulo(capitulo, position + 1);
 
-            NumeralAdapter adapter = null;
+            String html_articulo_capitulo = new HTML_Plantillas(getActivity(), HTML_Plantillas.Plantilla.ARTICULO_CAPITULO).getPlantilla();
 
             for (Modelo_ARTICULO articulo : articulos) {
 
-                items.add(articulo.ID);
-                items.add(articulo.Nivel);
-                items.add(articulo.Titulo);
-                items.add(articulo.Capitulo_Nivel);
-                items.add(articulo.Capitulo_Descripcion);
-                items.add(articulo.Articulo_Nivel);
-                items.add(articulo.Articulo_Titulo);
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Nivel", articulo.Nivel);
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Titulo", articulo.Titulo);
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Capitulo_Nivel", articulo.Capitulo_Nivel);
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Capitulo_Descripcion", articulo.Capitulo_Descripcion);
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Articulo_Nivel", articulo.Articulo_Nivel);
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Articulo_Titulo", articulo.Articulo_Titulo);
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Articulo_Descripcion", articulo.Articulo_Descripcion);
 
-                String texto_articulo = articulo.Articulo_Descripcion;
-
-                adapter = new NumeralAdapter(getActivity(), negocioNumeral.NumeralesPorArticulo(articulo.ID));
-                /*
                 ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
 
+                String parrafo_numeral = "<p align='justify'>@Nivel &#09; @Numeral</p>";
                 if (!(numerales.size() == 0)) {
 
-                    String texto_numerales = "";
-
-                    for (Modelo_NUMERAL numeral : numerales) {
-                        texto_numerales += "\r\n" + numeral.Nivel + "\t" + numeral.Numeral;
-                    }
-
-                    texto_articulo += "\r\n" + texto_numerales;
+                    int pos = 0;
+                    do {
+                        Modelo_NUMERAL numeral = numerales.get(pos++);
+                        html_articulo_capitulo = html_articulo_capitulo.replace("@Numerales", parrafo_numeral.replace("@Nivel", numeral.Nivel).replace("@Numeral", numeral.Numeral) + "@Numerales");
+                    } while (pos < numerales.size());
                 }
+
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Numerales", "");
 
                 ArrayList<Modelo_MEDIDA> medidas = negocioMedida.MedidasPorParagrafo(articulo.ID);
 
+                String filas_medidas = "<tr><td>@Nivel @Comportamiento</td><td style='text-align:justify'>@Medida</td></tr>";
+                String tabla_medidas = "<table><thead><tr><th>COMPORTAMIENTOS</th><th>MEDIDAS CORRECTIVAS</th></tr></thead><tbody>@tr</tbody></table>";
                 if (!(medidas.size() == 0)) {
 
-                    String texto_medidas = "";
+                    int pos = 0;
+                    do {
+                        Modelo_MEDIDA medida = medidas.get(pos++);
+                        tabla_medidas = tabla_medidas.replace("@tr", filas_medidas.replace("@Nivel", medida.Nivel).replace("@Comportamiento", medida.Comportamiento).replace("@Medida", medida.Medida) + "@tr");
+                    } while (pos < medidas.size());
 
-                    for (Modelo_MEDIDA medida : medidas) {
-                        texto_medidas += "\r\n" + medida.Nivel + "\t" + medida.Comportamiento + ":\t" + medida.Medida;
-                    }
-
-                    texto_articulo += "\r\n" + texto_medidas;
+                    html_articulo_capitulo = html_articulo_capitulo.replace("@Paragrafos", tabla_medidas);
+                    html_articulo_capitulo = html_articulo_capitulo.replace("@tr", "");
                 }
 
-                */
-                items.add(texto_articulo);
+                html_articulo_capitulo = html_articulo_capitulo.replace("@Paragrafos", "");
+
                 break;
             }
-
-            textViewNIVEL = view.findViewById(R.id.textViewNIVEL);
-            textViewTITULO = view.findViewById(R.id.textViewTITULO);
-            textViewCAPITULONIVEL = view.findViewById(R.id.textViewCAPITULONIVEL);
-            textViewCAPITULODESCRIPCION = view.findViewById(R.id.textViewCAPITULODESCRIPCION);
-            textViewARTICULO = view.findViewById(R.id.textViewARTICULO);
-            textViewARTICULOTITULO = view.findViewById(R.id.textViewARTICULOTITULO);
-            documentViewARTICULODESCRIPCION = view.findViewById(R.id.documentViewARTICULODESCRIPCION);
-            listviewNumeral = view.findViewById(R.id.listviewNumeral);
-
-            textViewNIVEL.setText(items.get(1));
-            textViewTITULO.setText(items.get(2));
-            textViewCAPITULONIVEL.setText(items.get(3));
-            textViewCAPITULODESCRIPCION.setText(items.get(4));
-            textViewARTICULO.setText(items.get(5));
-            textViewARTICULOTITULO.setText(items.get(6));
-            //documentViewARTICULODESCRIPCION.setText(items.get(7));
-            //spanableDocument(getActivity(), documentViewARTICULODESCRIPCION);
-            if (adapter != null) {
-                listviewNumeral.setAdapter(adapter);
-            }
+            webViewArticulo = view.findViewById(R.id.webViewArticulo);
+            webViewArticulo.loadData(html_articulo_capitulo, "text/html; charset=utf-8", null);
             return view;
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,45 +152,4 @@ public class CNPC_Fragment extends Fragment {
         return null;
     }
 
-    private static void spanabletext(final Activity activity, TextView textView) {
-
-        SpannableString ss = new SpannableString("\r\nAndroid is a Software stack");
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-                activity.startActivity(new Intent(activity, IdiomaActivity.class));
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-            }
-        };
-        ss.setSpan(clickableSpan, 22, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        //TextView textView = (TextView) findViewById(R.id.hello);
-        textView.setText(ss);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setHighlightColor(Color.TRANSPARENT);
-
-    }
-
-    class ArticleBuilder extends SpannableStringBuilder {
-        public ArticleBuilder append(CharSequence text, boolean newline, Object... spans) {
-            int start = this.length();
-            this.append(Html.fromHtml("<p>" + text + "</p>" + (newline ? "<br>" : "")));
-            for (Object span : spans) {
-                this.setSpan(span, start, this.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            }
-            return this;
-        }
-    }
-
-    static class JustifiedSpan extends TextAlignmentSpan {
-        @Override
-        public TextAlignment getTextAlignment() {
-            return TextAlignment.JUSTIFIED;
-        }
-    }
 }
