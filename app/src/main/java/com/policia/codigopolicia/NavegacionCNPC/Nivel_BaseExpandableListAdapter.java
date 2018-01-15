@@ -72,7 +72,6 @@ public class Nivel_BaseExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
 
-
                 Intent intent = new Intent(view.getContext(), ArticuloCapituloActivity.class);
                 intent.putExtra("capitulo", id);
                 intent.putExtra("posicion", 0);//primera página

@@ -12,6 +12,7 @@
     <string name="dbversion">1</string>
     <string name="SCRIPT">SCRIPT.sql</string>
 
+    <string name="ping">https://srvdenuncia.policia.gov.co:444</string>
     <string name="srvappmoviles">https://srvdenuncia.policia.gov.co:444/wsCnpcApp/CNPC.svc/</string>
     <!--
     <string name="srvappmoviles">https://srvappmoviles.policia.gov.co/wsCnpcApp/CNPC.svc/</string>-->
@@ -75,6 +76,8 @@
     <string name="cache_button">CHANGE CACHE</string>
 
     <!--HTML TEMPLATE-->
-    <string name="html_articulo_capitulo">ARTICULO_CAPITULO.html</string>
+    <string name="html_plantilla_articulos">ARTICULOS.html</string>
+    <string name="html_plantilla_procedimientos">PROCEDIMIENTOS.html</string>
+    <string name="scanning_for_otp">Pídale al policia el carnet de identificación y coloque la camara sobre el código de barras detrás del documento.</string>
 
 </resources>

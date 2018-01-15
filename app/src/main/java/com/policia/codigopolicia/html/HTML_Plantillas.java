@@ -47,10 +47,10 @@ public class HTML_Plantillas {
 
     private String nombrePlantilla(Plantilla plantilla) {
         switch (plantilla) {
-            case ARTICULO_CAPITULO:
-                return context.getResources().getString(R.string.html_articulo_capitulo);
-            case ARTICULO_MULTA:
-                return "";
+            case ARTICULO:
+                return context.getResources().getString(R.string.html_plantilla_articulos);
+            case PROCEDIMIENTOS:
+                return context.getResources().getString(R.string.html_plantilla_procedimientos);
             default:
                 return "";
         }
@@ -58,7 +58,7 @@ public class HTML_Plantillas {
 
     public enum Plantilla {
 
-        ARTICULO_CAPITULO,
-        ARTICULO_MULTA;
+        ARTICULO,
+        PROCEDIMIENTOS;
     }
 }

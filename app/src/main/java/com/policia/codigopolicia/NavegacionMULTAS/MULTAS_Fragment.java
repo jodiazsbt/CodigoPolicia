@@ -7,10 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.bluejamesbond.text.DocumentView;
 import com.policia.codigopolicia.R;
 import com.policia.codigopolicia.html.HTML_Plantillas;
 import com.policia.negocio.logica.Negocio_ARTICULO;
@@ -76,7 +73,7 @@ public class MULTAS_Fragment extends Fragment {
             ArrayList<Modelo_ARTICULO> articulos = null;
             articulos = negocioArticulo.ArticulosPorMultaCategoria(multa, categoria, position + 1);
 
-            String html_articulo_capitulo = new HTML_Plantillas(getActivity(), HTML_Plantillas.Plantilla.ARTICULO_CAPITULO).getPlantilla();
+            String html_articulo_capitulo = new HTML_Plantillas(getActivity(), HTML_Plantillas.Plantilla.ARTICULO).getPlantilla();
 
             for (Modelo_ARTICULO articulo : articulos) {
 

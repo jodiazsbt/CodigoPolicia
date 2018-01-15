@@ -63,4 +63,9 @@ public class Negocio_MEDIDA {
 
         return rutinasMedida.MedidasPorParagrafo(sesion.getIdiomaCodigo(), Paragrafo);
     }
+
+    public ArrayList<Modelo_MEDIDA> ComparendosNumeral(String Numeral) {
+
+        return rutinasMedida.ComparendosNumeral(sesion.getIdiomaCodigo(), Numeral);
+    }
 }

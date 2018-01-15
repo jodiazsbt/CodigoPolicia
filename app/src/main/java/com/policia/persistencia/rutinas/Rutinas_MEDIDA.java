@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Modelo_MEDIDA;
 import com.policia.persistencia.conexion.SQLiteProvider;
 import com.policia.persistencia.tablas.Tabla_MEDIDA;
-import com.policia.persistencia.tablas.Tabla_NUMERAL;
 
 import java.util.ArrayList;
 
@@ -76,6 +75,44 @@ public class Rutinas_MEDIDA {
                     cursor.getString(1),//COMPORTAMIENTO
                     cursor.getString(2),//MEDIDA
                     cursor.getString(3)//NIVEL
+            );
+            result.add(medida);
+        }
+        cursor.close();
+        DB.close();
+        return result;
+    }
+
+    public ArrayList<Modelo_MEDIDA> ComparendosNumeral(String Idioma, String Numeral) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery("SELECT " +
+                "NUMERAL.ID, " +
+                "MEDIDA.ID, " +
+                "MULTA.TIPOMULTA_ID, " +
+                "NIVEL.NIVEL_" + Idioma + ", " +
+                "MEDIDA.COMPORTAMIENTO_" + Idioma + "," +
+                "MEDIDA.MEDIDA_" + Idioma + ", " +
+                "CASE " +
+                "WHEN MULTA.TIPOMULTA_ID IN (1004,1820) THEN 0 " +
+                "WHEN MULTA.TIPOMULTA_ID IN (1000) THEN UVT.VALOR*4 " +
+                "WHEN MULTA.TIPOMULTA_ID IN (1001) THEN UVT.VALOR*8 " +
+                "WHEN MULTA.TIPOMULTA_ID IN (1002) THEN UVT.VALOR*16 " +
+                "WHEN MULTA.TIPOMULTA_ID IN (1003) THEN UVT.VALOR*32 END VALOR " +
+                "FROM NUMERAL " +
+                "INNER JOIN MULTA ON MULTA.NUMERAL_ID=NUMERAL.ID " +
+                "INNER JOIN MEDIDA ON MULTA.MEDIDA_ID=MEDIDA.ID " +
+                "INNER JOIN NIVEL ON MEDIDA.NIVEL_ID=NIVEL.ID " +
+                "INNER JOIN (SELECT UVT.VALOR FROM (SELECT MAX(ANIO) ANIO FROM UVT) UVT_MAX INNER JOIN UVT ON UVT_MAX.ANIO=UVT.ANIO) UVT " +
+                "WHERE NUMERAL.ID=" + Numeral + ";", null);
+
+        ArrayList<Modelo_MEDIDA> result = new ArrayList<Modelo_MEDIDA>();
+        while (cursor.moveToNext()) {
+            Modelo_MEDIDA medida = new Modelo_MEDIDA(
+                    cursor.getString(3),//NIVEL
+                    cursor.getString(4),//COMPORTAMIENTO
+                    cursor.getString(5),//MEDIDA
+                    cursor.getDouble(6)//VALOR
             );
             result.add(medida);
         }

@@ -79,6 +79,8 @@ public class PuntosActivity extends AppCompatActivity
 
     private ListView listView;
 
+    private String tipoCompetencia;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,29 +111,12 @@ public class PuntosActivity extends AppCompatActivity
 
         listView = findViewById(R.id.listviewPuntos);
 
-        /*
-        final ArrayList<PuntosCercanos> puntos = new ArrayList<PuntosCercanos>();
+        Bundle bundle = getIntent().getExtras();
 
-        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.650150, -74.100942, 50));
-        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.645135, -74.102669, 50));
-        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.639842, -74.094441, 50));
-        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.646215, -74.088390, 50));
-        puntos.add(new PuntosCercanos("CAI", "DIRECCION", 4.654877, -74.097702, 50));
-
-        listView.setAdapter(new PuntosAdapter(this, puntos));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                PuntosCercanos punto = puntos.get(i);
-                mMap.clear();
-                mMap.addMarker(new MarkerOptions()
-                        .title(punto.Nombre)
-                        .position(new LatLng(punto.Latitud, punto.Longitud))
-                        .snippet(punto.Direccion));
-
-            }
-        });
-        */
+        if (bundle == null)
+            tipoCompetencia = "001";
+        else
+            tipoCompetencia = getIntent().getExtras().getString("tipo_competencia", "001");
     }
 
     /**
@@ -244,7 +229,7 @@ public class PuntosActivity extends AppCompatActivity
                                 RequestGEO geo = new RequestGEO();
                                 geo.Latitud = String.valueOf(mLastKnownLocation.getLatitude()).replace(".", ",");
                                 geo.Longitud = String.valueOf(mLastKnownLocation.getLongitude()).replace(".", ",");
-                                geo.Tipo = "001";//Buscar todos los sitios que se puedan encontrar
+                                geo.Tipo = tipoCompetencia;//Buscar todos los sitios que se puedan encontrar
 
                                 new RemoteGEO(activity, listView, mMap).execute(geo);
                             }

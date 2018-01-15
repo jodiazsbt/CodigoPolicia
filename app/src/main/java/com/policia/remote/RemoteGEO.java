@@ -75,7 +75,9 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
 
-        if (responseGEO.gEOPOCICIONCNPCResult.size() == 0) {
+        if (responseGEO == null) {
+            Toast.makeText(activity, "Para realizar esta búsqueda se necesita una conexión a internet", Toast.LENGTH_SHORT).show();
+        } else if (responseGEO.gEOPOCICIONCNPCResult.size() == 0) {
             Toast.makeText(activity, "", Toast.LENGTH_SHORT).show();
         } else {
             final ArrayList<PuntosCercanos> puntos = new ArrayList<PuntosCercanos>();

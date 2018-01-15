@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listheader="@layout/idioma_header"
         tools:listitem="@layout/idioma_listitem" />
-
+    <!--
     <LinearLayout
         android:id="@+id/linearLayoutButtons"
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:textColor="#FFF" />
 
     </LinearLayout>
-
+    -->
     <ImageView
         android:id="@+id/imageViewFranja"
         android:layout_width="match_parent"

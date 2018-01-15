@@ -20,6 +20,7 @@ import com.policia.negocio.modelo.Modelo_Busqueda_Articulo;
 
 public class Fragment_METEDATA extends Fragment implements IActualizarListadoBusqueda {
 
+    private String termino;
     private ListView listViewBusqueda;
 
     @Override
@@ -40,6 +41,7 @@ public class Fragment_METEDATA extends Fragment implements IActualizarListadoBus
 
                 Intent intent = new Intent(view.getContext(), ArticuloCapituloActivity.class);
                 intent.putExtra("capitulo", id);
+                intent.putExtra("termino", termino);
                 intent.putExtra("posicion", ((Modelo_Busqueda_Articulo) adapterView.getItemAtPosition(pos)).PosicionArticulo);
                 startActivity(intent);
 
@@ -51,6 +53,7 @@ public class Fragment_METEDATA extends Fragment implements IActualizarListadoBus
     public void actualizar(String termino_busqueda) {
         Busqueda_Adapter adapter = null;
         try {
+            termino = termino_busqueda;
             adapter = new Busqueda_Adapter(this, new Negocio_METADATA(getContext()).BusquedaMETADATA(termino_busqueda));
             listViewBusqueda.setAdapter(adapter);
             adapter.notifyDataSetChanged();

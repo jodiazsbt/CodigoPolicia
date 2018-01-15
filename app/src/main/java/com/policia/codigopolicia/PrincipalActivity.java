@@ -172,9 +172,7 @@ public class PrincipalActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_search) {
+        if (id == R.id.action_search) {
             return true;
         }
 

@@ -54,7 +54,7 @@ import java.io.IOException;
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and ID of each barcode.
  */
-public final class BarcodeCaptureActivity extends AppCompatActivity {
+public final class BarcodeCaptureActivity extends AppCompatActivity implements QRCodeDetectedInterface{
     private static final String TAG = "Barcode-reader";
 
     // intent request code to handle updating play services if needed.
@@ -103,9 +103,11 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
         gestureDetector = new GestureDetector(this, new CaptureGestureListener());
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
+        /*
         Snackbar.make(mGraphicOverlay, "Tap to capture. Pinch/Stretch to zoom",
                 Snackbar.LENGTH_LONG)
                 .show();
+        */
     }
 
     /**
@@ -350,6 +352,28 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
         return barcode != null;
     }
 
+    @Override
+    public void onQRCodeDetected() {
+
+        BarcodeGraphic graphic = mGraphicOverlay.getFirstGraphic();
+        Barcode barcode = null;
+        if (graphic != null) {
+            barcode = graphic.getBarcode();
+            if (barcode != null) {
+                Intent data = new Intent();
+                data.putExtra(BarcodeObject, barcode);
+                setResult(CommonStatusCodes.SUCCESS, data);
+                finish();
+            }
+            else {
+                Log.d(TAG, "barcode data is null");
+            }
+        }
+        else {
+            Log.d(TAG,"no barcode detected");
+        }
+    }
+
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
@@ -412,4 +436,6 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
             mCameraSource.doZoom(detector.getScaleFactor());
         }
     }
+
+
 }

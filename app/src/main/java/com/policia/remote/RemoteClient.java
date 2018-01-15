@@ -1,14 +1,13 @@
 package com.policia.remote;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.widget.Toast;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.google.gson.Gson;
 import com.policia.codigopolicia.R;
 import com.policia.negocio.modelo.Capitulos.CapitulosOutput;
 import com.policia.negocio.modelo.Libros.LibrosOutput;
-import com.policia.negocio.modelo.Niveles.NivelesOutput;
 import com.policia.negocio.modelo.Titulos.TitulosOutput;
 import com.policia.remote.response.ArticulosyParagrafosResponse;
 import com.policia.remote.response.CONSULTAPOLICIAResponse;
@@ -23,17 +22,17 @@ import com.policia.remote.response.NivelesResponse;
 import com.policia.remote.response.NumeralesResponse;
 import com.policia.remote.response.RESPUESTAENCUESTAResponse;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by 1085253556 on 12/12/2017.
@@ -61,12 +60,46 @@ public class RemoteClient {
         return instancia;
     }
 
+    public boolean isServiceOnline() {
+        try {
+
+            if (!isOnline())
+                return false;
+
+            URL _url = new URL(direccionServicio);
+            HttpURLConnection urlc = (HttpURLConnection) _url.openConnection();
+            urlc.setReadTimeout(5000);
+            urlc.setRequestMethod("HEAD");
+            urlc.connect();
+            return true;//SERVICIO ENCENDIDO
+        } catch (java.net.SocketTimeoutException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean isOnline() {
+
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
     private StringBuilder postInvoke(String operation) throws Exception {
-        HttpPost request = new HttpPost(operation);
-        request.setHeader("accept", "application/json");
-        request.setHeader("content-type", "application/json; charset=utf-8");
+
         StringBuilder builder = new StringBuilder();
         try {
+
+            if (!isServiceOnline())
+                return null;
+
+            HttpPost request = new HttpPost(operation);
+            request.setHeader("accept", "application/json");
+            request.setHeader("content-type", "application/json; charset=utf-8");
+
             HttpResponse response = client.execute(request);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
@@ -92,11 +125,16 @@ public class RemoteClient {
     }
 
     private StringBuilder getInvoke(String operation) throws Exception {
-        HttpGet request = new HttpGet(operation);
-        request.setHeader("accept", "application/json");
-        request.setHeader("content-type", "application/json; charset=utf-8");
         StringBuilder builder = new StringBuilder();
         try {
+
+            if (!isServiceOnline())
+                return null;
+
+            HttpGet request = new HttpGet(operation);
+            request.setHeader("accept", "application/json");
+            request.setHeader("content-type", "application/json; charset=utf-8");
+
             HttpResponse response = client.execute(request);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();

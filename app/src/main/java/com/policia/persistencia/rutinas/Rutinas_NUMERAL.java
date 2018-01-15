@@ -61,6 +61,7 @@ public class Rutinas_NUMERAL {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
         Cursor cursor = DB.rawQuery("SELECT " +
+                "NUMERAL.ID, " +
                 "NIVEL.NIVEL_" + Idioma + ", " +
                 "NUMERAL.NUMERAL_" + Idioma + " " +
                 "FROM NUMERAL " +
@@ -71,8 +72,9 @@ public class Rutinas_NUMERAL {
         ArrayList<Modelo_NUMERAL> result = new ArrayList<Modelo_NUMERAL>();
         while (cursor.moveToNext()) {
             Modelo_NUMERAL articulo = new Modelo_NUMERAL(
-                    cursor.getString(0),//NIVEL
-                    cursor.getString(1)//NUMERAL
+                    cursor.getString(0),//ID
+                    cursor.getString(1),//NIVEL
+                    cursor.getString(2)//NUMERAL
             );
             result.add(articulo);
         }

@@ -15,6 +15,7 @@
  */
 package com.policia.codigopolicia.IdentificacionPolicia;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -42,6 +43,9 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
     private Paint mTextPaint;
     private volatile Barcode mBarcode;
 
+    private Context context;
+    private QRCodeDetectedInterface mCallback;
+
     BarcodeGraphic(GraphicOverlay overlay) {
         super(overlay);
 
@@ -56,6 +60,9 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         mTextPaint = new Paint();
         mTextPaint.setColor(selectedColor);
         mTextPaint.setTextSize(36.0f);
+
+        this.context = overlay.getContext();
+        this.mCallback = (BarcodeCaptureActivity) context;
     }
 
     public int getId() {
@@ -88,6 +95,8 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         if (barcode == null) {
             return;
         }
+
+        mCallback.onQRCodeDetected();
 
         // Draws the bounding box around the barcode.
         RectF rect = new RectF(barcode.getBoundingBox());

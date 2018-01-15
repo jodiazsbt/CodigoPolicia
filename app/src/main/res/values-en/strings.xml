@@ -13,24 +13,25 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="preferencia_idioma">ENG</string>
     <string name="login_welcome">Welcome</string>
+    <string name="login_subtitle_text">Log In</string>
 
     <!--NAV HEADER-->
     <string name="nav_header_title">Colombia National Police</string>
     <string name="nav_header_subtitle">National code of police and coexistence to live in peace</string>
 
     <!--MENU-->
+    <string name="menu_idioma">Idioma</string>
     <string name="menu_cnpc">CNPC</string>
     <string name="multas">Fines</string>
-    <string name="menu_funcionario">Citizen consults</string>
-    <string name="menu_policia">Police identification</string>
+    <string name="menu_funcionario">Citizen Consults</string>
+    <string name="menu_policia">Police Identification</string>
     <string name="menu_psc">PSC</string>
     <string name="menu_games">Games</string>
-    <string name="menu_group_title">Section for policemen</string>
-    <string name="menu_idioma">Language</string>
+    <string name="menu_group_title">Section for Policemen</string>
     <string name="menu_capacitacion">Training</string>
-    <string name="menu_login">Log in</string>
-    <string name="menu_puntos">Puntos de referencia</string>
-    <string name="menu_cerrar">Log out</string>
+    <string name="menu_login">Log In</string>
+    <string name="menu_puntos">Reference Locations</string>
+    <string name="menu_cerrar">Log Out</string>
 
     <!--CNPC CODIGO POLICIA-->
     <string name="Ley">ACT 1801 OF 2016</string>
@@ -77,9 +78,16 @@
     <string-array name="listadoMenuPsc">
         <item>!ADenunciar!</item>
         <item>CONSULTATION OF CRIMINAL BACKGROUND</item>
-        <item>REGISTRO DE DOCUMENTOS EXTRAVIADOS</item>
         <item>RECORD OF LOST DOCUMENTS</item>
+        <item>ESTABLISHMENT OPENING COMMUNICATION</item>
         <item>REGISTRATION QUESTIONS, COMPLAINTS, CLAIMS AND SUGGESTIONS (PQRS)</item>
         <item>TUNING INSTITUTIONAL RADIO</item>
+    </string-array>
+
+    <!-- MEDIDAS-->
+    <string-array name="listaMedidas">
+        <item>CITIZEN PROCEDURE</item>
+        <item>MEASUREMENTS</item>
+        <item>COMPETENCES</item>
     </string-array>
 </resources>

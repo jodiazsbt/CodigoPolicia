@@ -3,6 +3,7 @@ package com.policia.remote;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.PrincipalActivity;
@@ -35,8 +36,6 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     private Negocio_NUMERAL negocioNumeral;
     private Negocio_MEDIDA negocioMedida;
 
-    long sincronizar = 0;
-
     public static RemoteServices newInstance(Activity activity) {
 
         if (remoteServices == null) {
@@ -67,11 +66,13 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     @Override
     protected Long doInBackground(Void... voids) {
 
+        long sincronizar = 0;
+
         try {
 
-            return Long.valueOf(0);
+            if (!remoteClient.isServiceOnline())
+                return Long.valueOf(-1);
 
-            /*
             sincronizar += negocioNivel.sincronizar();
             sincronizar += negocioLibro.sincronizar();
             sincronizar += negocioTitulo.sincronizar();
@@ -80,10 +81,9 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             sincronizar += negocioMetadata.sincronizar();
             sincronizar += negocioNumeral.sincronizar();
             sincronizar += negocioMedida.sincronizar();
-            */
         } catch (Exception e) {
             e.printStackTrace();
-            sincronizar = -1;
+            return Long.valueOf(-2);
         }
         return sincronizar;
     }
@@ -92,11 +92,14 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     protected void onPostExecute(Long aLong) {
         super.onPostExecute(aLong);
 
-        if (!(sincronizar == 0)) {
-            Toast.makeText(activity, "Su base de datos ha sido actualizada", Toast.LENGTH_SHORT).show();
-        } else {
+        if (aLong == -1) {
+            Log.e("REMOTESERVICE", "Error verificando la conexión con los servicios");
+        } else if (aLong == -2) {
+            Log.e("REMOTESERVICE", "Error sincronizando con los servicios");
+        } else if (aLong == 0) {
             Toast.makeText(activity, "Su base de datos está actualizada", Toast.LENGTH_SHORT).show();
-        }
+        } else
+            Toast.makeText(activity, "Su base de datos ha sido actualizada", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this.activity, PrincipalActivity.class);
         this.activity.startActivity(intent);

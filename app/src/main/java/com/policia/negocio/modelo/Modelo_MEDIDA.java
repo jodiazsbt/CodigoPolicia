@@ -11,9 +11,19 @@ public class Modelo_MEDIDA {
         this.Comportamiento = Comportamiento;
         this.Medida = Medida;
         this.Nivel = Nivel;
+        this.Valor = 0;
+    }
+
+    public Modelo_MEDIDA(String Nivel, String Comportamiento, String Medida, double Valor) {
+
+        this.Comportamiento = Comportamiento;
+        this.Medida = Medida;
+        this.Nivel = Nivel;
+        this.Valor = Valor;
     }
 
     public String Comportamiento;
     public String Medida;
     public String Nivel;
+    public double Valor;
 }

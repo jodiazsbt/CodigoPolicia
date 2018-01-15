@@ -11,19 +11,21 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class CNPC_FragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
     private int paginas;
+    private String termino;
     private String capitulo;
 
-    public CNPC_FragmentStatePagerAdapter(FragmentManager fm, String capitulo, int paginas) {
+    public CNPC_FragmentStatePagerAdapter(FragmentManager fm, String capitulo, String termino, int paginas) {
         super(fm);
 
         this.paginas = paginas;
+        this.termino = termino;
         this.capitulo = capitulo;
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        return CNPC_Fragment.newInstance(position, capitulo);
+        return CNPC_Fragment.newInstance(position, capitulo, termino);
     }
 
     @Override

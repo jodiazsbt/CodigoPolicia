@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/topLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="16dp"
+        android:text="@string/scanning_for_otp" />
 
     <com.policia.codigopolicia.IdentificacionPolicia.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_gravity="top|center_horizontal"
+        android:background="@color/colorPrimaryDark">
 
         <com.policia.codigopolicia.IdentificacionPolicia.GraphicOverlay
             android:id="@+id/graphicOverlay"
@@ -19,4 +26,4 @@
 
     </com.policia.codigopolicia.IdentificacionPolicia.CameraSourcePreview>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

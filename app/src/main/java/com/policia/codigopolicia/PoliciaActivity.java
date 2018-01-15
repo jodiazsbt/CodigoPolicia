@@ -30,6 +30,7 @@ import com.policia.codigopolicia.IdentificacionPolicia.BarcodeCaptureActivity;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Identificacion;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Opciones;
 import com.policia.codigopolicia.IdentificacionPolicia.IClickScan;
+import com.policia.remote.RemotePolicia;
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
@@ -40,6 +41,8 @@ public class PoliciaActivity extends AppCompatActivity {
     private Fragment fragment;
     private final Activity activity = this;
 
+    private boolean lectura;
+
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
 
@@ -49,6 +52,14 @@ public class PoliciaActivity extends AppCompatActivity {
         setContentView(R.layout.policia_activity);
 
         inflarFragmentOpciones();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!lectura)
+            inflarFragmentOpciones();
     }
 
     private void inflarFragmentOpciones() {
@@ -79,7 +90,14 @@ public class PoliciaActivity extends AppCompatActivity {
 
     private void inflarFragmentIdentificacion(boolean autoFocus, boolean useFlash) {
 
-        fragment = new Fragment_Identificacion();
+        fragment = Fragment_Identificacion.newInstance(new Fragment_Identificacion.IDisparadorLectura() {
+            @Override
+            public void realizarLectura(RemotePolicia.MotivoErrorLectura lectura) {
+
+                if (lectura != RemotePolicia.MotivoErrorLectura.NINGUNO)
+                    inflarFragmentOpciones();
+            }
+        });
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fragment)
@@ -125,10 +143,12 @@ public class PoliciaActivity extends AppCompatActivity {
                     if (fragment instanceof Fragment_Identificacion) {
                         ((Fragment_Identificacion) fragment).mostrarCarnet(barcode.displayValue);
                     }
-
+                    lectura = true;
                     Log.d(TAG, "Barcode read: " + barcode.displayValue);
                 } else {
                     //statusMessage.setText(R.string.barcode_failure);
+
+                    lectura = false;
                     Log.d(TAG, "No barcode captured, intent data is null");
                 }
             } else {

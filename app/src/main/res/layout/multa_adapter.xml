@@ -31,12 +31,26 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewValue"
+    <LinearLayout
+        android:id="@+id/linearLayoutSubtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayoutTitle"
-        android:text="LIBRO"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.10" />
+
+        <TextView
+            android:id="@+id/textViewValue"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.90"
+            android:text="LIBRO"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+    </LinearLayout>
 
 </RelativeLayout>

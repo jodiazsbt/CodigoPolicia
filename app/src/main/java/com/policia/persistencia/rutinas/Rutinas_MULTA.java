@@ -28,8 +28,8 @@ public class Rutinas_MULTA {
                 "MULTA.TIPOMULTA_ID, " +
                 "CASE  " +
                 "WHEN MULTA.TIPOMULTA_ID IN (1004) THEN 'MULTAS ESPECIALES'  " +
-                "WHEN MULTA.TIPOMULTA_ID IN (1820) THEN 'COMPARENDO'  ELSE REPLACE(UPPER(NIVEL.NIVEL_ESP),':','') END NIVEL_ESP, " +
-                "UPPER(NUMERAL.NUMERAL_ESP) NUMERAL_ESP, " +
+                "WHEN MULTA.TIPOMULTA_ID IN (1820) THEN 'COMPARENDO'  ELSE REPLACE(UPPER(NIVEL.NIVEL_" + Idioma + "),':','') END NIVEL_" + Idioma + ", " +
+                "UPPER(NUMERAL.NUMERAL_ESP) NUMERAL_" + Idioma + ", " +
                 "CASE  " +
                 "WHEN MULTA.TIPOMULTA_ID IN (1004,1820) THEN 0 " +
                 "WHEN MULTA.TIPOMULTA_ID IN (1000) THEN UVT.VALOR*4 " +

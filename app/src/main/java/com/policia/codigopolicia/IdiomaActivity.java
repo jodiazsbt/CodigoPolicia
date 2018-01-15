@@ -26,7 +26,6 @@ public class IdiomaActivity extends Activity {
     private ListView listViewIdiomas;
     private Negocio_IDIOMA negocioIdioma;
 
-    private int posicion = 0;
     ArrayList<Modelo_IDIOMA> idiomas;
 
     private final Activity activity;
@@ -47,9 +46,9 @@ public class IdiomaActivity extends Activity {
         listViewIdiomas.addHeaderView(getLayoutInflater().inflate(R.layout.idioma_header, null), null, false);
         listViewIdiomas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                posicion = i;
+            public void onItemClick(AdapterView<?> adapterView, View view, int posicion, long id) {
                 view.setSelected(true);
+                clickAceptar(posicion);
             }
         });
         idiomas = negocioIdioma.Idiomas();
@@ -60,6 +59,7 @@ public class IdiomaActivity extends Activity {
         super.onCreate(savedInstanceState);
     }
 
+    /*
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void setLocale(String idioma) {
 
@@ -69,9 +69,10 @@ public class IdiomaActivity extends Activity {
         configuration.setLocale(locale);
         activity.createConfigurationContext(configuration);
     }
+    */
 
     private int posicionIdioma() {
-
+        int posicion = 0;
         for (Modelo_IDIOMA idioma : idiomas) {
             posicion++;
             if (idioma.SELECCION) {
@@ -82,7 +83,7 @@ public class IdiomaActivity extends Activity {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void clickAceptar(View view) {
+    public void clickAceptar(int posicion) {//View view) {
         try {
 
             Modelo_IDIOMA idioma = idiomas.get(posicion - 1);
@@ -111,5 +112,11 @@ public class IdiomaActivity extends Activity {
     public void clickCancelar(View view) {
 
         this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
