@@ -110,6 +110,8 @@ public class PrincipalActivity extends AppCompatActivity
         }
         navigationView.getMenu().findItem(R.id.nav_login).setVisible(sesion.getUsuario().equals("1"));
         navigationView.getMenu().findItem(R.id.nav_cerrar).setVisible(!sesion.getUsuario().equals("1"));
+
+        navigationView.getMenu().findItem(R.id.nav_capacitacion).setVisible(!sesion.getUsuario().equals("1"));
     }
 
     @Override
@@ -208,13 +210,26 @@ public class PrincipalActivity extends AppCompatActivity
         } else if (id == R.id.nav_puntos) {
             menuPuntos(item);
         } else if (id == R.id.nav_login) {
-            intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            menuLogin(item);
+        } else if (id == R.id.nav_capacitacion) {
+            menuCapacitacion(item);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void menuLogin(MenuItem item) {
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private void menuCapacitacion(MenuItem item) {
+
+        Intent intent = new Intent(this, CapacitacionActivity.class);
+        startActivity(intent);
     }
 
     private void menuPuntos(MenuItem item) {

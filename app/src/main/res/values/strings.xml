@@ -71,6 +71,12 @@
         <item>VICHADA</item>
     </string-array>
 
+    <!--DOCUMENTOS-->
+    <string-array name="listaDocumentos">
+        <item>CODIGO POLICIA</item>
+        <item>MULTAS</item>
+    </string-array>
+
     <string name="titlebar">Samples</string>
     <string name="debug_button">TOGGLE DEBUG</string>
     <string name="cache_button">CHANGE CACHE</string>
