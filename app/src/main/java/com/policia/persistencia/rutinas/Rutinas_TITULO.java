@@ -1,14 +1,11 @@
 package com.policia.persistencia.rutinas;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.policia.negocio.modelo.Titulos.TitulosResultEntry;
 import com.policia.negocio.modelo.Modelo_TITULO;
 import com.policia.persistencia.conexion.SQLiteProvider;
-import com.policia.persistencia.tablas.Tabla_LIBRO;
 import com.policia.persistencia.tablas.Tabla_TITULO;
 
 import java.util.ArrayList;

@@ -2,20 +2,15 @@ package com.policia.negocio.logica;
 
 import android.content.Context;
 
-import com.policia.negocio.modelo.Libros.LibrosOutput;
-import com.policia.negocio.modelo.Libros.LibrosResultEntry;
 import com.policia.negocio.modelo.Modelo_TITULO;
 import com.policia.negocio.modelo.Titulos.TitulosOutput;
 import com.policia.negocio.modelo.Titulos.TitulosResultEntry;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_TITULO;
-import com.policia.persistencia.tablas.Tabla_LIBRO;
 import com.policia.persistencia.tablas.Tabla_TITULO;
 import com.policia.remote.RemoteClient;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by JORGE on 26/11/2017.

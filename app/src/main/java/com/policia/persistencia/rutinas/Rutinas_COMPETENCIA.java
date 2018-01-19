@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_COMPENTENCIA;
-import com.policia.negocio.modelo.Modelo_NUMERAL;
 import com.policia.persistencia.conexion.SQLiteProvider;
 
 import java.util.ArrayList;
@@ -44,6 +43,25 @@ public class Rutinas_COMPETENCIA {
                     cursor.getString(2)//INSTANCIA
             );
             result.add(compentencia);
+        }
+        cursor.close();
+        DB.close();
+        return result;
+    }
+
+
+    public int countCompetenciasPorNumeral(String Numeral) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(COMPETENCIA.ID) " +
+                "FROM NUMERAL " +
+                "INNER JOIN COMPETENCIA_NUMERAL ON NUMERAL.ID=COMPETENCIA_NUMERAL.NUMERAL_ID " +
+                "INNER JOIN COMPETENCIA ON COMPETENCIA_NUMERAL.COMPETENCIA_ID=COMPETENCIA.ID " +
+                "WHERE NUMERAL.ID=" + Numeral + ";", null);
+
+        int result = 0;
+        while (cursor.moveToNext()) {
+            result = cursor.getInt(0);
         }
         cursor.close();
         DB.close();

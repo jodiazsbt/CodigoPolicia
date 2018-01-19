@@ -2,8 +2,6 @@ package com.policia.negocio.logica;
 
 import android.content.Context;
 
-import com.policia.negocio.modelo.Capitulos.CapitulosOutput;
-import com.policia.negocio.modelo.Capitulos.CapitulosResultEntry;
 import com.policia.negocio.modelo.Modelo_Busqueda_Articulo;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_METADATA;

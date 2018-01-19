@@ -9,8 +9,6 @@ import com.policia.negocio.logica.Negocio_ENCUESTA;
 import com.policia.remote.response.ENCUESTASCNPCResponse;
 import com.policia.remote.response.ENCUESTASCNPCResult;
 
-import java.util.ArrayList;
-
 /**
  * Created by 1085253556 on 29/12/2017.
  */

@@ -8,10 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Modelo_SESION;
 import com.policia.persistencia.conexion.SQLiteProvider;
 import com.policia.persistencia.tablas.Tabla_SESION;
-import com.policia.persistencia.tablas.Tabla_USUARIO;
-
-import java.text.DateFormat;
-import java.util.Date;
 
 /**
  * Created by 1085253556 on 7/12/2017.

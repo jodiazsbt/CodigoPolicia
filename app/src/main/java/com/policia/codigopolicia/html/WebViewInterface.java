@@ -5,12 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.policia.codigopolicia.PrincipalActivity;
 import com.policia.codigopolicia.PuntosActivity;
 import com.policia.codigopolicia.R;
 import com.policia.codigopolicia.adapter.Comparendo_Adapter;

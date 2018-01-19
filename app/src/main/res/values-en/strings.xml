@@ -65,7 +65,6 @@
     <string name="policia_header_title">IDENTIFICATION OF POLICE</string>
     <string name="policia_header_subtitle">Scan the barcode of the police card.</string>
 
-
     <!--ENCUESTA-->
     <string name="encuesta_header_title">SURVEY</string>
     <string name="encuesta_header_subtitle">Help us answer this short survey</string>
@@ -73,6 +72,11 @@
     <string name="button_no_responder">FALSE</string>
     <string name="button_si_responder">TRUE</string>
     <string name="menu_clickable">SPAN TEXT</string>
+
+    <!--ARTICULOS-->
+    <string name="ver_procedimiento">see procedure</string>
+    <string name="language">en</string>
+    <string name="country">US</string>
 
     <!--PSC-->
     <string-array name="listadoMenuPsc">

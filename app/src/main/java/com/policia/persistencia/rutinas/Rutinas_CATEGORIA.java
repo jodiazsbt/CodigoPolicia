@@ -4,9 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-
 import com.policia.negocio.modelo.Modelo_CATEGORIA;
-import com.policia.negocio.modelo.Modelo_TITULO_MULTA;
 import com.policia.persistencia.conexion.SQLiteProvider;
 
 import java.util.ArrayList;

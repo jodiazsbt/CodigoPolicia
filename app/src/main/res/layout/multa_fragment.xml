@@ -5,9 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--
     <ExpandableListView
         android:id="@+id/expandableMulta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/imageViewFranja"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listheader="@layout/multa_expandable_header"
+        tools:listitem="@layout/multa_adapter" />-->
+
+    <ListView
+        android:id="@+id/listviewMulta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/imageViewFranja"
@@ -21,6 +30,6 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/img_franja_ponal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expandableMulta" />
+        app:layout_constraintTop_toBottomOf="@id/listviewMulta" />
 
 </android.support.constraint.ConstraintLayout>

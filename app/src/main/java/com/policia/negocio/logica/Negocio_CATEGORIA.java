@@ -3,7 +3,6 @@ package com.policia.negocio.logica;
 import android.content.Context;
 
 import com.policia.negocio.modelo.Modelo_CATEGORIA;
-import com.policia.negocio.modelo.Modelo_TITULO_MULTA;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_CATEGORIA;
 

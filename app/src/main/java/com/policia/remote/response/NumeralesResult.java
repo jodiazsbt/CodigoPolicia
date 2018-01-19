@@ -1,9 +1,10 @@
 
 package com.policia.remote.response;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 public class NumeralesResult implements Serializable
 {

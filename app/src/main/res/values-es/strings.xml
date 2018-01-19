@@ -73,6 +73,11 @@
     <string name="button_si_responder">CIERTO</string>
     <string name="menu_clickable">SPAN TEXT</string>
 
+    <!--ARTICULOS-->
+    <string name="ver_procedimiento">ver procedimiento</string>
+    <string name="language">es</string>
+    <string name="country">CO</string>
+
     <!--PSC-->
     <string-array name="listadoMenuPsc">
         <item>!ADenunciar!</item>

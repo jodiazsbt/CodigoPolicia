@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.persistencia.conexion.SQLiteProvider;
 import com.policia.persistencia.tablas.Tabla_PREFERENCIA;
-import com.policia.persistencia.tablas.Tabla_SESION;
 
 /**
  * Created by 1085253556 on 11/12/2017.

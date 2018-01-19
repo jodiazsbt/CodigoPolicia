@@ -120,4 +120,23 @@ public class Rutinas_MEDIDA {
         DB.close();
         return result;
     }
+
+    public int countComparendosNumeral(String Numeral) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(MEDIDA.ID) " +
+                "FROM NUMERAL " +
+                "INNER JOIN MULTA ON MULTA.NUMERAL_ID=NUMERAL.ID " +
+                "INNER JOIN MEDIDA ON MULTA.MEDIDA_ID=MEDIDA.ID " +
+                "INNER JOIN NIVEL ON MEDIDA.NIVEL_ID=NIVEL.ID " +
+                "WHERE NUMERAL.ID=" + Numeral + ";", null);
+
+        int result = 0;
+        while (cursor.moveToNext()) {
+            result = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return result;
+    }
 }

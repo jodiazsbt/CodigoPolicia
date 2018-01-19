@@ -1,7 +1,5 @@
 package com.policia.persistencia.tablas;
 
-import java.util.Date;
-
 /**
  * Created by 1085253556 on 6/12/2017.
  */

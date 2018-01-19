@@ -55,7 +55,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
                     database.execSQL(sqlStatement + ";");
                 }
             }
-            //database.execSQL("UPDATE MULTA SET TIPOMULTA_ID=1004 WHERE TIPOMULTA_ID IN (1005,1006,1007);");
+            database.execSQL("UPDATE MULTA SET CATEGORIA_ID=10006 WHERE NUMERAL_ID BETWEEN 1271 AND 1280;");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {

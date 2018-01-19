@@ -9,5 +9,6 @@
 
     <color name="colorTextoBlanco">#FFF</color>
     <color name="colorTextoNegro">#000</color>
+    <color name="custom_showcase_bg">#DDFFFFFF</color>
 
 </resources>

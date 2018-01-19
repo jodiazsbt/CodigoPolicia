@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.policia.negocio.logica.Negocio_ENCUESTA;
 import com.policia.negocio.modelo.Modelo_ENCUESTA;
 import com.policia.remote.RemoteRESPUESTA;
@@ -35,6 +36,15 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
 
             buttonCierto = findViewById(R.id.buttonAceptar);
             buttonCierto.setOnClickListener(this);
+
+            new ShowcaseView.Builder(this)
+                    .withMaterialShowcase()
+                    .singleShot(R.layout.encuesta_activity)
+                    .setStyle(R.style.CustomShowcaseTheme2)
+                    .setContentTitle("Encuesta")
+                    .setContentText("Lanzamos encuestas de una sola pregunta periódicamente como parte de nuestro plan de mejoramiento continuo. Estas encuestas son totalmente anónimas y usted tiene la libertad de responderla o no responderla; para más información consulte nuestra política de privacidad.")
+                    .build()
+                    .show();
         } catch (Exception e) {
             e.printStackTrace();
         }

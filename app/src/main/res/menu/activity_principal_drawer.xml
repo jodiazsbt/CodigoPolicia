@@ -21,7 +21,7 @@
         android:title="@string/menu_funcionario" />
     <item
         android:id="@+id/nav_policia"
-        android:icon="@mipmap/img_03_btn_id_pol"
+        android:icon="@mipmap/img_09_btn_placa"
         android:title="@string/menu_policia" />
     <item
         android:id="@+id/nav_polis"

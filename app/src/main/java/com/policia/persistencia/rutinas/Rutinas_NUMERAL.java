@@ -4,12 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.policia.negocio.modelo.Modelo_ARTICULO;
 import com.policia.negocio.modelo.Modelo_NUMERAL;
 import com.policia.persistencia.conexion.SQLiteProvider;
-import com.policia.persistencia.tablas.Tabla_METADATA;
 import com.policia.persistencia.tablas.Tabla_NUMERAL;
-import com.policia.remote.RemoteClient;
 
 import java.util.ArrayList;
 

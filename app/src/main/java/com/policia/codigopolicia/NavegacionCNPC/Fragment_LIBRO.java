@@ -31,11 +31,14 @@ public class Fragment_LIBRO extends Fragment {
         super.onActivityCreated(state);
 
         try {
+
             expandableLibro = getView().findViewById(R.id.expandableLibro);
             expandableLibro.addHeaderView(getLayoutInflater().inflate(R.layout.libro_expandable_header, null), null, false);
             expandableLibro.setAdapter(new Nivel_BaseExpandableListAdapter(this, new Negocio_LIBRO(getContext()).Libros()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

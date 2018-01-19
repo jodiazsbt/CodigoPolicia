@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.policia.negocio.modelo.Modelo_CAPITULO;
 import com.policia.negocio.modelo.Modelo_IDIOMA;
 import com.policia.persistencia.conexion.SQLiteProvider;
 

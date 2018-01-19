@@ -12,7 +12,6 @@ import com.policia.persistencia.tablas.Tabla_SESION;
 import com.policia.persistencia.tablas.Tabla_USUARIO;
 import com.policia.remote.response.LoginPoliciaNalResult;
 
-import java.text.DateFormat;
 import java.util.Date;
 
 /**

@@ -3,6 +3,7 @@ package com.policia.codigopolicia;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,17 +22,25 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.policia.codigopolicia.NavegacionCNPC.Fragment_LIBRO;
 import com.policia.codigopolicia.NavegacionMULTAS.Fragment_MULTA;
 import com.policia.codigopolicia.adapter.Fragment_METEDATA;
 import com.policia.codigopolicia.adapter.IActualizarListadoBusqueda;
 import com.policia.codigopolicia.idioma.Idioma_Configuracion;
+import com.policia.codigopolicia.showcase.ToolbarActionItemTarget;
+import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.negocio.seguridad.Seguridad;
 
 public class PrincipalActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
+    private Toolbar toolbar;
     private Fragment fragment;
+
+    private int counter = 0;
+    private ShowcaseView showcaseView;
 
     Activity activity;
     MenuItem searchItem;
@@ -55,8 +64,9 @@ public class PrincipalActivity extends AppCompatActivity
         setContentView(R.layout.principal_activity);
 
         activity = this;
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -69,6 +79,16 @@ public class PrincipalActivity extends AppCompatActivity
 
         cargaSesion();
         menuCodigoPolicia(navigationView.getMenu().getItem(1));//codigo de policia
+
+        showcaseView = new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .singleShot(R.layout.principal_activity)
+                .setStyle(R.style.CustomShowcaseTheme2)
+                .setContentTitle("Bienvenido")
+                .setContentText("Policía Nacional de Colombia lo invita a usar esta nueva herramienta para ayudar a generar más conciencia y buscar una mejor convivencia ciudadana. Conozca sus derechos y deberes explorando los libros, títulos y capítulos que componen la ley 1801 de 2016.")
+                .setOnClickListener(this)
+                .build();
+        showcaseView.setButtonText(getResources().getString(R.string.showcaseSiguiente));
     }
 
     private void cargaSesion() {
@@ -163,6 +183,7 @@ public class PrincipalActivity extends AppCompatActivity
                 return false;
             }
         });
+
         return true;
     }
 
@@ -286,7 +307,6 @@ public class PrincipalActivity extends AppCompatActivity
                 .replace(R.id.content_frame, fragment)
                 .commit();
 
-        //item.setChecked(true);
         getSupportActionBar().setTitle(item.getTitle());
     }
 
@@ -357,5 +377,36 @@ public class PrincipalActivity extends AppCompatActivity
         Intent intent = new Intent(this, PoliciaActivity.class);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (counter) {
+            case 0:
+
+                ToolbarActionItemTarget menuTarget = new ToolbarActionItemTarget(toolbar, R.id.action_search);
+                showcaseView.setTarget(menuTarget);
+                showcaseView.setContentTitle("Búsquedas por voz y texto");
+                showcaseView.setContentText("Utilice este botón cuando quiera realizar una búsqueda tanto por texto como por voz relacionada con el nuevo Código Nacional de Policía y Convivencia. Recomendamos instalar el teclado de google para realizar búsquedas por voz.");
+                break;
+            case 1:
+
+                ViewTarget toolbarTarget = null;
+                try {
+                    toolbarTarget = ViewTargets.navigationButtonViewTarget(toolbar);
+
+                    showcaseView.setTarget(toolbarTarget);
+                    showcaseView.setContentTitle("Menú principal");
+                    showcaseView.setContentText("Además de dar a conocer el nuevo Código Nacional de Policía y Convivencia esta aplicación contiene varias utilidades como poder cambiar el idioma (disponible español/inglés), identificar el policía, consultar sus antecedentes disciplinarios ó para dirigirse a su CAI más cercano entre otras.");
+                    showcaseView.setButtonText(getResources().getString(R.string.showcaseEntendido));
+                } catch (ViewTargets.MissingViewException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 2:
+                showcaseView.hide();
+                break;
+        }
+        counter++;
     }
 }

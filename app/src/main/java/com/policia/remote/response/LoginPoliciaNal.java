@@ -1,7 +1,6 @@
 package com.policia.remote.response;
 
 import java.io.Serializable;
-
 import java.util.List;
 
 /**

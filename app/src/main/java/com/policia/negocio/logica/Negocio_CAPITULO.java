@@ -4,18 +4,13 @@ import android.content.Context;
 
 import com.policia.negocio.modelo.Capitulos.CapitulosOutput;
 import com.policia.negocio.modelo.Capitulos.CapitulosResultEntry;
-import com.policia.negocio.modelo.Libros.LibrosOutput;
-import com.policia.negocio.modelo.Libros.LibrosResultEntry;
 import com.policia.negocio.modelo.Modelo_CAPITULO;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_CAPITULO;
 import com.policia.persistencia.tablas.Tabla_CAPITULO;
-import com.policia.persistencia.tablas.Tabla_LIBRO;
 import com.policia.remote.RemoteClient;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by 1085253556 on 29/11/2017.

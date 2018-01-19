@@ -68,4 +68,9 @@ public class Negocio_MEDIDA {
 
         return rutinasMedida.ComparendosNumeral(sesion.getIdiomaCodigo(), Numeral);
     }
+
+    public int countComparendosNumeral(String Numeral) {
+
+        return rutinasMedida.countComparendosNumeral(Numeral);
+    }
 }
