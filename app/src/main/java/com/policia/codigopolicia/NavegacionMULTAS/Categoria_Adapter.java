@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.policia.codigopolicia.R;
@@ -50,10 +51,15 @@ public class Categoria_Adapter extends BaseAdapter {
         view = inflater.inflate(R.layout.multa_titulo, null);
 
         TextView textViewLabel = view.findViewById(R.id.textViewLabel);
-        //TextView textViewValue = view.findViewById(R.id.textViewValue);
+        ImageView imageViewLibro = view.findViewById(R.id.imageViewLibro);
 
         textViewLabel.setText(categorias.get(pos).Categoria);
-        //textViewValue.setText(categorias.get(groupPosition).getCategorias().get(childPosition).Categoria);
+        imageViewLibro.setImageDrawable(
+                context.getResources().getDrawable(
+                        context.getResources().getIdentifier(
+                                "@drawable/" + categorias.get(pos).Categoria,
+                                null,
+                                context.getPackageName())));
 
         return view;
     }
