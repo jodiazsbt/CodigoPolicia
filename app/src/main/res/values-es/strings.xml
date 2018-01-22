@@ -78,6 +78,13 @@
     <string name="language">es</string>
     <string name="country">CO</string>
     <string name="titulo_multa_categoria">CATEGORÍAS</string>
+    <string name="title_activity_articulo_capitulo">Código de Policía</string>
+    <string name="title_activity_portal">Portal Ciudadano</string>
+    <string name="title_activity_policia">Identificación Policía</string>
+    <string name="title_activity_barcode">Identificación Policía</string>
+    <string name="title_activity_puntos">Puntos Referencia</string>
+    <string name="title_activity_encuesta">Encuesta</string>
+    <string name="title_activity_capacitación">Capacitación</string>
 
     <!--PSC-->
     <string-array name="listadoMenuPsc">

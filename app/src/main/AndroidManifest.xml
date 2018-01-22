@@ -25,7 +25,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_02_btn_cnpc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -53,18 +53,23 @@
         </activity>
         <activity
             android:name=".IdiomaActivity"
+            android:label="@string/title_activity_idioma"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ArticuloCapituloActivity"
+            android:label="@string/title_activity_articulo_capitulo"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ArticuloMultaActivity"
+            android:label="@string/title_activity_articulo_capitulo"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PortalCiudadano"
+            android:label="@string/title_activity_portal"
             android:screenOrientation="portrait" />
         <activity
             android:name=".GenericWebviewActivity"
+            android:label="@string/title_activity_portal"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
@@ -72,24 +77,26 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".PoliciaActivity"
+            android:label="@string/title_activity_policia"
             android:screenOrientation="portrait" />
         <activity
             android:name=".IdentificacionPolicia.BarcodeCaptureActivity"
+            android:label="@string/title_activity_barcode"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ArgisActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PuntosActivity"
+            android:label="@string/title_activity_puntos"
             android:screenOrientation="portrait" />
         <activity
             android:name=".EncuestaActivity"
+            android:label="@string/title_activity_encuesta"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CapacitacionActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ArcGISActivity"
+            android:label="@string/title_activity_capacitación"
             android:screenOrientation="portrait" />
     </application>
 

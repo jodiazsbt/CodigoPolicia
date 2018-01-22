@@ -19,9 +19,6 @@ android {
         maven {
             url 'http://repo1.maven.org/maven2'
         }
-        maven {
-            url 'https://esri.bintray.com/arcgis'
-        }
     }
     buildTypes {
         release {
@@ -49,5 +46,4 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:11.8.0'
     compile 'com.google.android.gms:play-services-places:11.8.0'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
-    compile 'com.esri.arcgisruntime:arcgis-android:100.1.0'
 }
