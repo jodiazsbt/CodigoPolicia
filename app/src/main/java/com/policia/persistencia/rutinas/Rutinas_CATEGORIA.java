@@ -29,17 +29,19 @@ public class Rutinas_CATEGORIA {
                 TipoMulta + ""};
 
         Cursor cursor = DB.rawQuery("SELECT DISTINCT " +
-                "B.ID, B.CATEGORIA_ESP " +
+                "B.ID, B.CATEGORIA_ESP,B.RECURSO_ID " +
                 "FROM MULTA A " +
                 "INNER JOIN " +
                 "CATEGORIA B ON A.CATEGORIA_ID = B.ID " +
-                "WHERE A.TIPOMULTA_ID=?;", parameters);
+                "WHERE A.TIPOMULTA_ID=? " +
+                "ORDER BY B.ID ASC;", parameters);
 
         ArrayList<Modelo_CATEGORIA> result = new ArrayList<Modelo_CATEGORIA>();
         while (cursor.moveToNext()) {
             Modelo_CATEGORIA categoria = new Modelo_CATEGORIA(
                     cursor.getString(0),
-                    cursor.getString(1)
+                    cursor.getString(1),
+                    cursor.getString(2)
             );
             result.add(categoria);
         }

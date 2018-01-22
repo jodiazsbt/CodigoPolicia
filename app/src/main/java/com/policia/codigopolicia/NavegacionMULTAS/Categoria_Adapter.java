@@ -1,7 +1,6 @@
 package com.policia.codigopolicia.NavegacionMULTAS;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,11 +52,13 @@ public class Categoria_Adapter extends BaseAdapter {
         TextView textViewLabel = view.findViewById(R.id.textViewLabel);
         ImageView imageViewLibro = view.findViewById(R.id.imageViewLibro);
 
-        textViewLabel.setText(categorias.get(pos).Categoria);
+        Modelo_CATEGORIA categoria = categorias.get(pos);
+
+        textViewLabel.setText(categoria.Categoria);
         imageViewLibro.setImageDrawable(
                 context.getResources().getDrawable(
                         context.getResources().getIdentifier(
-                                "@drawable/" + categorias.get(pos).Categoria,
+                                categoria.Recurso,
                                 null,
                                 context.getPackageName())));
 

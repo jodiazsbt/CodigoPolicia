@@ -99,7 +99,7 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
                     valores.add(new ValuePar("GRADO", String.valueOf(document.getDocumentElement().getTable().getE11())));
                     valores.add(new ValuePar("CARNET", String.valueOf(document.getDocumentElement().getTable().getE15())));
 
-                    listView.addHeaderView(fragment.getLayoutInflater().inflate(R.layout.policia_identificacion_header, null), null, false);
+                    //listView.addHeaderView(fragment.getLayoutInflater().inflate(R.layout.policia_identificacion_header, null), null, false);
                 } else {//es policia
 
                     valores.add(new ValuePar("ESTADO", identificacion.estado));
@@ -110,12 +110,13 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
                     valores.add(new ValuePar("GRADO", String.valueOf(document.getDocumentElement().getTable().getE11())));
                     valores.add(new ValuePar("CARNET", String.valueOf(document.getDocumentElement().getTable().getE15())));
 
-                    View header = fragment.getLayoutInflater().inflate(R.layout.policia_identificacion_header, null);
-                    ImageView image = header.findViewById(R.id.imageViewCaricatura);
-                    image.setImageBitmap(BitmapFactory.decodeByteArray(identificacion.imagen, 0, identificacion.imagen.length));
-                    image.setCropToPadding(false);
-                    listView.addHeaderView(header, null, false);
                 }
+
+                View header = fragment.getLayoutInflater().inflate(R.layout.policia_identificacion_header, null);
+                ImageView image = header.findViewById(R.id.imageViewCaricatura);
+                image.setImageBitmap(BitmapFactory.decodeByteArray(identificacion.imagen, 0, identificacion.imagen.length));
+                image.setCropToPadding(true);
+                listView.addHeaderView(header, null, false);
 
                 listView.setAdapter(new IdentificacionAdapter(fragment, valores));
 

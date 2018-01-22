@@ -85,7 +85,11 @@
         <activity
             android:name=".EncuestaActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".CapacitacionActivity"
+        <activity
+            android:name=".CapacitacionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ArcGISActivity"
             android:screenOrientation="portrait" />
     </application>
 

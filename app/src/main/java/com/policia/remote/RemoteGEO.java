@@ -97,6 +97,7 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     PuntosCercanos punto = puntos.get(i);
+
                     mMap.clear();
                     mMap.addMarker(new MarkerOptions()
                             .title(punto.Nombre)

@@ -140,6 +140,11 @@ public class Rutinas_ARTICULO {
     public ArrayList<Modelo_ARTICULO> ArticulosPorMultaCategoria(String Idioma, String Multa, String Categoria, int position) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
+        String where_category = "WHERE CATEGORIA.ID = " + Categoria + " AND MULTA.TIPOMULTA_ID = " + Multa;
+
+        if (Categoria.equals("10000"))
+            where_category = "WHERE MULTA.TIPOMULTA_ID = " + Multa;
+
         Cursor cursor = DB.rawQuery("SELECT * FROM ( " +
                 "SELECT DISTINCT " +
                 "ARTICULO.ID," +
@@ -160,16 +165,14 @@ public class Rutinas_ARTICULO {
                 "INNER JOIN TITULO ON CAPITULO.TITULO_ID = TITULO.ID " +
                 "INNER JOIN NIVEL NIVEL_TITULO ON TITULO.NIVEL_ID = NIVEL_TITULO.ID " +
                 "INNER JOIN LIBRO ON TITULO.LIBRO_ID = LIBRO.ID " +
-                "INNER JOIN NIVEL NIVEL_LIBRO ON LIBRO.NIVEL_ID = NIVEL_LIBRO.ID " +
-                "WHERE CATEGORIA.ID = " + Categoria + " AND MULTA.TIPOMULTA_ID = " + Multa + " ) Q " +
+                "INNER JOIN NIVEL NIVEL_LIBRO ON LIBRO.NIVEL_ID = NIVEL_LIBRO.ID " + where_category + " ) Q " +
                 "WHERE (" +
                 "SELECT " +
                 "COUNT(DISTINCT ARTICULO.ID) + 1 " +
                 "FROM ARTICULO " +
                 "INNER JOIN NUMERAL ON ARTICULO.ID = NUMERAL.ARTICULO_ID " +
                 "INNER JOIN MULTA ON MULTA.NUMERAL_ID = NUMERAL.ID " +
-                "INNER JOIN CATEGORIA ON MULTA.CATEGORIA_ID = CATEGORIA.ID " +
-                "WHERE CATEGORIA.ID = " + Categoria + " AND MULTA.TIPOMULTA_ID = " + Multa + " AND ARTICULO.ID < Q.ID) = " + position + ";", null);
+                "INNER JOIN CATEGORIA ON MULTA.CATEGORIA_ID = CATEGORIA.ID " + where_category + " AND ARTICULO.ID < Q.ID) = " + position + ";", null);
 
         ArrayList<Modelo_ARTICULO> result = new ArrayList<Modelo_ARTICULO>();
         while (cursor.moveToNext()) {

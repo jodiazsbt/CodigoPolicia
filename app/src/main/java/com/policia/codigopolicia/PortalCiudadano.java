@@ -38,7 +38,7 @@ public class PortalCiudadano extends Activity {
                 R.mipmap.extraidos,
                 R.mipmap.apertura,
                 R.mipmap.pqrs,
-                R.mipmap.pqrs
+                R.mipmap.img_11_radio_policia
         };
 
         CustomListAdapter adapter = new CustomListAdapter(this, menuList, imgid);

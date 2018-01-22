@@ -11,17 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.policia.codigopolicia.ArticuloMultaActivity;
 import com.policia.codigopolicia.R;
 import com.policia.codigopolicia.html.HTML_Plantillas;
-import com.policia.codigopolicia.showcase.ToolbarActionItemTarget;
-import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.negocio.logica.Negocio_ACCION;
 import com.policia.negocio.logica.Negocio_CATEGORIA;
 import com.policia.negocio.logica.Negocio_MULTA;
@@ -117,6 +113,7 @@ public class Fragment_MULTA extends Fragment implements View.OnClickListener {
                     } else if (categorias.size() > 1) {
 
                         new AlertDialog.Builder(getActivity())
+                                .setTitle(getResources().getString(R.string.titulo_multa_categoria))
                                 .setAdapter(new Categoria_Adapter(getActivity(), categorias), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int pos) {

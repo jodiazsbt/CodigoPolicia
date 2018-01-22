@@ -66,7 +66,8 @@ public class Rutinas_CAPITULO {
                 "CAPITULO.CAPITULO_" + Idioma + " CAPITULO " +
                 "FROM CAPITULO " +
                 "INNER JOIN NIVEL ON CAPITULO.NIVEL_ID=NIVEL.ID " +
-                "WHERE CAPITULO.TITULO_ID=?;", parameters);
+                "WHERE CAPITULO.TITULO_ID=? " +
+                "ORDER BY NIVEL.ID;", parameters);
 
         ArrayList<Modelo_CAPITULO> result = new ArrayList<Modelo_CAPITULO>();
         while (cursor.moveToNext()) {
