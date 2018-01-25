@@ -7,14 +7,22 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.PrincipalActivity;
+import com.policia.negocio.logica.Negocio_ACCION;
 import com.policia.negocio.logica.Negocio_ARTICULO;
 import com.policia.negocio.logica.Negocio_CAPITULO;
+import com.policia.negocio.logica.Negocio_CATEGORIA;
+import com.policia.negocio.logica.Negocio_COMPENTENCIA_NUMERAL;
+import com.policia.negocio.logica.Negocio_COMPETENCIA;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_LIBRO;
 import com.policia.negocio.logica.Negocio_MEDIDA;
 import com.policia.negocio.logica.Negocio_METADATA;
+import com.policia.negocio.logica.Negocio_MULTA;
 import com.policia.negocio.logica.Negocio_NIVEL;
 import com.policia.negocio.logica.Negocio_NUMERAL;
+import com.policia.negocio.logica.Negocio_TIPO_ARCHIVO;
 import com.policia.negocio.logica.Negocio_TITULO;
+import com.policia.negocio.logica.Negocio_UVT;
 
 /**
  * Created by 1085253556 on 28/12/2017.
@@ -35,6 +43,14 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     private Negocio_METADATA negocioMetadata;
     private Negocio_NUMERAL negocioNumeral;
     private Negocio_MEDIDA negocioMedida;
+    private Negocio_MULTA negocioMulta;
+    private Negocio_TIPO_ARCHIVO negocioTipoArchivo;
+    private Negocio_DOCUMENTO negocioDocumento;
+    private Negocio_CATEGORIA negocioCategoria;
+    private Negocio_COMPETENCIA negocioCompetencia;
+    private Negocio_COMPENTENCIA_NUMERAL negocioCompentenciaNumeral;
+    private Negocio_ACCION negocioAccion;
+    private Negocio_UVT negocioUVT;
 
     public static RemoteServices newInstance(Activity activity) {
 
@@ -58,6 +74,15 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             this.negocioMetadata = new Negocio_METADATA(activity);
             this.negocioNumeral = new Negocio_NUMERAL(activity);
             this.negocioMedida = new Negocio_MEDIDA(activity);
+            this.negocioMulta = new Negocio_MULTA(activity);
+            this.negocioTipoArchivo = new Negocio_TIPO_ARCHIVO(activity);
+            this.negocioDocumento = new Negocio_DOCUMENTO(activity);
+            this.negocioCategoria = new Negocio_CATEGORIA(activity);
+            this.negocioCompetencia = new Negocio_COMPETENCIA(activity);
+            this.negocioCompentenciaNumeral = new Negocio_COMPENTENCIA_NUMERAL(activity);
+            this.negocioAccion = new Negocio_ACCION(activity);
+            this.negocioUVT = new Negocio_UVT(activity);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,7 +98,6 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             if (!remoteClient.isServiceOnline())
                 return Long.valueOf(-1);
 
-            /*
             sincronizar += negocioNivel.sincronizar();
             sincronizar += negocioLibro.sincronizar();
             sincronizar += negocioTitulo.sincronizar();
@@ -81,7 +105,16 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             sincronizar += negocioArticulo.sincronizar();
             sincronizar += negocioMetadata.sincronizar();
             sincronizar += negocioNumeral.sincronizar();
-            sincronizar += negocioMedida.sincronizar();*/
+            sincronizar += negocioMedida.sincronizar();
+            sincronizar += negocioMulta.sincronizar();
+            sincronizar += negocioTipoArchivo.sincronizar();
+            sincronizar += negocioDocumento.sincronizar();
+            sincronizar += negocioCategoria.sincronizar();
+            sincronizar += negocioCompetencia.sincronizar();
+            sincronizar += negocioCompentenciaNumeral.sincronizar();
+            sincronizar += negocioAccion.sincronizar();
+            sincronizar += negocioUVT.sincronizar();
+
         } catch (Exception e) {
             e.printStackTrace();
             return Long.valueOf(-2);

@@ -1,6 +1,9 @@
 package com.policia.negocio.seguridad;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 
 import com.policia.codigopolicia.R;
 import com.policia.negocio.modelo.Modelo_SESION;
@@ -13,6 +16,7 @@ import com.policia.persistencia.tablas.Tabla_USUARIO;
 import com.policia.remote.response.LoginPoliciaNalResult;
 
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by 1085253556 on 7/12/2017.
@@ -88,6 +92,14 @@ public class Seguridad {
     }
 
     public boolean actualizarIdiomaSesion(String idioma) throws Exception {
+
+        Locale locale = new Locale(idioma);
+        Resources res = context.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = locale;
+        res.updateConfiguration(conf, dm);
+
         Tabla_PREFERENCIA preferencia = new Tabla_PREFERENCIA();
         preferencia.USUARIO_ID = this.usuario;
         preferencia.IDIOMA_CODIGO = idioma;

@@ -5,7 +5,10 @@ import android.content.Context;
 import com.policia.negocio.modelo.Modelo_COMPENTENCIA;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_COMPETENCIA;
+import com.policia.persistencia.tablas.Tabla_COMPETENCIA;
 import com.policia.remote.RemoteClient;
+import com.policia.remote.response.COMPETENCIASCNPCResponse;
+import com.policia.remote.response.COMPETENCIASCNPCResult;
 
 import java.util.ArrayList;
 
@@ -35,5 +38,31 @@ public class Negocio_COMPETENCIA {
 
     public int countCompetenciasPorNumeral(String Numeral) {
         return rutinasCompetencia.countCompetenciasPorNumeral(Numeral);
+    }
+
+    public int sincronizar() {
+
+        remoteClient = new RemoteClient(context);
+        COMPETENCIASCNPCResponse response = null;
+        try {
+
+            response = remoteClient.sincronizarCOMPETENCIA(rutinasCompetencia.maxFecha());
+
+            for (COMPETENCIASCNPCResult result : response.cOMPETENCIASCNPCResult) {
+                Tabla_COMPETENCIA competencia = new Tabla_COMPETENCIA();
+                competencia.ID = String.valueOf(result.iDCOMPETENCIA);
+                competencia.COMPETENCIA_ESP = String.valueOf(result.cOMPETENCIAESP);
+                competencia.COMPETENCIA_ENG = String.valueOf(result.cOMPETENCIAENG);
+                competencia.INSTANCIA_ESP = String.valueOf(result.iNSTANCIAESP);
+                competencia.INSTANCIA_ENG = String.valueOf(result.iNSTANCIAENG);
+                competencia.VIGENTE = result.aCTIVOCOMPETENCIA;
+                competencia.FECHA = String.valueOf(result.fECHAACTCOMPETENCIA);
+                rutinasCompetencia.update(competencia);
+            }
+            return response.cOMPETENCIASCNPCResult.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

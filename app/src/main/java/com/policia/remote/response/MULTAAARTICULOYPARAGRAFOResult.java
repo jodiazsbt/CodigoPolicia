@@ -15,6 +15,9 @@ public class MULTAAARTICULOYPARAGRAFOResult implements Serializable
     @SerializedName("ID_ARTICULOYPARAGRAFO_MULTAAARTICULO")
     @Expose
     public int iDARTICULOYPARAGRAFOMULTAAARTICULO;
+    @SerializedName("ID_CATEGORIA_MULTAAARTICULO")
+    @Expose
+    public int iDCATEGORIAMULTAAARTICULO;
     @SerializedName("ID_NUMERAL_MULTAAARTICULO")
     @Expose
     public int iDNUMERALMULTAAARTICULO;

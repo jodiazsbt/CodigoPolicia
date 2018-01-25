@@ -9,8 +9,12 @@ import com.policia.codigopolicia.R;
 import com.policia.negocio.modelo.Capitulos.CapitulosOutput;
 import com.policia.negocio.modelo.Libros.LibrosOutput;
 import com.policia.negocio.modelo.Titulos.TitulosOutput;
+import com.policia.remote.response.ACCIONESCIUDADANOYPOLICIACNCPResult;
 import com.policia.remote.response.ArticulosyParagrafosResponse;
+import com.policia.remote.response.CATEGORIASMULTASCNPCResponse;
+import com.policia.remote.response.COMPETENCIASCNPCResponse;
 import com.policia.remote.response.CONSULTAPOLICIAResponse;
+import com.policia.remote.response.DOCUMENTOSINSTRUCTIVOSCNPCNResponse;
 import com.policia.remote.response.ENCUESTASCNPCResponse;
 import com.policia.remote.response.GEOPOCICIONCNPCResponse;
 import com.policia.remote.response.LoginPoliciaNal;
@@ -20,7 +24,10 @@ import com.policia.remote.response.MedidasCNPCResponse;
 import com.policia.remote.response.MetadataResponse;
 import com.policia.remote.response.NivelesResponse;
 import com.policia.remote.response.NumeralesResponse;
+import com.policia.remote.response.RELACIONCOMPETENCIANUMERALMEDIDACNPCResponse;
 import com.policia.remote.response.RESPUESTAENCUESTAResponse;
+import com.policia.remote.response.TIPOSARCHIVOSResponse;
+import com.policia.remote.response.UVTCNCPResult;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -225,10 +232,59 @@ public class RemoteClient {
         return result;
     }
 
-    public MULTAAARTICULOYPARAGRAFOResponse sincronizarCOMPETENCIA_NUMERAL(String fecha) throws Exception {
+    public MULTAAARTICULOYPARAGRAFOResponse sincronizarMULTA(String fecha) throws Exception {
         String body = "MULTA_A_ARTICULOYPARAGRAFO/" + fecha;
         StringBuilder builder = getInvoke(direccionServicio + body);
         MULTAAARTICULOYPARAGRAFOResponse result = new Gson().fromJson(builder.toString(), MULTAAARTICULOYPARAGRAFOResponse.class);
+        return result;
+    }
+
+    public TIPOSARCHIVOSResponse sincronizarTIPO_ARCHIVO(String fecha) throws Exception {
+        String body = "TIPOS_ARCHIVOS/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        TIPOSARCHIVOSResponse result = new Gson().fromJson(builder.toString(), TIPOSARCHIVOSResponse.class);
+        return result;
+    }
+
+    public DOCUMENTOSINSTRUCTIVOSCNPCNResponse sincronizarDOCUMENTO(String tipo_documento) throws Exception {
+        String body = "DOCUMENTOS_INSTRUCTIVOS_CNPCN/" + tipo_documento;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        DOCUMENTOSINSTRUCTIVOSCNPCNResponse result = new Gson().fromJson(builder.toString(), DOCUMENTOSINSTRUCTIVOSCNPCNResponse.class);
+        return result;
+    }
+
+    public CATEGORIASMULTASCNPCResponse sincronizarCATEGORIA(String fecha) throws Exception {
+        String body = "CATEGORIAS_MULTAS_CNPC/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        CATEGORIASMULTASCNPCResponse result = new Gson().fromJson(builder.toString(), CATEGORIASMULTASCNPCResponse.class);
+        return result;
+    }
+
+    public COMPETENCIASCNPCResponse sincronizarCOMPETENCIA(String fecha) throws Exception {
+        String body = "COMPETENCIAS_CNPC/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        COMPETENCIASCNPCResponse result = new Gson().fromJson(builder.toString(), COMPETENCIASCNPCResponse.class);
+        return result;
+    }
+
+    public RELACIONCOMPETENCIANUMERALMEDIDACNPCResponse sincronizarCOMPETENCIA_NUMERAL(String fecha) throws Exception {
+        String body = "RELACION_COMPETENCIA_NUMERAL_MEDIDA_CNPC/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        RELACIONCOMPETENCIANUMERALMEDIDACNPCResponse result = new Gson().fromJson(builder.toString(), RELACIONCOMPETENCIANUMERALMEDIDACNPCResponse.class);
+        return result;
+    }
+
+    public ACCIONESCIUDADANOYPOLICIACNCPResult sincronizarACCION(String fecha) throws Exception {
+        String body = "ACCIONESCIUDADANOYPOLICIA_CNCP/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        ACCIONESCIUDADANOYPOLICIACNCPResult result = new Gson().fromJson(builder.toString(), ACCIONESCIUDADANOYPOLICIACNCPResult.class);
+        return result;
+    }
+
+    public UVTCNCPResult sincronizarUVT(String fecha) throws Exception {
+        String body = "ACCIONESCIUDADANOYPOLICIA_CNCP/" + fecha;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        UVTCNCPResult result = new Gson().fromJson(builder.toString(), UVTCNCPResult.class);
         return result;
     }
 

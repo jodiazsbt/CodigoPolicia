@@ -53,16 +53,15 @@ public class PrincipalActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        activity = this;
+        setContentView(R.layout.principal_activity);
+
         try {
-            Seguridad sesion = Seguridad.Sesion(getBaseContext());
-            Idioma_Configuracion.updateResources(this, sesion.getIdiomaCodigo());
+            sesion = Seguridad.Sesion(activity);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        setContentView(R.layout.principal_activity);
-
-        activity = this;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -84,7 +83,7 @@ public class PrincipalActivity extends AppCompatActivity
                 .singleShot(R.layout.principal_activity)
                 .setStyle(R.style.CustomShowcaseTheme2)
                 .setContentTitle("Bienvenido")
-                .setContentText("Policía Nacional de Colombia lo invita a usar esta nueva herramienta para ayudar a generar más conciencia y buscar una mejor convivencia ciudadana. Conozca sus derechos y deberes explorando los libros, títulos y capítulos que componen la ley 1801 de 2016.")
+                .setContentText("Policía Nacional de Colombia lo invita a usar esta nueva herramienta de carácter preventivo para ayudar a generar más conciencia y buscar una mejor convivencia ciudadana en el territorio nacional. Conozca sus derechos, deberes y obligaciones de las personas naturales y jurídicas, explorando los libros, títulos y capítulos que componen la ley 1801 de 2016.")
                 .setOnClickListener(this)
                 .build();
         showcaseView.setButtonText(getResources().getString(R.string.showcaseSiguiente));
@@ -209,8 +208,7 @@ public class PrincipalActivity extends AppCompatActivity
         Intent intent;
 
         if (id == R.id.nav_language) {
-            intent = new Intent(this, IdiomaActivity.class);
-            startActivity(intent);
+            menuIdioma(item);
         } else if (id == R.id.nav_funcionario) {
             menuIdentificarFuncionario(item);
         } else if (id == R.id.nav_policia) {
@@ -238,6 +236,27 @@ public class PrincipalActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+
+        try {
+            if (requestCode == 1) {
+                if (resultCode == Activity.RESULT_OK) {
+                    finish();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void menuIdioma(MenuItem item) {
+        Intent intent = new Intent(this, IdiomaActivity.class);
+        startActivityForResult(intent, 1);
     }
 
     private void menuLogin(MenuItem item) {
@@ -382,13 +401,21 @@ public class PrincipalActivity extends AppCompatActivity
     public void onClick(View view) {
         switch (counter) {
             case 0:
+                showcaseView.setContentTitle("Convivencia");
+                showcaseView.setContentText("Es la interacción pacífica, respetuosa y armónica entre las personas, con los bienes y con el ambiente, en el marco del ordenamiento jurídico.");
+                break;
+            case 1:
+                showcaseView.setContentTitle("Deberes de convivencia");
+                showcaseView.setContentText("Es deber de todas las personas en el territorio nacional comportase de manera favorable a la convivencia. Para ello, además de evitar actividades o comportamientos contrarios a la misma, se deben autorregular el ejercicio de derechos y libertades, para no transgredir los de los demás.");
+                break;
+            case 2:
 
                 ToolbarActionItemTarget menuTarget = new ToolbarActionItemTarget(toolbar, R.id.action_search);
                 showcaseView.setTarget(menuTarget);
                 showcaseView.setContentTitle("Búsquedas por voz y texto");
                 showcaseView.setContentText("Utilice este botón cuando quiera realizar una búsqueda tanto por texto como por voz relacionada con el nuevo Código Nacional de Policía y Convivencia. Recomendamos instalar el teclado de google para realizar búsquedas por voz.");
                 break;
-            case 1:
+            case 3:
 
                 ViewTarget toolbarTarget = null;
                 try {
@@ -396,13 +423,13 @@ public class PrincipalActivity extends AppCompatActivity
 
                     showcaseView.setTarget(toolbarTarget);
                     showcaseView.setContentTitle("Menú principal");
-                    showcaseView.setContentText("Además de dar a conocer el nuevo Código Nacional de Policía y Convivencia esta aplicación contiene varias utilidades como poder cambiar el idioma (disponible español/inglés), identificar el policía, consultar sus antecedentes disciplinarios ó para dirigirse a su CAI más cercano entre otras.");
+                    showcaseView.setContentText("Además de dar a conocer el nuevo Código Nacional de Policía y Convivencia esta aplicación contiene varias utilidades como poder cambiar el idioma (español e inglés), identificar el policía, consultar sus antecedentes disciplinarios, medidas correctivas ó para dirigirse a las autoridades de policía más cercanas entre otras.");
                     showcaseView.setButtonText(getResources().getString(R.string.showcaseEntendido));
                 } catch (ViewTargets.MissingViewException e) {
                     e.printStackTrace();
                 }
                 break;
-            case 2:
+            case 4:
                 showcaseView.hide();
                 break;
         }

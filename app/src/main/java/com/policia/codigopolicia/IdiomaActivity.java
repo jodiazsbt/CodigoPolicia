@@ -3,8 +3,6 @@ package com.policia.codigopolicia;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +16,6 @@ import com.policia.negocio.modelo.Modelo_IDIOMA;
 import com.policia.negocio.seguridad.Seguridad;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class IdiomaActivity extends Activity {
 
@@ -59,18 +56,6 @@ public class IdiomaActivity extends Activity {
         super.onCreate(savedInstanceState);
     }
 
-    /*
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void setLocale(String idioma) {
-
-        Locale locale = new Locale(idioma);
-        Locale.setDefault(locale);
-        Configuration configuration = activity.getResources().getConfiguration();
-        configuration.setLocale(locale);
-        activity.createConfigurationContext(configuration);
-    }
-    */
-
     private int posicionIdioma() {
         int posicion = 0;
         for (Modelo_IDIOMA idioma : idiomas) {
@@ -84,29 +69,28 @@ public class IdiomaActivity extends Activity {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void clickAceptar(int posicion) {//View view) {
+
         try {
 
-            Modelo_IDIOMA idioma = idiomas.get(posicion - 1);
-            Locale locale = new Locale(idioma.CODIGO);
-            Resources resources = getResources();
-            Configuration configuration = resources.getConfiguration();
-            configuration.setLocale(locale);
-            getApplicationContext().createConfigurationContext(configuration);
-
+            String idioma = idiomas.get(posicion - 1).CODIGO;
             Seguridad sesion = Seguridad.Sesion(activity.getBaseContext());
-            sesion.actualizarIdiomaSesion(idioma.CODIGO);
+            sesion.actualizarIdiomaSesion(idioma);
 
             Toast.makeText(activity, getString(R.string.toast_locale_success) + " " + sesion.getIdiomaNombre(), Toast.LENGTH_SHORT).show();
+
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(activity, R.string.toast_locale_exception, Toast.LENGTH_SHORT).show();
         } finally {
 
-            Intent i = getBaseContext().getPackageManager()
-                    .getLaunchIntentForPackage(getBaseContext().getPackageName());
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
+            Intent refresh = new Intent(this, PrincipalActivity.class);
+            startActivity(refresh);
+
+            Intent returnIntent = new Intent();
+            setResult(Activity.RESULT_OK, returnIntent);
+
+            finish();
         }
+
     }
 
     public void clickCancelar(View view) {

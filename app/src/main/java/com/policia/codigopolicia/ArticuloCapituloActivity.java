@@ -1,6 +1,9 @@
 package com.policia.codigopolicia;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
@@ -14,18 +17,23 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.policia.codigopolicia.NavegacionCNPC.CNPC_FragmentStatePagerAdapter;
 import com.policia.codigopolicia.NavegacionCNPC.WrapContentViewPager;
 import com.policia.negocio.logica.Negocio_ARTICULO;
+import com.policia.negocio.logica.Negocio_MEDIDA;
+import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
+import com.policia.negocio.modelo.Modelo_MEDIDA;
+import com.policia.negocio.modelo.Modelo_NUMERAL;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ArticuloCapituloActivity extends FragmentActivity implements TextToSpeech.OnInitListener, View.OnClickListener {
+public class ArticuloCapituloActivity extends FragmentActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener, View.OnClickListener {
 
     WrapContentViewPager viewPagerArticulos;
     PagerAdapter pagerAdapterArticulo;
     FloatingActionButton fab;
 
     private int counter = 0;
+    private int reproduccion = 0;
     private ShowcaseView showcaseView;
 
     private int posicion;
@@ -54,21 +62,18 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
 
             fab = findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
-                    Negocio_ARTICULO negocioArticulo = null;
-                    try {
-                        int position = viewPagerArticulos.getCurrentItem();
-                        negocioArticulo = new Negocio_ARTICULO(view.getContext());
-
-                        ArrayList<Modelo_ARTICULO> articulos = null;
-                        articulos = negocioArticulo.ArticulosPorCapitulo(capitulo, position + 1);
-                        for (Modelo_ARTICULO articulo : articulos) {
-                            textToSpeech.speak(articulo.Articulo_Descripcion, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    switch (reproduccion) {
+                        case 0:
+                            reproduccion = 1;
+                            reproducir();
+                            break;
+                        case 1:
+                            reproduccion = 0;
+                            detener();
+                            break;
                     }
                 }
             });
@@ -86,6 +91,58 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
                     .setOnClickListener(this)
                     .build();
             showcaseView.setButtonText(getResources().getString(R.string.showcaseSiguiente));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void detener() {
+        textToSpeech.stop();
+        fab.setImageDrawable(getDrawable(R.mipmap.img_03_btn_lectura));
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void reproducir() {
+
+        final Context context = getBaseContext();
+
+        Negocio_MEDIDA negocioMedida = null;
+        Negocio_NUMERAL negocioNumeral = null;
+        Negocio_ARTICULO negocioArticulo = null;
+
+        try {
+            negocioMedida = new Negocio_MEDIDA(context);
+            negocioNumeral = new Negocio_NUMERAL(context);
+            negocioArticulo = new Negocio_ARTICULO(context);
+
+            int position = viewPagerArticulos.getCurrentItem();
+
+            ArrayList<Modelo_ARTICULO> articulos = null;
+            articulos = negocioArticulo.ArticulosPorCapitulo(capitulo, position + 1);
+            for (Modelo_ARTICULO articulo : articulos) {
+
+                String texto_articulo = articulo.Articulo_Nivel + "\r\n" +
+                        articulo.Articulo_Titulo + "\r\n" +
+                        articulo.Articulo_Descripcion;
+
+                ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
+                if (!(numerales.size() == 0)) {
+                    for (Modelo_NUMERAL numeral : numerales) {
+                        texto_articulo += "\r\n" + numeral.Nivel + "\t" + numeral.Numeral;
+                    }
+                }
+
+                ArrayList<Modelo_MEDIDA> medidas = negocioMedida.MedidasPorParagrafo(articulo.ID);
+                if (!(medidas.size() == 0)) {
+                    for (Modelo_MEDIDA medida : medidas) {
+                        texto_articulo += "\r\n" + medida.Nivel + "\t" + medida.Comportamiento + "\t" + medida.Medida;
+                    }
+                }
+                fab.setImageDrawable(getDrawable(R.drawable.ic_stop_black_24dp));
+                textToSpeech.speak(texto_articulo.replace("<br/>", "\r\n"), TextToSpeech.QUEUE_FLUSH, null);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,6 +166,7 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
     public void onInit(int initStatus) {
         if (initStatus == TextToSpeech.SUCCESS) {
             fab.setClickable(true);
+            textToSpeech.setOnUtteranceCompletedListener(this);
             textToSpeech.setLanguage(new Locale(getString(R.string.language), getString(R.string.country)));
         } else if (initStatus == TextToSpeech.ERROR) {
             Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
@@ -144,7 +202,7 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
                 ViewTarget viewTarget = new ViewTarget(fab);
                 showcaseView.setTarget(viewTarget);
                 showcaseView.setContentTitle("Sintetizador");
-                showcaseView.setContentText("Utilice el sintetizador para ayudar a las personas con discapacidad visual a escuchar el contenido de los artículos.");
+                showcaseView.setContentText("Utilice el sintetizador para escuchar el contenido de los libros, títulos, capítulos del nuevo Código Nacional de Policía y Convivencia “Para Vivir en Paz”.");
                 showcaseView.setButtonText(getResources().getString(R.string.showcaseEntendido));
                 break;
             case 1:
@@ -152,5 +210,10 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
                 break;
         }
         counter++;
+    }
+
+    @Override
+    public void onUtteranceCompleted(String s) {
+        detener();
     }
 }

@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.policia.codigopolicia.IdentificacionPolicia.BarcodeCaptureActivity;
@@ -52,6 +53,15 @@ public class PoliciaActivity extends AppCompatActivity {
         setContentView(R.layout.policia_activity);
 
         inflarFragmentOpciones();
+
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .singleShot(R.layout.encuesta_activity)
+                .setStyle(R.style.CustomShowcaseTheme2)
+                .setContentTitle("Identificación del policía.")
+                .setContentText("Tenga en cuenta que conforme lo señala la Ley 1581 de 2012, sobre protección de datos, sólo se podrá verificar la identidad del funcionario policial que está atendiendo el procedimiento de policía, en el cual la persona que consulta o en su defecto, un familiar de la misma, es la involucrada en el procedimiento policial. (SU 458 DE 2012)")
+                .build()
+                .show();
     }
 
     @Override

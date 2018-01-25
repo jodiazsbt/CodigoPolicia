@@ -5,6 +5,10 @@ import android.content.Context;
 import com.policia.negocio.modelo.Modelo_CATEGORIA;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_CATEGORIA;
+import com.policia.persistencia.tablas.Tabla_CATEGORIA;
+import com.policia.remote.RemoteClient;
+import com.policia.remote.response.CATEGORIASMULTASCNPCResponse;
+import com.policia.remote.response.CATEGORIASMULTASCNPCResult;
 
 import java.util.ArrayList;
 
@@ -14,17 +18,45 @@ import java.util.ArrayList;
 
 public class Negocio_CATEGORIA {
 
-    private Rutinas_CATEGORIA rutinasTitulo;
+    private Rutinas_CATEGORIA rutinasCategoria;
     private Seguridad sesion;
+
+    private Context context;
+    private RemoteClient remoteClient;
 
     public Negocio_CATEGORIA(Context context) throws Exception {
 
-        sesion = Seguridad.Sesion(context);
-        rutinasTitulo = new Rutinas_CATEGORIA(context);
+        this.context = context;
+        this.sesion = Seguridad.Sesion(context);
+        this.rutinasCategoria = new Rutinas_CATEGORIA(context);
     }
 
     public ArrayList<Modelo_CATEGORIA> CategoriaPorTipoMulta(String TipoMulta) {
 
-        return rutinasTitulo.CategoriaPorTipoMulta(sesion.getIdiomaCodigo(), TipoMulta);
+        return rutinasCategoria.CategoriaPorTipoMulta(sesion.getIdiomaCodigo(), TipoMulta);
+    }
+
+    public int sincronizar() {
+
+        remoteClient = new RemoteClient(context);
+        CATEGORIASMULTASCNPCResponse response = null;
+        try {
+
+            response = remoteClient.sincronizarCATEGORIA(rutinasCategoria.maxFecha());
+
+            for (CATEGORIASMULTASCNPCResult result : response.cATEGORIASMULTASCNPCResult) {
+                Tabla_CATEGORIA categoria = new Tabla_CATEGORIA();
+                categoria.ID = String.valueOf(result.iDCATEGORIA);
+                categoria.CATEGORIA_ESP = String.valueOf(result.cATEGORIAESP);
+                categoria.CATEGORIA_ENG = String.valueOf(result.cATEGORIAENG);
+                categoria.VIGENTE = result.aCTIVOCATEGOTRIAS;
+                categoria.FECHA = String.valueOf(result.fECHAACTCATEGORIA);
+                rutinasCategoria.update(categoria);
+            }
+            return response.cATEGORIASMULTASCNPCResult.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

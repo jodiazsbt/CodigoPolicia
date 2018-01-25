@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_MULTA;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_MULTA;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class Rutinas_MULTA {
     private SQLiteDatabase DB;
 
     public Rutinas_MULTA(Context context) {
+
         this.context = context;
     }
 
@@ -54,5 +56,34 @@ public class Rutinas_MULTA {
         cursor.close();
         DB.close();
         return result;
+    }
+
+    public String maxFecha() {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery("SELECT STRFTIME('%d.%m.%Y',MAX(CASE WHEN LENGTH(FECHA)=8 THEN '20'||SUBSTR(FECHA,7,2) ELSE SUBSTR(FECHA,7,4) END ||'-'||SUBSTR(FECHA,4,2)||'-'||SUBSTR(FECHA,1,2))) FROM 'MULTA';", null);
+
+        String maxFecha = null;
+        while (cursor.moveToNext()) {
+            maxFecha = cursor.getString(0);
+        }
+
+        cursor.close();
+        DB.close();
+        return maxFecha;
+    }
+
+    public void update(Tabla_MULTA multa) {
+        String[] parameters = new String[]{
+                multa.CATEGORIA_ID,
+                multa.VIGENTE + "",
+                multa.FECHA + "",
+                multa.NUMERAL_ID + "",
+                multa.MEDIDA_ID + "",
+                multa.TIPOMULTA_ID + ""};
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        DB.execSQL("UPDATE 'MULTA' SET CATEGORIA_ID=?,VIGENTE=?,FECHA=? WHERE NUMERAL_ID=? AND MEDIDA_ID=? AND TIPOMULTA_ID=?", parameters);
+        DB.close();
     }
 }

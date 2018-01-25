@@ -132,7 +132,7 @@ public class Fragment_MULTA extends Fragment implements View.OnClickListener {
                     .singleShot(R.layout.multa_fragment)
                     .setStyle(R.style.CustomShowcaseTheme2)
                     .setContentTitle("Multas")
-                    .setContentText("El Código Nacional de Policía y Convivencia establece en qué casos un ciudadano debe ser sancionado con un comparendo.")
+                    .setContentText("El Código Nacional de Policía y Convivencia “Para Vivir en Paz”. Establece en que comportamientos contrarios a la convivencia un ciudadano debe ser sancionado.")
                     .setOnClickListener(this)
                     .build();
             showcaseView.setButtonText(getResources().getString(R.string.showcaseSiguiente));

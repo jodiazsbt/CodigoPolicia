@@ -1,6 +1,9 @@
 package com.policia.codigopolicia;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
@@ -12,7 +15,11 @@ import android.widget.Toast;
 import com.policia.codigopolicia.NavegacionCNPC.WrapContentViewPager;
 import com.policia.codigopolicia.NavegacionMULTAS.MULTAS_FragmentStatePagerAdapter;
 import com.policia.negocio.logica.Negocio_ARTICULO;
+import com.policia.negocio.logica.Negocio_MEDIDA;
+import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
+import com.policia.negocio.modelo.Modelo_MEDIDA;
+import com.policia.negocio.modelo.Modelo_NUMERAL;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -21,7 +28,7 @@ import java.util.Locale;
  * Created by 1085253556 on 19/12/2017.
  */
 
-public class ArticuloMultaActivity extends FragmentActivity implements TextToSpeech.OnInitListener {
+public class ArticuloMultaActivity extends FragmentActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener {
 
     WrapContentViewPager viewPagerArticulos;
     PagerAdapter pagerAdapterArticulo;
@@ -33,6 +40,8 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
 
     private int MY_DATA_CHECK_CODE = 0;
     private TextToSpeech textToSpeech;
+
+    private int reproduccion = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,21 +62,18 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
 
             fab = findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
-                    Negocio_ARTICULO negocioArticulo = null;
-                    try {
-                        int position = viewPagerArticulos.getCurrentItem();
-                        negocioArticulo = new Negocio_ARTICULO(view.getContext());
-
-                        ArrayList<Modelo_ARTICULO> articulos = null;
-                        articulos = negocioArticulo.ArticulosPorMultaCategoria(multa, categoria, position + 1);
-                        for (Modelo_ARTICULO articulo : articulos) {
-                            textToSpeech.speak(articulo.Articulo_Descripcion, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    switch (reproduccion) {
+                        case 0:
+                            reproduccion = 1;
+                            reproducir();
+                            break;
+                        case 1:
+                            reproduccion = 0;
+                            detener();
+                            break;
                     }
                 }
             });
@@ -75,6 +81,57 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
             pagerAdapterArticulo = new MULTAS_FragmentStatePagerAdapter(getSupportFragmentManager(), multa, categoria, paginas);
             viewPagerArticulos.setAdapter(pagerAdapterArticulo);
             viewPagerArticulos.setCurrentItem(posicion);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void detener() {
+        textToSpeech.stop();
+        fab.setImageDrawable(getDrawable(R.mipmap.img_03_btn_lectura));
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void reproducir() {
+
+        final Context context = getBaseContext();
+
+        Negocio_MEDIDA negocioMedida = null;
+        Negocio_NUMERAL negocioNumeral = null;
+        Negocio_ARTICULO negocioArticulo = null;
+        try {
+            negocioMedida = new Negocio_MEDIDA(context);
+            negocioNumeral = new Negocio_NUMERAL(context);
+            negocioArticulo = new Negocio_ARTICULO(context);
+
+            int position = viewPagerArticulos.getCurrentItem();
+
+            ArrayList<Modelo_ARTICULO> articulos = null;
+            articulos = negocioArticulo.ArticulosPorMultaCategoria(multa, categoria, position + 1);
+            for (Modelo_ARTICULO articulo : articulos) {
+
+                String texto_articulo = articulo.Articulo_Nivel + "\r\n" +
+                        articulo.Articulo_Titulo + "\r\n" +
+                        articulo.Articulo_Descripcion;
+
+                ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
+                if (!(numerales.size() == 0)) {
+                    for (Modelo_NUMERAL numeral : numerales) {
+                        texto_articulo += "\r\n" + numeral.Nivel + "\t" + numeral.Numeral;
+                    }
+                }
+
+                ArrayList<Modelo_MEDIDA> medidas = negocioMedida.MedidasPorParagrafo(articulo.ID);
+                if (!(medidas.size() == 0)) {
+                    for (Modelo_MEDIDA medida : medidas) {
+                        texto_articulo += "\r\n" + medida.Nivel + "\t" + medida.Comportamiento + "\t" + medida.Medida;
+                    }
+                }
+
+                fab.setImageDrawable(getDrawable(R.drawable.ic_stop_black_24dp));
+                textToSpeech.speak(texto_articulo.replace("<br/>", "\r\n"), TextToSpeech.QUEUE_FLUSH, null);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,4 +182,8 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
         super.onPause();
     }
 
+    @Override
+    public void onUtteranceCompleted(String s) {
+        detener();
+    }
 }

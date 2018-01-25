@@ -1,13 +1,10 @@
 package com.policia.codigopolicia;
 
-import android.os.Build;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 public class GenericWebviewActivity extends AppCompatActivity {
     private WebView mWebView;
@@ -22,9 +19,18 @@ public class GenericWebviewActivity extends AppCompatActivity {
         if (b != null)
             url = b.getString("url");
 
+        final Activity activity = this;
         mWebView = new WebView(this);
         mWebView.loadUrl(url);
-        mWebView.setWebViewClient(new WebViewClient() {
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                activity.setTitle(title);
+            }
+
+            /*
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -38,7 +44,7 @@ public class GenericWebviewActivity extends AppCompatActivity {
                     Toast.makeText(GenericWebviewActivity.this, error.getDescription(), Toast.LENGTH_SHORT).show();
                 } else
                     Toast.makeText(GenericWebviewActivity.this, "Tenemos problemas para cargar esta página en la aplicación", Toast.LENGTH_SHORT).show();
-            }
+            }*/
         });
 
         this.setContentView(mWebView);
