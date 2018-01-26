@@ -1,5 +1,6 @@
 package com.policia.codigopolicia;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,7 +28,6 @@ import com.policia.codigopolicia.NavegacionCNPC.Fragment_LIBRO;
 import com.policia.codigopolicia.NavegacionMULTAS.Fragment_MULTA;
 import com.policia.codigopolicia.adapter.Fragment_METEDATA;
 import com.policia.codigopolicia.adapter.IActualizarListadoBusqueda;
-import com.policia.codigopolicia.idioma.Idioma_Configuracion;
 import com.policia.codigopolicia.showcase.ToolbarActionItemTarget;
 import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.negocio.seguridad.Seguridad;
@@ -54,6 +54,7 @@ public class PrincipalActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         activity = this;
+
         setContentView(R.layout.principal_activity);
 
         try {
@@ -226,7 +227,7 @@ public class PrincipalActivity extends AppCompatActivity
         } else if (id == R.id.nav_games) {
             menuJuegos();
         } else if (id == R.id.nav_puntos) {
-            menuPuntos(item);
+            menuAutoridades(item);
         } else if (id == R.id.nav_login) {
             menuLogin(item);
         } else if (id == R.id.nav_capacitacion) {
@@ -271,7 +272,7 @@ public class PrincipalActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void menuPuntos(MenuItem item) {
+    private void menuAutoridades(MenuItem item) {
 
         Intent intent = new Intent(PrincipalActivity.this, PuntosActivity.class);
         startActivity(intent);
