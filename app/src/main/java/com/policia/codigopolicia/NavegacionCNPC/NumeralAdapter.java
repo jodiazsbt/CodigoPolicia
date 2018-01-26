@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.bluejamesbond.text.DocumentView;
 import com.policia.codigopolicia.R;
 import com.policia.negocio.modelo.Modelo_NUMERAL;
 
@@ -21,7 +20,6 @@ public class NumeralAdapter extends BaseAdapter {
 
     private Activity activity;
     private ArrayList<Modelo_NUMERAL> numerales;
-    private DocumentView documentViewNUMERAL;
 
     public NumeralAdapter(Activity activity, ArrayList<Modelo_NUMERAL> numerales) {
 

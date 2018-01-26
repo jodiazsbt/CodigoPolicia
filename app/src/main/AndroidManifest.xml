@@ -99,6 +99,7 @@
             android:name=".CapacitacionActivity"
             android:label="@string/title_activity_capacitación"
             android:screenOrientation="portrait" />
+        <activity android:name=".AutoridadesActivity"></activity>
     </application>
 
 </manifest>
