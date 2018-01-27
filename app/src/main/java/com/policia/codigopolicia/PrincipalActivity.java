@@ -75,6 +75,7 @@ public class PrincipalActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         cargaSesion();
         menuCodigoPolicia(navigationView.getMenu().getItem(1));//codigo de policia
@@ -340,11 +341,8 @@ public class PrincipalActivity extends AppCompatActivity
 
     private void menuPSC(MenuItem item) {
 
-        Intent intent = new Intent(this, PortalCiudadano.class);
+        Intent intent = new Intent(this, PortalActivity.class);
         startActivity(intent);
-
-        //item.setChecked(true);
-        //getSupportActionBar().setTitle(item.getTitle());
     }
 
     private void menuPOLIS(MenuItem item) {
@@ -410,13 +408,17 @@ public class PrincipalActivity extends AppCompatActivity
                 showcaseView.setContentText("Es deber de todas las personas en el territorio nacional comportase de manera favorable a la convivencia. Para ello, además de evitar actividades o comportamientos contrarios a la misma, se deben autorregular el ejercicio de derechos y libertades, para no transgredir los de los demás.");
                 break;
             case 2:
+                showcaseView.setContentTitle("Aplicaciones preinstaladas");
+                showcaseView.setContentText("Para una experiencia de navegación completa se sugiere tener instaladas la aplicación POLIS y !A Denunciar¡");
+                break;
+            case 3:
 
                 ToolbarActionItemTarget menuTarget = new ToolbarActionItemTarget(toolbar, R.id.action_search);
                 showcaseView.setTarget(menuTarget);
                 showcaseView.setContentTitle("Búsquedas por voz y texto");
                 showcaseView.setContentText("Utilice este botón cuando quiera realizar una búsqueda tanto por texto como por voz relacionada con el nuevo Código Nacional de Policía y Convivencia. Recomendamos instalar el teclado de google para realizar búsquedas por voz.");
                 break;
-            case 3:
+            case 4:
 
                 ViewTarget toolbarTarget = null;
                 try {
@@ -430,7 +432,7 @@ public class PrincipalActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
                 break;
-            case 4:
+            case 5:
                 showcaseView.hide();
                 break;
         }

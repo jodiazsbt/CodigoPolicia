@@ -214,6 +214,7 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
 
     @Override
     public void onUtteranceCompleted(String s) {
+
         detener();
     }
 }

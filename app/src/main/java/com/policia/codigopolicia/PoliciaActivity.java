@@ -25,19 +25,22 @@ import android.util.Log;
 import android.view.View;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.policia.codigopolicia.IdentificacionPolicia.BarcodeCaptureActivity;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Identificacion;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Opciones;
 import com.policia.codigopolicia.IdentificacionPolicia.IClickScan;
+import com.policia.codigopolicia.showcase.ToolbarActionItemTarget;
+import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.remote.RemotePolicia;
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
  * reads barcodes.
  */
-public class PoliciaActivity extends AppCompatActivity {
+public class PoliciaActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Fragment fragment;
     private final Activity activity = this;
@@ -47,6 +50,9 @@ public class PoliciaActivity extends AppCompatActivity {
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
 
+    private int counter = 0;
+    private ShowcaseView showcaseView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +60,15 @@ public class PoliciaActivity extends AppCompatActivity {
 
         inflarFragmentOpciones();
 
-        new ShowcaseView.Builder(this)
+        showcaseView = new ShowcaseView.Builder(this)
                 .withMaterialShowcase()
-                .singleShot(R.layout.encuesta_activity)
+                .singleShot(R.layout.policia_activity)
                 .setStyle(R.style.CustomShowcaseTheme2)
-                .setContentTitle("Identificación del policía.")
-                .setContentText("Tenga en cuenta que conforme lo señala la Ley 1581 de 2012, sobre protección de datos, sólo se podrá verificar la identidad del funcionario policial que está atendiendo el procedimiento de policía, en el cual la persona que consulta o en su defecto, un familiar de la misma, es la involucrada en el procedimiento policial. (SU 458 DE 2012)")
-                .build()
-                .show();
+                .setContentTitle("Identificación del policía")
+                .setContentText("Evite ser víctima de personas sin escrúpulos. Utilice esta herramienta para confirmar la identidad del policía que está atendiendo el procedimiento, solicitando el carné de identificación de la Policía Nacional de Colombia.")
+                .setOnClickListener(this)
+                .build();
+        showcaseView.setButtonText(getResources().getString(R.string.showcaseSiguiente));
     }
 
     @Override
@@ -183,5 +190,20 @@ public class PoliciaActivity extends AppCompatActivity {
 
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (counter) {
+            case 0:
+                showcaseView.setContentTitle("Aviso Legal.");
+                showcaseView.setContentText("Tenga en cuenta que conforme lo señala la Ley 1581 de 2012, sobre protección de datos, sólo se podrá verificar la identidad del funcionario policial que está atendiendo el procedimiento de policía, en el cual la persona que consulta o en su defecto, un familiar de la misma, es la involucrada en el procedimiento policial. (SU 458 DE 2012)");
+                showcaseView.setButtonText(getResources().getString(R.string.showcaseEntendido));
+                break;
+            case 1:
+                showcaseView.hide();
+                break;
+        }
+        counter++;
     }
 }

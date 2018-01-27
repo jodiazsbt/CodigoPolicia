@@ -42,6 +42,7 @@
             android:name=".PrincipalActivity"
             android:autoRemoveFromRecents="true"
             android:label="@string/title_activity_principal"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CargaActivity"
@@ -99,7 +100,13 @@
             android:name=".CapacitacionActivity"
             android:label="@string/title_activity_capacitación"
             android:screenOrientation="portrait" />
-        <activity android:name=".AutoridadesActivity"></activity>
+        <activity
+            android:name=".AutoridadesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PortalActivity"
+            android:label="@string/title_activity_portal"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

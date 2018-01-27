@@ -5,25 +5,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:padding="16dp"
-        android:text="@string/scanning_for_otp" />
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-    <com.policia.codigopolicia.IdentificacionPolicia.CameraSourcePreview
-        android:id="@+id/preview"
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.policia.codigopolicia.IdentificacionPolicia.CameraSourcePreview
+            android:id="@+id/preview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7">
+
+            <com.policia.codigopolicia.IdentificacionPolicia.GraphicOverlay
+                android:id="@+id/graphicOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.policia.codigopolicia.IdentificacionPolicia.CameraSourcePreview>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top|center_horizontal"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="-20dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
 
-        <com.policia.codigopolicia.IdentificacionPolicia.GraphicOverlay
-            android:id="@+id/graphicOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="top|center_horizontal"
+            android:padding="16dp"
+            android:text="@string/scanning_for_otp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-    </com.policia.codigopolicia.IdentificacionPolicia.CameraSourcePreview>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/img_tutorial_policia" />
+    </LinearLayout>
 
 </LinearLayout>
