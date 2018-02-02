@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 
 import com.policia.codigopolicia.R;
+import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_LIBRO;
 
 /**
@@ -17,6 +19,8 @@ import com.policia.negocio.logica.Negocio_LIBRO;
 public class Fragment_LIBRO extends Fragment {
 
     private ExpandableListView expandableLibro;
+
+    private Negocio_AVATAR negocioAvatar;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -31,9 +35,13 @@ public class Fragment_LIBRO extends Fragment {
         super.onActivityCreated(state);
 
         try {
+            negocioAvatar = new Negocio_AVATAR(getContext());
+
+            View header = getLayoutInflater().inflate(R.layout.libro_expandable_header, null);
+            negocioAvatar.drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_CNPC, (ImageView) header.findViewById(R.id.imageViewCaricatura));
 
             expandableLibro = getView().findViewById(R.id.expandableLibro);
-            expandableLibro.addHeaderView(getLayoutInflater().inflate(R.layout.libro_expandable_header, null), null, false);
+            expandableLibro.addHeaderView(header, null, false);
             expandableLibro.setAdapter(new Nivel_BaseExpandableListAdapter(this, new Negocio_LIBRO(getContext()).Libros()));
 
         } catch (Exception e) {

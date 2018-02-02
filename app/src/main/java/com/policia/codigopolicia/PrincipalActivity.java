@@ -2,6 +2,7 @@ package com.policia.codigopolicia;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.policia.codigopolicia.NavegacionCNPC.Fragment_LIBRO;
 import com.policia.codigopolicia.NavegacionMULTAS.Fragment_MULTA;
 import com.policia.codigopolicia.adapter.Fragment_METEDATA;
 import com.policia.codigopolicia.adapter.IActualizarListadoBusqueda;
+import com.policia.codigopolicia.html.HTML_Plantillas;
 import com.policia.codigopolicia.showcase.ToolbarActionItemTarget;
 import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.negocio.seguridad.Seguridad;
@@ -127,6 +130,15 @@ public class PrincipalActivity extends AppCompatActivity
 
             textViewFuncionario.setText(sesion.getFuncionario());
             textViewFisica.setText(sesion.getFisica());
+
+            new ShowcaseView.Builder(this)
+                    .withMaterialShowcase()
+                    .singleShot(R.layout.principal_activity)
+                    .setStyle(R.style.CustomShowcaseTheme2)
+                    .setContentTitle("Bienvenido")
+                    .setContentText("Periódicamente se estará agregando a su biblioteca vídeos o documentos de apoyo para su labor como policía. Esta información la podrá encontrar en el menú de capacitación cuando haya iniciado su sesión con las credenciales PSI.")
+                    .setOnClickListener(this)
+                    .build();
         }
         navigationView.getMenu().findItem(R.id.nav_login).setVisible(sesion.getUsuario().equals("1"));
         navigationView.getMenu().findItem(R.id.nav_cerrar).setVisible(!sesion.getUsuario().equals("1"));
@@ -197,6 +209,12 @@ public class PrincipalActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
+        } else if (id == R.id.action_terminos) {
+            WebView wv = new WebView(this);
+            wv.loadData(new HTML_Plantillas(this, HTML_Plantillas.Plantilla.TERMINOS).getPlantilla(), "text/html", "utf-8");
+            new AlertDialog.Builder(this)
+                    .setView(wv)
+                    .show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -212,7 +230,7 @@ public class PrincipalActivity extends AppCompatActivity
         if (id == R.id.nav_language) {
             menuIdioma(item);
         } else if (id == R.id.nav_funcionario) {
-            menuIdentificarFuncionario(item);
+            menuConsultaComparendo(item);
         } else if (id == R.id.nav_policia) {
             scanPolicia();
         } else if (id == R.id.nav_codigo_policia) {
@@ -275,32 +293,14 @@ public class PrincipalActivity extends AppCompatActivity
 
     private void menuAutoridades(MenuItem item) {
 
-        Intent intent = new Intent(PrincipalActivity.this, PuntosActivity.class);
+        Intent intent = new Intent(PrincipalActivity.this, AutoridadesActivity.class);
         startActivity(intent);
     }
 
-    private void menuIdentificarFuncionario(MenuItem item) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            /*
-            fragment = new NavegadorApp();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, fragment)
-                    .commit();
-            //item.setChecked(true);
-            getSupportActionBar().setTitle(item.getTitle());
-            */
+    private void menuConsultaComparendo(MenuItem item) {
 
-            Intent intent = new Intent(PrincipalActivity.this, GenericWebviewActivity.class);
-            Bundle b = new Bundle();
-            b.putString("url", "https://srvpsi.policia.gov.co/PSC/frm_cnp_consulta.aspx"); //Your id
-            intent.putExtras(b); //Put your id to your next Intent
-            startActivity(intent);
-        } else {
-
-            Uri uri = Uri.parse("https://srvpsi.policia.gov.co/PSC/frm_cnp_consulta.aspx");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(PrincipalActivity.this, ComparendosActivity.class);
+        startActivity(intent);
     }
 
     private void menuJuegos() {
@@ -371,7 +371,6 @@ public class PrincipalActivity extends AppCompatActivity
 
         //item.setChecked(true);
         getSupportActionBar().setTitle(item.getTitle());
-
     }
 
     private boolean isPackageInstalled(String packagename, PackageManager packageManager) {
@@ -386,14 +385,12 @@ public class PrincipalActivity extends AppCompatActivity
     private void openApp(String packageName) {
 
         startActivity(getPackageManager().getLaunchIntentForPackage(packageName));
-
     }
 
     private void scanPolicia() {
 
         Intent intent = new Intent(this, PoliciaActivity.class);
         startActivity(intent);
-
     }
 
     @Override
@@ -409,7 +406,7 @@ public class PrincipalActivity extends AppCompatActivity
                 break;
             case 2:
                 showcaseView.setContentTitle("Aplicaciones preinstaladas");
-                showcaseView.setContentText("Para una experiencia de navegación completa se sugiere tener instaladas la aplicación POLIS y !A Denunciar¡");
+                showcaseView.setContentText("Para una experiencia de navegación completa se sugiere tener instaladas las aplicaciónes Google MAPS, POLIS y !A Denunciar¡");
                 break;
             case 3:
 

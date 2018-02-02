@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.policia.codigopolicia.ArticuloCapituloActivity;
@@ -55,9 +56,18 @@ public class Nivel_BaseExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView textViewLabel = view.findViewById(R.id.textViewLabel);
         TextView textViewValue = view.findViewById(R.id.textViewValue);
+        ImageView imageViewLibro = view.findViewById(R.id.imageViewLibro);
 
-        textViewLabel.setText(libros.get(groupPosition).Nivel);
-        textViewValue.setText(libros.get(groupPosition).Libro);
+        Modelo_LIBRO libro = libros.get(groupPosition);
+
+        textViewLabel.setText(libro.Nivel);
+        textViewValue.setText(libro.Libro);
+        imageViewLibro.setImageDrawable(
+                context.getResources().getDrawable(
+                        context.getResources().getIdentifier(
+                                libro.Recurso,
+                                null,
+                                context.getActivity().getPackageName())));
 
         return view;
     }

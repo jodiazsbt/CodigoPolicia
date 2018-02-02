@@ -64,7 +64,6 @@
     <string name="policia_header_title">IDENTIFICACION POLICÍA</string>
     <string name="policia_header_subtitle">Escanee el código de barras del carnet del policía.</string>
 
-
     <!--ENCUESTA-->
     <string name="encuesta_header_title">ENCUESTA</string>
     <string name="encuesta_header_subtitle">Ayúdenos a responder esta breve encuesta</string>
@@ -102,4 +101,18 @@
         <item>MEDIDAS</item>
         <item>COMPETENCIAS</item>
     </string-array>
+
+    <!--COMPARENDOS-->
+    <string-array name="tipoDocumentoCargando">
+        <item>Cargando lista...</item>
+    </string-array>
+
+    <!--SHOWCASE-->
+    <string name="showcaseEntendido">Entendido</string>
+    <string name="showcaseSiguiente">Siguiente</string>
+    <string name="comparendos_header_title">Consulta Ciudadano</string>
+    <string name="comparendos_header_subtitle">Sistema Registro Nacional Medidas Correctivas RNMC</string>
+    <string name="comparendos_tipo_documento">Tipo Documento</string>
+    <string name="button_comparendos_buscar">BUSCAR</string>
+    <string name="comparendos_identificacion">Identificación</string>
 </resources>

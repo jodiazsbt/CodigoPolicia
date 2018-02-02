@@ -26,9 +26,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.remote.RemoteClient;
 import com.policia.remote.response.LoginPoliciaNalResult;
@@ -122,8 +124,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         try {
             sesion = Seguridad.Sesion(getBaseContext());
-
             usuarioID = sesion.getUsuario();
+
+            new Negocio_AVATAR(this).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_LOGIN,
+                    (ImageView) findViewById(R.id.imageView2));
         } catch (Exception e) {
             e.printStackTrace();
         }

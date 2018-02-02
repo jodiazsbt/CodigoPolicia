@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 
 import com.policia.codigopolicia.R;
+import com.policia.negocio.logica.Negocio_AVATAR;
 
 /**
  * Created by 1085253556 on 21/12/2017.
@@ -33,7 +35,16 @@ public class Fragment_Opciones extends Fragment implements View.OnClickListener 
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.policia_fragment_opciones, container, false);
+        View fragment = inflater.inflate(R.layout.policia_fragment_opciones, container, false);
+
+        try {
+            new Negocio_AVATAR(getContext()).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_PDF417,
+                    (ImageView) fragment.findViewById(R.id.imageViewCaricatura));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return fragment;
     }
 
     @Override

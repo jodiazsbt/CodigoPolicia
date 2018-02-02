@@ -6,10 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.adapter.Capacitacion_Adapter;
+import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.modelo.Modelo_DOCUMENTO;
 
@@ -33,9 +35,14 @@ public class CapacitacionActivity extends Activity {
             /*
             documentos.add(new Modelo_DOCUMENTO("VIDEO CODIGO POLICIA", "https://www.youtube.com/watch?time_continue=5&v=Jn0ML-a1C14"));
             documentos.add(new Modelo_DOCUMENTO("LEY CODIGO POLICIA", "https://www.policia.gov.co/sites/default/files/ley-1801-codigo-nacional-policia-convivencia.pdf"));*/
-
             listviewCapacitacion = findViewById(R.id.listviewCapacitacion);
-            listviewCapacitacion.addHeaderView(getLayoutInflater().inflate(R.layout.articulo_header, null), null, false);
+
+
+            View header = getLayoutInflater().inflate(R.layout.articulo_header, null);
+            new Negocio_AVATAR(this).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_CAPACITACION,
+                    (ImageView) header.findViewById(R.id.imageViewCaricatura));
+            listviewCapacitacion.addHeaderView(header, null, false);
+
             listviewCapacitacion.setAdapter(new Capacitacion_Adapter(this, documentos));
             //listviewCapacitacion.setAdapter(new Capacitacion_Adapter(this, documentos));
             listviewCapacitacion.setOnItemClickListener(new AdapterView.OnItemClickListener() {

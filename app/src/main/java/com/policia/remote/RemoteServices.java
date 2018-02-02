@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.policia.codigopolicia.PrincipalActivity;
 import com.policia.negocio.logica.Negocio_ACCION;
 import com.policia.negocio.logica.Negocio_ARTICULO;
+import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_CAPITULO;
 import com.policia.negocio.logica.Negocio_CATEGORIA;
 import com.policia.negocio.logica.Negocio_COMPENTENCIA_NUMERAL;
@@ -51,6 +52,7 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     private Negocio_COMPENTENCIA_NUMERAL negocioCompentenciaNumeral;
     private Negocio_ACCION negocioAccion;
     private Negocio_UVT negocioUVT;
+    private Negocio_AVATAR negocioAvatar;
 
     public static RemoteServices newInstance(Activity activity) {
 
@@ -82,6 +84,7 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             this.negocioCompentenciaNumeral = new Negocio_COMPENTENCIA_NUMERAL(activity);
             this.negocioAccion = new Negocio_ACCION(activity);
             this.negocioUVT = new Negocio_UVT(activity);
+            this.negocioAvatar = new Negocio_AVATAR(activity);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,6 +101,7 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             if (!remoteClient.isServiceOnline())
                 return Long.valueOf(-1);
 
+            /*
             sincronizar += negocioNivel.sincronizar();
             sincronizar += negocioLibro.sincronizar();
             sincronizar += negocioTitulo.sincronizar();
@@ -114,7 +118,7 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             sincronizar += negocioCompentenciaNumeral.sincronizar();
             sincronizar += negocioAccion.sincronizar();
             sincronizar += negocioUVT.sincronizar();
-
+            sincronizar += negocioAvatar.sincronizar();*/
         } catch (Exception e) {
             e.printStackTrace();
             return Long.valueOf(-2);

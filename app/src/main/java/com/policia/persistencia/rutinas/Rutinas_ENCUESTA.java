@@ -32,6 +32,10 @@ public class Rutinas_ENCUESTA {
         parameters.put("ID", encuesta.ID);
         parameters.put("ENCUESTA_ESP", encuesta.ENCUESTA_ESP);
         parameters.put("ENCUESTA_ENG", encuesta.ENCUESTA_ENG);
+        parameters.put("RESPUESTA_SI_ESP", encuesta.RESPUESTA_SI_ESP);
+        parameters.put("RESPUESTA_NO_ESP", encuesta.RESPUESTA_NO_ESP);
+        parameters.put("RESPUESTA_SI_ENG", encuesta.RESPUESTA_SI_ENG);
+        parameters.put("RESPUESTA_NO_ENG", encuesta.RESPUESTA_NO_ENG);
         parameters.put("ACTIVA", encuesta.ACTIVA);
 
         DB = new SQLiteProvider(context).getWritableDatabase();
@@ -83,13 +87,15 @@ public class Rutinas_ENCUESTA {
     public Modelo_ENCUESTA ultimaEncuesta(String idioma) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
-        Cursor cursor = DB.rawQuery("SELECT ID,ENCUESTA_" + idioma + " FROM ENCUESTA WHERE ID=(SELECT MAX(ID) FROM ENCUESTA WHERE ACTIVA=1);", null);//SOLO LIBROS
+        Cursor cursor = DB.rawQuery("SELECT ID,ENCUESTA_" + idioma + ",RESPUESTA_SI_" + idioma + ",RESPUESTA_NO_" + idioma + " FROM ENCUESTA WHERE ID=(SELECT MAX(ID) FROM ENCUESTA WHERE ACTIVA=1);", null);//SOLO LIBROS
 
         Modelo_ENCUESTA result = null;
         while (cursor.moveToNext()) {
             result = new Modelo_ENCUESTA(
                     cursor.getString(0),//ID
-                    cursor.getString(1)//PREGUNTA
+                    cursor.getString(1),//PREGUNTA
+                    cursor.getString(2),//RESPUESTA AFIRMATIVA
+                    cursor.getString(3)// RESPUESTA NEGATIVA
             );
         }
         cursor.close();

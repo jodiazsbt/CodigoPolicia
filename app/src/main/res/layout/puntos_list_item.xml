@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="5dp"
         android:text="Nombre"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
     <TextView
         android:id="@+id/textViewDireccion"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewNombre"
         android:text="Direccion"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
     <TextView
         android:id="@+id/textViewDistancia"
@@ -27,6 +27,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/textViewNombre"
         android:text="Distancia"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
 </RelativeLayout>

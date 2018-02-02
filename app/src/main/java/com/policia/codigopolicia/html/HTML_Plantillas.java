@@ -49,6 +49,8 @@ public class HTML_Plantillas {
         switch (plantilla) {
             case ARTICULO:
                 return context.getResources().getString(R.string.html_plantilla_articulos);
+            case TERMINOS:
+                return context.getResources().getString(R.string.html_plantilla_terminos);
             case PROCEDIMIENTOS:
                 return context.getResources().getString(R.string.html_plantilla_procedimientos);
             default:
@@ -59,6 +61,7 @@ public class HTML_Plantillas {
     public enum Plantilla {
 
         ARTICULO,
+        TERMINOS,
         PROCEDIMIENTOS;
     }
 }

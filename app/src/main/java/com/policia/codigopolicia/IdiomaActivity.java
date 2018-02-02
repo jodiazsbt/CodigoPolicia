@@ -7,10 +7,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.idioma.Idioma_Adapter;
+import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_IDIOMA;
 import com.policia.negocio.modelo.Modelo_IDIOMA;
 import com.policia.negocio.seguridad.Seguridad;
@@ -35,12 +37,10 @@ public class IdiomaActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 
         setContentView(R.layout.idioma_activity);
-
         negocioIdioma = new Negocio_IDIOMA(getBaseContext());
 
         listViewIdiomas = findViewById(R.id.listViewIdiomas);
         listViewIdiomas.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        listViewIdiomas.addHeaderView(getLayoutInflater().inflate(R.layout.idioma_header, null), null, false);
         listViewIdiomas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int posicion, long id) {
@@ -50,6 +50,17 @@ public class IdiomaActivity extends Activity {
         });
         idiomas = negocioIdioma.Idiomas();
 
+        View header;
+        try {
+            header = getLayoutInflater().inflate(R.layout.idioma_header, null);
+
+            new Negocio_AVATAR(this).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_IDIOMA,
+                    (ImageView) header.findViewById(R.id.imageViewCaricatura));
+
+            listViewIdiomas.addHeaderView(header, null, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         adapter = new Idioma_Adapter(activity, idiomas);
         listViewIdiomas.setAdapter(adapter);
         listViewIdiomas.setItemChecked(posicionIdioma(), true);

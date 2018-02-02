@@ -41,7 +41,7 @@
         android:title="@string/menu_puntos" />
     <item
         android:id="@+id/nav_capacitacion"
-        android:icon="@mipmap/img_07_btn_puntos_ref"
+        android:icon="@mipmap/ic_capacitacion"
         android:title="@string/menu_capacitacion" />
     <item
         android:id="@+id/nav_login"

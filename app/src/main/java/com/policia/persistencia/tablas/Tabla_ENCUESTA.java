@@ -13,5 +13,9 @@ public class Tabla_ENCUESTA {
     public String ID;
     public String ENCUESTA_ESP;
     public String ENCUESTA_ENG;
+    public String RESPUESTA_SI_ESP;
+    public String RESPUESTA_NO_ESP;
+    public String RESPUESTA_SI_ENG;
+    public String RESPUESTA_NO_ENG;
     public boolean ACTIVA;
 }

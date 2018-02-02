@@ -83,6 +83,7 @@
 
     <!--HTML TEMPLATE-->
     <string name="html_plantilla_articulos">ARTICULOS.html</string>
+    <string name="html_plantilla_terminos">TERMINOS.html</string>
     <string name="html_plantilla_procedimientos">PROCEDIMIENTOS.html</string>
     <string name="scanning_for_otp">Solicite al Policía el carné de identificación y coloque la cámara sobre el código de barras del documento.</string>
 

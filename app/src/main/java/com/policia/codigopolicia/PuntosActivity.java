@@ -36,7 +36,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.policia.remote.RemoteGEO;
 import com.policia.remote.request.RequestGEO;
 
 public class PuntosActivity extends AppCompatActivity
@@ -109,7 +108,7 @@ public class PuntosActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
 
-        listView = findViewById(R.id.listviewPuntos);
+        listView = findViewById(R.id.listviewAutoridades);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -231,7 +230,7 @@ public class PuntosActivity extends AppCompatActivity
                                 geo.Longitud = String.valueOf(mLastKnownLocation.getLongitude()).replace(".", ",");
                                 geo.Tipo = tipoCompetencia;//Buscar todos los sitios que se puedan encontrar
 
-                                new RemoteGEO(activity, listView, mMap).execute(geo);
+                                //new RemoteGEO(activity, listView, mMap).execute(geo);
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");

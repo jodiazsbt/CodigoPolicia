@@ -3,6 +3,7 @@ package com.policia.remote;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Base64;
 
 import com.google.gson.Gson;
 import com.policia.codigopolicia.R;
@@ -17,6 +18,7 @@ import com.policia.remote.response.CONSULTAPOLICIAResponse;
 import com.policia.remote.response.DOCUMENTOSINSTRUCTIVOSCNPCNResponse;
 import com.policia.remote.response.ENCUESTASCNPCResponse;
 import com.policia.remote.response.GEOPOCICIONCNPCResponse;
+import com.policia.remote.response.ImagenesAvatarInfoResponse;
 import com.policia.remote.response.LoginPoliciaNal;
 import com.policia.remote.response.LoginPoliciaNalResult;
 import com.policia.remote.response.MULTAAARTICULOYPARAGRAFOResponse;
@@ -26,6 +28,10 @@ import com.policia.remote.response.NivelesResponse;
 import com.policia.remote.response.NumeralesResponse;
 import com.policia.remote.response.RELACIONCOMPETENCIANUMERALMEDIDACNPCResponse;
 import com.policia.remote.response.RESPUESTAENCUESTAResponse;
+import com.policia.remote.response.RNMCDETALLECOMPORTAMIENTOResponse;
+import com.policia.remote.response.RNMCGENERALResponse;
+import com.policia.remote.response.RNMCMEDIDACORRECTIVAResponse;
+import com.policia.remote.response.RNMCTIPOSDOCResponse;
 import com.policia.remote.response.TIPOSARCHIVOSResponse;
 import com.policia.remote.response.UVTCNCPResult;
 
@@ -167,7 +173,7 @@ public class RemoteClient {
     }
 
     public LoginPoliciaNalResult LoginPoliciaNal(String usuario, String contrasena) throws Exception {
-        String body = "LoginPoliciaNal/" + usuario + "," + contrasena + ",172.28.3.23,CNPC";
+        String body = "LoginPoliciaNal/" + usuario + "," + Base64.encodeToString(contrasena.getBytes(), Base64.DEFAULT).replace("\n", "") + ",172.28.3.23,CNPC";
         StringBuilder builder = postInvoke(direccionServicio + body);
         LoginPoliciaNal result = new Gson().fromJson(builder.toString(), LoginPoliciaNal.class);
         if (result.LoginPoliciaNalResult.size() == 0) {
@@ -313,6 +319,41 @@ public class RemoteClient {
         String body = "RESPUESTAENCUESTA/" + ID + "," + Departamento + "," + Fecha + "," + Opcion + "";
         StringBuilder builder = postInvoke(direccionServicio + body);
         RESPUESTAENCUESTAResponse result = new Gson().fromJson(builder.toString(), RESPUESTAENCUESTAResponse.class);
+        return result;
+    }
+
+    public ImagenesAvatarInfoResponse sincronizarAVATAR(String fecha) throws Exception {
+        String body = "ImagenesAvatarInfo/" + fecha;
+        StringBuilder builder = postInvoke(direccionServicio + body);
+        ImagenesAvatarInfoResponse result = new Gson().fromJson(builder.toString(), ImagenesAvatarInfoResponse.class);
+        return result;
+    }
+
+    public RNMCTIPOSDOCResponse RNMC_TIPOS_DOC() throws Exception {
+        String body = "RNMC_TIPOS_DOC";
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        RNMCTIPOSDOCResponse result = new Gson().fromJson(builder.toString(), RNMCTIPOSDOCResponse.class);
+        return result;
+    }
+
+    public RNMCGENERALResponse RNMC_GENERAL(String TipoDocumento, String Identificacion) throws Exception {
+        String body = "RNMC_GENERAL/" + TipoDocumento + "," + Identificacion;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        RNMCGENERALResponse result = new Gson().fromJson(builder.toString(), RNMCGENERALResponse.class);
+        return result;
+    }
+
+    public RNMCMEDIDACORRECTIVAResponse RNMC_MEDIDA_CORRECTIVA(String Comportamiento) throws Exception {
+        String body = "RNMC_MEDIDA_CORRECTIVA/" + Comportamiento;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        RNMCMEDIDACORRECTIVAResponse result = new Gson().fromJson(builder.toString(), RNMCMEDIDACORRECTIVAResponse.class);
+        return result;
+    }
+
+    public RNMCDETALLECOMPORTAMIENTOResponse RNMC_DETALLE_COMPORTAMIENTO(String Comportamiento, String Expediente) throws Exception {
+        String body = "RNMC_DETALLE_COMPORTAMIENTO/" + Comportamiento + "," + Expediente;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        RNMCDETALLECOMPORTAMIENTOResponse result = new Gson().fromJson(builder.toString(), RNMCDETALLECOMPORTAMIENTOResponse.class);
         return result;
     }
 }

@@ -32,6 +32,7 @@ public class Rutinas_MULTA {
                 "WHEN MULTA.TIPOMULTA_ID IN (1004) THEN 'MULTAS ESPECIALES'  " +
                 "WHEN MULTA.TIPOMULTA_ID IN (1820) THEN 'COMPARENDO'  ELSE REPLACE(UPPER(NIVEL.NIVEL_" + Idioma + "),':','') END NIVEL_" + Idioma + ", " +
                 "UPPER(NUMERAL.NUMERAL_ESP) NUMERAL_" + Idioma + ", " +
+                "TIPO_MULTA.RESOURCE_ID, " +
                 "CASE  " +
                 "WHEN MULTA.TIPOMULTA_ID IN (1004,1820) THEN 0 " +
                 "WHEN MULTA.TIPOMULTA_ID IN (1000) THEN UVT.VALOR*4 " +
@@ -41,6 +42,7 @@ public class Rutinas_MULTA {
                 "FROM MULTA " +
                 "INNER JOIN NUMERAL ON MULTA.TIPOMULTA_ID=NUMERAL.ID  " +
                 "INNER JOIN NIVEL ON NUMERAL.NIVEL_ID=NIVEL.ID " +
+                "INNER JOIN TIPO_MULTA ON MULTA.TIPOMULTA_ID=TIPO_MULTA.ID " +
                 "INNER JOIN (SELECT UVT.VALOR FROM (SELECT MAX(ANIO) ANIO FROM UVT) UVT_MAX INNER JOIN UVT ON UVT_MAX.ANIO=UVT.ANIO) UVT;", null);
 
         ArrayList<Modelo_MULTA> result = new ArrayList<Modelo_MULTA>();
@@ -49,7 +51,8 @@ public class Rutinas_MULTA {
                     cursor.getString(0),
                     cursor.getString(1),
                     cursor.getString(2),
-                    cursor.getDouble(3)
+                    cursor.getString(3),
+                    cursor.getDouble(4)
             );
             result.add(multa);
         }

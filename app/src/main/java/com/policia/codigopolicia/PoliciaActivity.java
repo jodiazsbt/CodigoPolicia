@@ -25,15 +25,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.policia.codigopolicia.IdentificacionPolicia.BarcodeCaptureActivity;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Identificacion;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Opciones;
 import com.policia.codigopolicia.IdentificacionPolicia.IClickScan;
-import com.policia.codigopolicia.showcase.ToolbarActionItemTarget;
-import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.remote.RemotePolicia;
 
 /**

@@ -1,15 +1,16 @@
 package com.policia.remote;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.policia.codigopolicia.Puntos.PuntosAdapter;
 import com.policia.codigopolicia.Puntos.PuntosCercanos;
 import com.policia.remote.request.RequestGEO;
@@ -28,14 +29,16 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
     private GoogleMap mMap;
     private Activity activity;
     private RemoteClient remoteClient;
+    private WebView webviewMap;
 
     private GEOPOCICIONCNPCResponse responseGEO;
 
-    public RemoteGEO(Activity activity, ListView view, GoogleMap mMap) {
+    public RemoteGEO(Activity activity, ListView view, WebView webviewMap) {//GoogleMap mMap) {
 
         this.view = view;
-        this.mMap = mMap;
+        //this.mMap = mMap;
         this.activity = activity;
+        this.webviewMap = webviewMap;
         this.remoteClient = new RemoteClient(activity);
     }
 
@@ -76,6 +79,7 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
     protected void onPostExecute(Void aVoid) {
 
         if (responseGEO == null) {
+            activity.finish();
             Toast.makeText(activity, "Para realizar esta búsqueda se necesita una conexión a internet", Toast.LENGTH_SHORT).show();
         } else if (responseGEO.gEOPOCICIONCNPCResult.size() == 0) {
             Toast.makeText(activity, "", Toast.LENGTH_SHORT).show();
@@ -97,12 +101,21 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     PuntosCercanos punto = puntos.get(i);
-
+                    /*
                     mMap.clear();
                     mMap.addMarker(new MarkerOptions()
                             .title(punto.Nombre)
                             .position(new LatLng(punto.Latitud, punto.Longitud))
                             .snippet(punto.Direccion));
+
+                    webviewMap.loadUrl("https://policia.maps.arcgis.com/apps/webappviewer/index.html?id=6016fa41f3a64c3d9ffcee984626dd62&amp;center=" + punto.Latitud + "," + punto.Longitud + ",,,,&amp;level=12");
+                    webviewMap.getSettings().setJavaScriptEnabled(true);
+                    webviewMap.setWebChromeClient(new WebChromeClient());*/
+
+                    Uri gmmIntentUri = Uri.parse("geo:" + punto.Latitud + "," + punto.Longitud + "?q=" + punto.Nombre);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    activity.startActivity(mapIntent);
                 }
             });
 

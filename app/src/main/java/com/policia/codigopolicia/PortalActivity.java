@@ -4,16 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.policia.codigopolicia.adapter.CustomListAdapter;
+import com.policia.negocio.logica.Negocio_AVATAR;
 
 public class PortalActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +47,16 @@ public class PortalActivity extends AppCompatActivity implements View.OnClickLis
         CustomListAdapter adapter = new CustomListAdapter(this, menuList, imgid);
         list = (ListView) findViewById(R.id.list);
         list.setAdapter(adapter);
-        list.addHeaderView(getLayoutInflater().inflate(R.layout.portal_header, null), null, false);
+
+        try {
+            View header = getLayoutInflater().inflate(R.layout.portal_header, null);
+            new Negocio_AVATAR(this).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_PSC,
+                    (ImageView) header.findViewById(R.id.overview_image));
+            list.addHeaderView(header, null, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         final Activity activity = this;
 
@@ -147,12 +156,16 @@ public class PortalActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         } else {
-
+            /*
             String url = urlList[counter];
             Intent intent = new Intent(PortalActivity.this, GenericWebviewActivity.class);
             Bundle b = new Bundle();
             b.putString("url", url); //Your id
             intent.putExtras(b); //Put your id to your next Intent
+            startActivity(intent);*/
+
+            Uri uri = Uri.parse(urlList[counter]);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         }
 

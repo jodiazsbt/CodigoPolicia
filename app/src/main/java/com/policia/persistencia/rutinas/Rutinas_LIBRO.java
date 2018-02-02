@@ -57,7 +57,8 @@ public class Rutinas_LIBRO {
         Cursor cursor = DB.rawQuery("SELECT " +
                 "LIBRO.ID, " +
                 "NIVEL.NIVEL_" + Idioma + " NIVEL, " +
-                "LIBRO.LIBRO_" + Idioma + " LIBRO " +
+                "LIBRO.LIBRO_" + Idioma + " LIBRO, " +
+                "RECURSO_ID " +
                 "FROM LIBRO " +
                 "INNER JOIN NIVEL ON LIBRO.NIVEL_ID=NIVEL.ID " +
                 "WHERE NIVEL.ID IN (16,17,18);", null);//SOLO LIBROS
@@ -67,7 +68,8 @@ public class Rutinas_LIBRO {
             Modelo_LIBRO libro = new Modelo_LIBRO(
                     cursor.getString(0),
                     cursor.getString(1),
-                    cursor.getString(2)
+                    cursor.getString(2),
+                    cursor.getString(3)
             );
             result.add(libro);
         }

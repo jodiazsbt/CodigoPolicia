@@ -21,6 +21,18 @@ public class ENCUESTASCNPCResult implements Serializable
     @SerializedName("PREGUNTA_ENCUESTAESP")
     @Expose
     public String pREGUNTAENCUESTAESP;
-    private final static long serialVersionUID = -7391686738681291178L;
+    @SerializedName("RESPUESTA1ENG_ENCUESTA")
+    @Expose
+    public String rESPUESTA1ENGENCUESTA;
+    @SerializedName("RESPUESTA1_ENCUESTA")
+    @Expose
+    public String rESPUESTA1ENCUESTA;
+    @SerializedName("RESPUESTA2ENG_ENCUESTA")
+    @Expose
+    public String rESPUESTA2ENGENCUESTA;
+    @SerializedName("RESPUESTA2_ENCUESTA")
+    @Expose
+    public String rESPUESTA2ENCUESTA;
+    private final static long serialVersionUID = -7895107138898467892L;
 
 }

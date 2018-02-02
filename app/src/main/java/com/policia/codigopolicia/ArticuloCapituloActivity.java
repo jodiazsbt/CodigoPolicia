@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
@@ -17,6 +18,7 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.policia.codigopolicia.NavegacionCNPC.CNPC_FragmentStatePagerAdapter;
 import com.policia.codigopolicia.NavegacionCNPC.WrapContentViewPager;
 import com.policia.negocio.logica.Negocio_ARTICULO;
+import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_MEDIDA;
 import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
@@ -77,6 +79,10 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
                     }
                 }
             });
+
+            new Negocio_AVATAR(getBaseContext()).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_ARTICULO,
+                    (ImageView) findViewById(R.id.imageViewCaricatura));
+
             viewPagerArticulos = findViewById(R.id.viewPagerArticulos);
             pagerAdapterArticulo = new CNPC_FragmentStatePagerAdapter(getSupportFragmentManager(), capitulo, termino, paginas);
             viewPagerArticulos.setAdapter(pagerAdapterArticulo);
@@ -84,7 +90,7 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
 
             showcaseView = new ShowcaseView.Builder(this)
                     .withMaterialShowcase()
-                    .singleShot(R.layout.articulo_activity)
+                    .singleShot(Long.parseLong("1" + R.layout.articulo_activity))
                     .setStyle(R.style.CustomShowcaseTheme2)
                     .setContentTitle("Artículos")
                     .setContentText("Deslice con el dedo la pantalla hacia el lado derecho o izquierdo para pasar entre artículos.")

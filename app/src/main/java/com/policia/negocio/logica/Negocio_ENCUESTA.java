@@ -33,6 +33,10 @@ public class Negocio_ENCUESTA {
         encuesta.ID = String.valueOf(resultEncuesta.iDENCUESTA);
         encuesta.ENCUESTA_ESP = String.valueOf(resultEncuesta.pREGUNTAENCUESTAESP);
         encuesta.ENCUESTA_ENG = String.valueOf(resultEncuesta.pREGUNTAENCUESTAENG);
+        encuesta.RESPUESTA_SI_ESP = String.valueOf(resultEncuesta.rESPUESTA1ENCUESTA);
+        encuesta.RESPUESTA_NO_ESP = String.valueOf(resultEncuesta.rESPUESTA2ENCUESTA);
+        encuesta.RESPUESTA_SI_ENG = String.valueOf(resultEncuesta.rESPUESTA1ENGENCUESTA);
+        encuesta.RESPUESTA_NO_ENG = String.valueOf(resultEncuesta.rESPUESTA2ENGENCUESTA);
         encuesta.ACTIVA = resultEncuesta.aCTIVAENCUESTA;
         return (rutinasEncuesta.create(encuesta) == 1);
     }

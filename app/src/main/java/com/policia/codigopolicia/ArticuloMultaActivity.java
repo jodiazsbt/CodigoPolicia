@@ -12,6 +12,8 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.policia.codigopolicia.NavegacionCNPC.WrapContentViewPager;
 import com.policia.codigopolicia.NavegacionMULTAS.MULTAS_FragmentStatePagerAdapter;
 import com.policia.negocio.logica.Negocio_ARTICULO;
@@ -28,7 +30,7 @@ import java.util.Locale;
  * Created by 1085253556 on 19/12/2017.
  */
 
-public class ArticuloMultaActivity extends FragmentActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener {
+public class ArticuloMultaActivity extends FragmentActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener, View.OnClickListener {
 
     WrapContentViewPager viewPagerArticulos;
     PagerAdapter pagerAdapterArticulo;
@@ -41,7 +43,9 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
     private int MY_DATA_CHECK_CODE = 0;
     private TextToSpeech textToSpeech;
 
+    private int counter = 0;
     private int reproduccion = 0;
+    private ShowcaseView showcaseView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,16 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
             pagerAdapterArticulo = new MULTAS_FragmentStatePagerAdapter(getSupportFragmentManager(), multa, categoria, paginas);
             viewPagerArticulos.setAdapter(pagerAdapterArticulo);
             viewPagerArticulos.setCurrentItem(posicion);
+
+            showcaseView = new ShowcaseView.Builder(this)
+                    .withMaterialShowcase()
+                    .singleShot(Long.parseLong("2" + R.layout.articulo_activity))
+                    .setStyle(R.style.CustomShowcaseTheme2)
+                    .setContentTitle("Artículos")
+                    .setContentText("Deslice con el dedo la pantalla hacia el lado derecho o izquierdo para pasar entre artículos.")
+                    .setOnClickListener(this)
+                    .build();
+            showcaseView.setButtonText(getResources().getString(R.string.showcaseSiguiente));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -184,6 +198,25 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
 
     @Override
     public void onUtteranceCompleted(String s) {
+
         detener();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (counter) {
+            case 0:
+
+                ViewTarget viewTarget = new ViewTarget(fab);
+                showcaseView.setTarget(viewTarget);
+                showcaseView.setContentTitle("Sintetizador");
+                showcaseView.setContentText("Utilice el sintetizador para escuchar el contenido de los libros, títulos, capítulos del nuevo Código Nacional de Policía y Convivencia “Para Vivir en Paz”.");
+                showcaseView.setButtonText(getResources().getString(R.string.showcaseEntendido));
+                break;
+            case 1:
+                showcaseView.hide();
+                break;
+        }
+        counter++;
     }
 }

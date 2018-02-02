@@ -7,9 +7,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_ENCUESTA;
 import com.policia.negocio.modelo.Modelo_ENCUESTA;
 import com.policia.remote.RemoteRESPUESTA;
@@ -18,8 +20,10 @@ import com.policia.remote.request.RequestRESPUESTA;
 public class EncuestaActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonCierto;
+    private Button buttonCancelar;
     private Modelo_ENCUESTA encuesta;
     private Negocio_ENCUESTA negocioEncuesta;
+    private Negocio_AVATAR negocioAvatar;
 
     private final Activity activity = this;
 
@@ -29,12 +33,22 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.encuesta_activity);
 
         try {
-            negocioEncuesta = new Negocio_ENCUESTA(getBaseContext());
+            negocioAvatar = new Negocio_AVATAR(this);
+            negocioEncuesta = new Negocio_ENCUESTA(this);
+
             encuesta = negocioEncuesta.ultimaEncuesta();
+
+            negocioAvatar.drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_IDIOMA, (ImageView) findViewById(R.id.imageViewCaricatura));
+
             TextView textViewPregunta = findViewById(R.id.textViewPregunta);
             textViewPregunta.setText(encuesta.Pregunta);
 
             buttonCierto = findViewById(R.id.buttonAceptar);
+            buttonCancelar = findViewById(R.id.buttonCancelar);
+
+            buttonCierto.setText(encuesta.Respuesta_SI);
+            buttonCancelar.setText(encuesta.Respuesta_NO);
+
             buttonCierto.setOnClickListener(this);
 
             new ShowcaseView.Builder(this)
@@ -48,7 +62,6 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

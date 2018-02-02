@@ -9,7 +9,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.policia.codigopolicia.PuntosActivity;
+import com.policia.codigopolicia.AutoridadesActivity;
 import com.policia.codigopolicia.R;
 import com.policia.codigopolicia.adapter.Comparendo_Adapter;
 import com.policia.codigopolicia.adapter.Competencia_Adapter;
@@ -106,7 +106,7 @@ public class WebViewInterface {
                                                 Bundle b = new Bundle();
                                                 b.putString("tipo_competencia", competencias.get(item).ID);
 
-                                                Intent intent = new Intent(mActivity, PuntosActivity.class);
+                                                Intent intent = new Intent(mActivity, AutoridadesActivity.class);
                                                 intent.putExtras(b); //Put your id to your next Intent
                                                 mActivity.startActivity(intent);
                                             }

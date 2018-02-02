@@ -2,7 +2,10 @@ package com.policia.codigopolicia;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.remote.RemoteENCUESTA;
 
 public class CargaActivity extends Activity {
@@ -10,6 +13,8 @@ public class CargaActivity extends Activity {
      * Duration of wait
      **/
     private final int SPLASH_DISPLAY_LENGTH = 1000;
+
+    private Negocio_AVATAR negocioAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,18 @@ public class CargaActivity extends Activity {
         }, SPLASH_DISPLAY_LENGTH);
 
          */
-        RemoteENCUESTA.newInstance(this).execute();
+
+        try {
+
+            RemoteENCUESTA.newInstance(this).execute();
+
+            negocioAvatar = new Negocio_AVATAR(this);
+            negocioAvatar.drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_SPLASH
+                    , (ImageView) findViewById(R.id.imageViewCaricatura));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }

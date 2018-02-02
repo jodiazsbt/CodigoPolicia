@@ -6,6 +6,8 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="spinner">32dp</dimen>
+
     <dimen name="custom_showcase_width">96dip</dimen>
     <dimen name="custom_showcase_height">48dip</dimen>
 </resources>

@@ -7,9 +7,16 @@
         android:title="@string/action_settings"
         app:showAsAction="never">
 
-        <item android:title="Términos y condiciones"/>
-        <item android:title="Acuerdo de privacidad"/>
-        <item android:title="Derechos de autor"/>
+        <item
+            android:id="@+id/action_terminos"
+            android:title="Términos y condiciones" />
+        <!--
+        <item
+            android:id="@+id/action_acuerdo"
+            android:title="Acuerdo de privacidad" />
+        <item
+            android:id="@+id/action_derechos"
+            android:title="Derechos de autor" />-->
 
     </item>
     <item

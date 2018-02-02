@@ -102,4 +102,19 @@
         <item>MEASUREMENTS</item>
         <item>COMPETENCES</item>
     </string-array>
+
+    <!--COMPARENDOS-->
+    <string-array name="tipoDocumentoCargando">
+        <item>Loading list...</item>
+    </string-array>
+
+    <!--SHOWCASE-->
+    <string name="showcaseEntendido">Got it</string>
+    <string name="showcaseSiguiente">Next</string>
+    <string name="comparendos_header_title">Consulta Ciudadano</string>
+    <string name="comparendos_header_subtitle">Sistema Registro Nacional Medidas Correctivas RNMC</string>
+    <string name="comparendos_tipo_documento">Tipo Documento</string>
+    <string name="button_comparendos_buscar">BUSCAR</string>
+    <string name="comparendos_identificacion">Identificación</string>
+
 </resources>
