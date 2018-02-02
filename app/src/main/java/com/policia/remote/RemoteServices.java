@@ -101,7 +101,6 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             if (!remoteClient.isServiceOnline())
                 return Long.valueOf(-1);
 
-            /*
             sincronizar += negocioNivel.sincronizar();
             sincronizar += negocioLibro.sincronizar();
             sincronizar += negocioTitulo.sincronizar();
@@ -118,6 +117,7 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             sincronizar += negocioCompentenciaNumeral.sincronizar();
             sincronizar += negocioAccion.sincronizar();
             sincronizar += negocioUVT.sincronizar();
+            /*
             sincronizar += negocioAvatar.sincronizar();*/
         } catch (Exception e) {
             e.printStackTrace();
