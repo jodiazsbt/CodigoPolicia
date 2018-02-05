@@ -43,7 +43,11 @@ public class Negocio_COMPENTENCIA_NUMERAL {
                 competencia_numeral.COMPETENCIA_ID = String.valueOf(result.iDCOMPETENCIARELNUMMED);
                 competencia_numeral.VIGENTE = result.aCTIVORELCOMNUMMED;
                 competencia_numeral.FECHA = String.valueOf(result.fECHAACTRELCOMPNUMMED);
-                rutinasCompentenciaNumeral.update(competencia_numeral);
+
+                if (rutinasCompentenciaNumeral.exists(competencia_numeral.ID))
+                    rutinasCompentenciaNumeral.update(competencia_numeral);
+                else
+                    rutinasCompentenciaNumeral.create(competencia_numeral);
             }
             return response.rELACIONCOMPETENCIANUMERALMEDIDACNPCResult.size();
         } catch (Exception e) {

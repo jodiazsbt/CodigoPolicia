@@ -39,16 +39,20 @@ public class Negocio_NUMERAL {
 
             response = remoteClient.sincronizarNUMERAL(rutinasNumeral.maxFecha());
 
-            for (NumeralesResult metadata : response.numeralesResult) {
-                Tabla_NUMERAL tablaNumeral = new Tabla_NUMERAL();
-                tablaNumeral.ID = String.valueOf(metadata.iDNUMERAL);
-                tablaNumeral.NUMERAL_ESP = String.valueOf(metadata.nombreDescripcionNumeralESP);
-                tablaNumeral.NUMERAL_ENG = String.valueOf(metadata.nombreDescripcionNumeralENG);
-                tablaNumeral.VIGENTE = metadata.vigenteNumeral;
-                tablaNumeral.NIVEL_ID = String.valueOf(metadata.idNivelNumeral);
-                tablaNumeral.ARTICULO_ID = String.valueOf(metadata.idArticulosyparagrafosNumeral);
-                tablaNumeral.FECHA = String.valueOf(metadata.fechaNumeral);
-                rutinasNumeral.update(tablaNumeral);
+            for (NumeralesResult result : response.numeralesResult) {
+                Tabla_NUMERAL numeral = new Tabla_NUMERAL();
+                numeral.ID = String.valueOf(result.iDNUMERAL);
+                numeral.NUMERAL_ESP = String.valueOf(result.nombreDescripcionNumeralESP);
+                numeral.NUMERAL_ENG = String.valueOf(result.nombreDescripcionNumeralENG);
+                numeral.VIGENTE = result.vigenteNumeral;
+                numeral.NIVEL_ID = String.valueOf(result.idNivelNumeral);
+                numeral.ARTICULO_ID = String.valueOf(result.idArticulosyparagrafosNumeral);
+                numeral.FECHA = String.valueOf(result.fechaNumeral);
+
+                if (rutinasNumeral.exists(numeral.ID))
+                    rutinasNumeral.update(numeral);
+                else
+                    rutinasNumeral.create(numeral);
             }
             return response.numeralesResult.size();
         } catch (Exception e) {

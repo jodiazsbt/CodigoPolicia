@@ -28,7 +28,9 @@ public class RemoteRESPUESTA extends AsyncTask<Void, Void, Void> {
 
     private RESPUESTAENCUESTAResponse responseRespuesta;
 
-    public RemoteRESPUESTA(Activity activity, RequestRESPUESTA Respuesta) {
+    private static RemoteRESPUESTA remoteRESPUESTA;
+
+    private RemoteRESPUESTA(Activity activity, RequestRESPUESTA Respuesta) {
 
         this.activity = activity;
         this.respuesta = Respuesta;
@@ -38,6 +40,14 @@ public class RemoteRESPUESTA extends AsyncTask<Void, Void, Void> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static RemoteRESPUESTA newInstance(Activity activity, RequestRESPUESTA Respuesta) {
+
+        if (remoteRESPUESTA == null)
+            remoteRESPUESTA = new RemoteRESPUESTA(activity, Respuesta);
+
+        return remoteRESPUESTA;
     }
 
     @Override
@@ -67,5 +77,6 @@ public class RemoteRESPUESTA extends AsyncTask<Void, Void, Void> {
         Intent intent = new Intent(this.activity, PrincipalActivity.class);
         this.activity.startActivity(intent);
         this.activity.finish();
+        remoteRESPUESTA = null;
     }
 }

@@ -1,11 +1,13 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.persistencia.conexion.SQLiteProvider;
 import com.policia.persistencia.tablas.Tabla_ACCION;
+import com.policia.persistencia.tablas.Tabla_DOCUMENTO;
 
 /**
  * Created by 1085253556 on 9/01/2018.

@@ -57,7 +57,11 @@ public class Negocio_COMPETENCIA {
                 competencia.INSTANCIA_ENG = String.valueOf(result.iNSTANCIAENG);
                 competencia.VIGENTE = result.aCTIVOCOMPETENCIA;
                 competencia.FECHA = String.valueOf(result.fECHAACTCOMPETENCIA);
-                rutinasCompetencia.update(competencia);
+
+                if (rutinasCompetencia.exists(competencia.ID))
+                    rutinasCompetencia.update(competencia);
+                else
+                    rutinasCompetencia.create(competencia);
             }
             return response.cOMPETENCIASCNPCResult.size();
         } catch (Exception e) {

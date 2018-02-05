@@ -39,16 +39,20 @@ public class Negocio_CAPITULO {
 
             capitulos = remoteClient.sincronizarCAPITULO(rutinasCapitulo.maxFecha());
 
-            for (CapitulosResultEntry capitulo : capitulos.CapitulosResult) {
-                Tabla_CAPITULO tablaCapitulo = new Tabla_CAPITULO();
-                tablaCapitulo.ID = String.valueOf(capitulo.Id_Capitulo);
-                tablaCapitulo.CAPITULO_ESP = String.valueOf(capitulo.NombreCapituloESP);
-                tablaCapitulo.VIGENTE = capitulo.Vigente_Capitulo;
-                tablaCapitulo.NIVEL_ID = String.valueOf(capitulo.ID_Nivel_Capitulo);
-                tablaCapitulo.TITULO_ID = String.valueOf(capitulo.ID_Titulo_Capitulo);
-                tablaCapitulo.FECHA = String.valueOf(capitulo.Fecha_Capitulo);
-                tablaCapitulo.CAPITULO_ENG = String.valueOf(capitulo.NombreCapituloENG);
-                rutinasCapitulo.update(tablaCapitulo);
+            for (CapitulosResultEntry result : capitulos.CapitulosResult) {
+                Tabla_CAPITULO capitulo = new Tabla_CAPITULO();
+                capitulo.ID = String.valueOf(result.Id_Capitulo);
+                capitulo.CAPITULO_ESP = String.valueOf(result.NombreCapituloESP);
+                capitulo.VIGENTE = result.Vigente_Capitulo;
+                capitulo.NIVEL_ID = String.valueOf(result.ID_Nivel_Capitulo);
+                capitulo.TITULO_ID = String.valueOf(result.ID_Titulo_Capitulo);
+                capitulo.FECHA = String.valueOf(result.Fecha_Capitulo);
+                capitulo.CAPITULO_ENG = String.valueOf(result.NombreCapituloENG);
+
+                if (rutinasCapitulo.exists(capitulo.ID))
+                    rutinasCapitulo.update(capitulo);
+                else
+                    rutinasCapitulo.create(capitulo);
             }
             return capitulos.CapitulosResult.size();
         } catch (Exception e) {

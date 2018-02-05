@@ -85,12 +85,12 @@ public class RemoteENCUESTA extends AsyncTask<Void, Void, Void> {
             this.activity.startActivity(intent);
             this.activity.finish();
 
-            remoteENCUESTA = null;
-            super.onPostExecute(aVoid);
         } else {
-            remoteENCUESTA = null;
-            super.onPostExecute(aVoid);
+
             RemoteServices.newInstance(this.activity).execute();
         }
+
+        remoteENCUESTA = null;
+        super.onPostExecute(aVoid);
     }
 }

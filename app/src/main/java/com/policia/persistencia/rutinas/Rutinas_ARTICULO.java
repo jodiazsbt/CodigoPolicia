@@ -1,5 +1,6 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
 import com.policia.persistencia.conexion.SQLiteProvider;
 import com.policia.persistencia.tablas.Tabla_ARTICULO;
+import com.policia.persistencia.tablas.Tabla_DOCUMENTO;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,43 @@ public class Rutinas_ARTICULO {
         cursor.close();
         DB.close();
         return maxFecha;
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM ARTICULO WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_ARTICULO articulo) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", articulo.ID);
+        parameters.put("TITULO_ESP", articulo.TITULO_ESP);
+        parameters.put("ARTICULO_ESP", articulo.ARTICULO_ESP);
+        parameters.put("VIGENTE", articulo.VIGENTE);
+        parameters.put("NIVEL_ID", articulo.NIVEL_ID);
+        parameters.put("CAPITULO_ID", articulo.CAPITULO_ID);
+        parameters.put("FECHA", articulo.FECHA);
+        parameters.put("ARTICULO_ENG", articulo.ARTICULO_ENG);
+        parameters.put("TITULO_ENG", articulo.TITULO_ENG);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'ARTICULO'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
     public void update(Tabla_ARTICULO articulo) {

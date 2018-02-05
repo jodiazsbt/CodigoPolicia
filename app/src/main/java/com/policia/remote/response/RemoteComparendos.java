@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.os.AsyncTask;
 
 import com.policia.codigopolicia.Comparendos.AdapterComparendos;
-import com.policia.codigopolicia.Comparendos.AdapterComportamiento;
 import com.policia.remote.RemoteClient;
 
 /**

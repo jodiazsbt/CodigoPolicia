@@ -39,18 +39,22 @@ public class Negocio_ARTICULO {
 
             articulos = remoteClient.sincronizarARTICULO(rutinasArticulo.maxFecha());
 
-            for (ArticulosyParagrafosResult articulo : articulos.articulosyParagrafosResult) {
-                Tabla_ARTICULO tablaArticulo = new Tabla_ARTICULO();
-                tablaArticulo.ID = String.valueOf(articulo.iDArticuloyparagrafo);
-                tablaArticulo.TITULO_ESP = String.valueOf(articulo.nombreArticuloyparagrafoESP);
-                tablaArticulo.ARTICULO_ESP = articulo.descripcionArticuloyparagrafoESP;
-                tablaArticulo.VIGENTE = articulo.vigenteArticulo;
-                tablaArticulo.NIVEL_ID = String.valueOf(articulo.iDNivelArticuloyparagrafo);
-                tablaArticulo.CAPITULO_ID = String.valueOf(articulo.iDCapituloArticuloyparagrafo);
-                tablaArticulo.FECHA = String.valueOf(articulo.fechaArticuloyparagrafo);
-                tablaArticulo.ARTICULO_ENG = String.valueOf(articulo.descripcionArticuloyparagrafoENG);
-                tablaArticulo.TITULO_ENG = String.valueOf(articulo.nombreArticuloyparagrafoENG);
-                rutinasArticulo.update(tablaArticulo);
+            for (ArticulosyParagrafosResult result : articulos.articulosyParagrafosResult) {
+                Tabla_ARTICULO articulo = new Tabla_ARTICULO();
+                articulo.ID = String.valueOf(result.iDArticuloyparagrafo);
+                articulo.TITULO_ESP = String.valueOf(result.nombreArticuloyparagrafoESP);
+                articulo.ARTICULO_ESP = result.descripcionArticuloyparagrafoESP;
+                articulo.VIGENTE = result.vigenteArticulo;
+                articulo.NIVEL_ID = String.valueOf(result.iDNivelArticuloyparagrafo);
+                articulo.CAPITULO_ID = String.valueOf(result.iDCapituloArticuloyparagrafo);
+                articulo.FECHA = String.valueOf(result.fechaArticuloyparagrafo);
+                articulo.ARTICULO_ENG = String.valueOf(result.descripcionArticuloyparagrafoENG);
+                articulo.TITULO_ENG = String.valueOf(result.nombreArticuloyparagrafoENG);
+
+                if (rutinasArticulo.exists(articulo.ID))
+                    rutinasArticulo.update(articulo);
+                else
+                    rutinasArticulo.create(articulo);
             }
             return articulos.articulosyParagrafosResult.size();
         } catch (Exception e) {

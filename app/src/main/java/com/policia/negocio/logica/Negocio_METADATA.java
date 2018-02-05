@@ -38,15 +38,19 @@ public class Negocio_METADATA {
 
             response = remoteClient.sincronizarMETADATA(rutinasMetadata.maxFecha());
 
-            for (MetadataResult metadata : response.metadataResult) {
-                Tabla_METADATA tablaMetadata = new Tabla_METADATA();
-                tablaMetadata.ID = String.valueOf(metadata.iDMETADATA);
-                tablaMetadata.METADATA_ESP = String.valueOf(metadata.nombreDataBusquedaESP);
-                tablaMetadata.ACTIVO = metadata.vigenteMetadata;
-                tablaMetadata.ARTICULO_ID = String.valueOf(metadata.idArticuloyparagrafoMetadata);
-                tablaMetadata.FECHA = metadata.fechaMetadata;
-                tablaMetadata.METADATA_ENG = String.valueOf(metadata.nombreDataBusquedaENG);
-                rutinasMetadata.update(tablaMetadata);
+            for (MetadataResult result : response.metadataResult) {
+                Tabla_METADATA metadata = new Tabla_METADATA();
+                metadata.ID = String.valueOf(result.iDMETADATA);
+                metadata.METADATA_ESP = String.valueOf(result.nombreDataBusquedaESP);
+                metadata.ACTIVO = result.vigenteMetadata;
+                metadata.ARTICULO_ID = String.valueOf(result.idArticuloyparagrafoMetadata);
+                metadata.FECHA = result.fechaMetadata;
+                metadata.METADATA_ENG = String.valueOf(result.nombreDataBusquedaENG);
+
+                if (rutinasMetadata.exists(metadata.ID))
+                    rutinasMetadata.update(metadata);
+                else
+                    rutinasMetadata.create(metadata);
             }
             return response.metadataResult.size();
         } catch (Exception e) {

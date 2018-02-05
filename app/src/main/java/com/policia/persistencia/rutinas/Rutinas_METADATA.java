@@ -1,11 +1,13 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_Busqueda_Articulo;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_MEDIDA;
 import com.policia.persistencia.tablas.Tabla_METADATA;
 
 import java.util.ArrayList;
@@ -51,6 +53,40 @@ public class Rutinas_METADATA {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'METADATA' SET METADATA_ESP=?,ACTIVO=?,ARTICULO_ID=?,FECHA=?,METADATA_ENG=? WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM METADATA WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_METADATA metadata) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", metadata.ID);
+        parameters.put("METADATA_ESP", metadata.METADATA_ESP);
+        parameters.put("ACTIVO", metadata.ACTIVO);
+        parameters.put("ARTICULO_ID", metadata.ARTICULO_ID);
+        parameters.put("FECHA", metadata.FECHA);
+        parameters.put("METADATA_ENG", metadata.METADATA_ENG);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'METADATA'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
     public ArrayList<Modelo_Busqueda_Articulo> BusquedaMETADATA(String Idioma, String termino_busqueda) {

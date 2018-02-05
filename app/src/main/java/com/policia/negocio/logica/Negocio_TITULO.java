@@ -38,16 +38,20 @@ public class Negocio_TITULO {
         try {
 
             titulos = remoteClient.sincronizarTITULO(rutinasTitulo.maxFecha());
-            for (TitulosResultEntry titulo : titulos.TitulosResult) {
-                Tabla_TITULO tablaTitulo = new Tabla_TITULO();
-                tablaTitulo.ID = String.valueOf(titulo.Id_Titulo);
-                tablaTitulo.TITULO_ESP = String.valueOf(titulo.NombreTituloESP);
-                tablaTitulo.VIGENTE = titulo.Vigente_Titulo;
-                tablaTitulo.NIVEL_ID = String.valueOf(titulo.ID_Nivel_Titulo);
-                tablaTitulo.LIBRO_ID = String.valueOf(titulo.ID_Libro_Titulo);
-                tablaTitulo.FECHA = String.valueOf(titulo.Fecha_Titulo);
-                tablaTitulo.TITULO_ENG = String.valueOf(titulo.NombreTituloENG);
-                rutinasTitulo.update(tablaTitulo);
+            for (TitulosResultEntry resultEntry : titulos.TitulosResult) {
+                Tabla_TITULO titulo = new Tabla_TITULO();
+                titulo.ID = String.valueOf(resultEntry.Id_Titulo);
+                titulo.TITULO_ESP = String.valueOf(resultEntry.NombreTituloESP);
+                titulo.VIGENTE = resultEntry.Vigente_Titulo;
+                titulo.NIVEL_ID = String.valueOf(resultEntry.ID_Nivel_Titulo);
+                titulo.LIBRO_ID = String.valueOf(resultEntry.ID_Libro_Titulo);
+                titulo.FECHA = String.valueOf(resultEntry.Fecha_Titulo);
+                titulo.TITULO_ENG = String.valueOf(resultEntry.NombreTituloENG);
+
+                if (rutinasTitulo.exists(titulo.ID))
+                    rutinasTitulo.update(titulo);
+                else
+                    rutinasTitulo.create(titulo);
             }
             return titulos.TitulosResult.size();
         } catch (Exception e) {

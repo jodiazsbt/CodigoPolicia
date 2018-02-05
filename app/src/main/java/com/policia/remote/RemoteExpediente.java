@@ -23,7 +23,9 @@ public class RemoteExpediente extends AsyncTask<Void, Void, Void> {
     private IComparendoExpediente IComparendoExpediente;
     private RNMCGENERALResponse response;
 
-    public RemoteExpediente(Activity activity, String TipoDocumento, String Identificacion, IComparendoExpediente IComparendoExpediente) {
+    private static RemoteExpediente remoteExpediente;
+
+    private RemoteExpediente(Activity activity, String TipoDocumento, String Identificacion, IComparendoExpediente IComparendoExpediente) {
 
         this.terminado = false;
         this.activity = activity;
@@ -31,6 +33,13 @@ public class RemoteExpediente extends AsyncTask<Void, Void, Void> {
         this.TipoDocumento = TipoDocumento;
         this.Identificacion = Identificacion;
         this.remoteClient = new RemoteClient(activity);
+    }
+
+    public static RemoteExpediente newInstance(Activity activity, String TipoDocumento, String Identificacion, IComparendoExpediente IComparendoExpediente) {
+
+        if (remoteExpediente == null)
+            remoteExpediente = new RemoteExpediente(activity, TipoDocumento, Identificacion, IComparendoExpediente);
+        return remoteExpediente;
     }
 
     @Override
@@ -56,6 +65,6 @@ public class RemoteExpediente extends AsyncTask<Void, Void, Void> {
 
             IComparendoExpediente.consultar(response, TipoDocumento, Identificacion);
         }
-
+        remoteExpediente = null;
     }
 }

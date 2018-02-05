@@ -2,9 +2,7 @@ package com.policia.remote;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.widget.ExpandableListView;
 
 import com.policia.codigopolicia.Comparendos.AdapterComportamiento;
 import com.policia.remote.response.RNMCDETALLECOMPORTAMIENTOResponse;
@@ -20,12 +18,21 @@ public class RemoteComportamiento extends AsyncTask<Void, Void, Boolean> {
     private String Comportamiento, Expediente;
     private RNMCDETALLECOMPORTAMIENTOResponse response;
 
-    public RemoteComportamiento(Activity activity, String Comportamiento, String Expediente) {
+    private static RemoteComportamiento remoteComportamiento;
+
+    private RemoteComportamiento(Activity activity, String Comportamiento, String Expediente) {
 
         this.activity = activity;
         this.Expediente = Expediente;
         this.Comportamiento = Comportamiento;
         this.remoteClient = new RemoteClient(activity);
+    }
+
+    public static RemoteComportamiento newInstance(Activity activity, String Comportamiento, String Expediente) {
+
+        if (remoteComportamiento == null)
+            remoteComportamiento = new RemoteComportamiento(activity, Comportamiento, Expediente);
+        return remoteComportamiento;
     }
 
     @Override
@@ -51,7 +58,7 @@ public class RemoteComportamiento extends AsyncTask<Void, Void, Boolean> {
                     .setAdapter(new AdapterComportamiento(activity, response.rNMCDETALLECOMPORTAMIENTOResult), null)
                     .show();
         }
-
+        remoteComportamiento = null;
         super.onPostExecute(aBoolean);
     }
 }

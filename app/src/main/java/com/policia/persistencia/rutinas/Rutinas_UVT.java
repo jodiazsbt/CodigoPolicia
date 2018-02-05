@@ -1,10 +1,12 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_TITULO;
 import com.policia.persistencia.tablas.Tabla_UVT;
 
 /**
@@ -47,5 +49,38 @@ public class Rutinas_UVT {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'UVT' SET VALOR=?,ACTIVO=?,FECHA=?,ANIO=? WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM UVT WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_UVT UVT) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", UVT.ID);
+        parameters.put("VALOR", UVT.VALOR);
+        parameters.put("ACTIVO", UVT.ACTIVO);
+        parameters.put("FECHA", UVT.FECHA);
+        parameters.put("ANIO", UVT.ANIO);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'UVT'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 }

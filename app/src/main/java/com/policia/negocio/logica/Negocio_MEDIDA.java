@@ -39,18 +39,22 @@ public class Negocio_MEDIDA {
 
             response = remoteClient.sincronizarMEDIDA(rutinasMedida.maxFecha());
 
-            for (MedidasCNPCResult medida : response.medidasCNPCResult) {
-                Tabla_MEDIDA tablaMedida = new Tabla_MEDIDA();
-                tablaMedida.ID = String.valueOf(medida.iDMEDIDA);
-                tablaMedida.COMPORTAMIENTO_ESP = String.valueOf(medida.nombreComportamientoMedidasCNPCESP);
-                tablaMedida.MEDIDA_ESP = String.valueOf(medida.nombreMedidaCorrectivaMedidasCNPCESP);
-                tablaMedida.VIGENTE = medida.vigenteMedidasCNPC;
-                tablaMedida.NIVEL_ID = String.valueOf(medida.iDNivelMedidasCNPC);
-                tablaMedida.ARTICULO_ID = String.valueOf(medida.idARTICULOYPARAGRAFOMedidasCNPC);
-                tablaMedida.COMPORTAMIENTO_ENG = String.valueOf(medida.nombreComportamientoMedidasCNPCENG);
-                tablaMedida.MEDIDA_ENG = String.valueOf(medida.nombreMedidaCorrectivaMedidasCNPCENG);
-                tablaMedida.FECHA = String.valueOf(medida.fechaMediadasCNPC);
-                rutinasMedida.update(tablaMedida);
+            for (MedidasCNPCResult result : response.medidasCNPCResult) {
+                Tabla_MEDIDA medida = new Tabla_MEDIDA();
+                medida.ID = String.valueOf(result.iDMEDIDA);
+                medida.COMPORTAMIENTO_ESP = String.valueOf(result.nombreComportamientoMedidasCNPCESP);
+                medida.MEDIDA_ESP = String.valueOf(result.nombreMedidaCorrectivaMedidasCNPCESP);
+                medida.VIGENTE = result.vigenteMedidasCNPC;
+                medida.NIVEL_ID = String.valueOf(result.iDNivelMedidasCNPC);
+                medida.ARTICULO_ID = String.valueOf(result.idARTICULOYPARAGRAFOMedidasCNPC);
+                medida.COMPORTAMIENTO_ENG = String.valueOf(result.nombreComportamientoMedidasCNPCENG);
+                medida.MEDIDA_ENG = String.valueOf(result.nombreMedidaCorrectivaMedidasCNPCENG);
+                medida.FECHA = String.valueOf(result.fechaMediadasCNPC);
+
+                if (rutinasMedida.exists(medida.ID))
+                    rutinasMedida.update(medida);
+                else
+                    rutinasMedida.create(medida);
             }
             return response.medidasCNPCResult.size();
         } catch (Exception e) {

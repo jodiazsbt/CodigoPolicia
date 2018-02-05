@@ -7,8 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.policia.codigopolicia.R;
-import com.policia.negocio.modelo.ValuePar;
-import com.policia.remote.response.RNMCDETALLECOMPORTAMIENTOResult;
 import com.policia.remote.response.RNMCMEDIDACORRECTIVAResult;
 
 import java.util.List;

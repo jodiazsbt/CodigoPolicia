@@ -1,7 +1,5 @@
 package com.policia.codigopolicia.Comparendos;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.policia.codigopolicia.R;
 import com.policia.remote.RemoteComportamiento;
@@ -112,11 +109,11 @@ public class AdapterExpendienteTitle extends BaseExpandableListAdapter {
             public void onClick(View view) {
 
                 DetalleExpediente expediente = expedientes.get(groupPosition);
-                new RemoteComportamiento(
+
+                RemoteComportamiento.newInstance(
                         fragment.getActivity(),
                         expediente.getComportamiento(),
-                        expediente.getExpediente())
-                        .execute();
+                        expediente.getExpediente()).execute();
             }
         });
 

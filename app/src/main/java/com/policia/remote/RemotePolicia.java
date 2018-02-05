@@ -42,7 +42,9 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
 
     protected Fragment_Identificacion.IDisparadorLectura lectura;
 
-    public RemotePolicia(Fragment fragment, ListView listView, String barcode, Fragment_Identificacion.IDisparadorLectura lectura) throws Exception {
+    private static RemotePolicia remotePolicia;
+
+    private RemotePolicia(Fragment fragment, ListView listView, String barcode, Fragment_Identificacion.IDisparadorLectura lectura) throws Exception {
 
         this.barcode = barcode;
         this.fragment = fragment;
@@ -50,6 +52,14 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
         this.lectura = lectura;
         this.seguridad = Seguridad.Sesion(fragment.getContext());
         this.remoteClient = new RemoteClient(fragment.getActivity());
+    }
+
+    public static RemotePolicia newInstance(Fragment fragment, ListView listView, String barcode, Fragment_Identificacion.IDisparadorLectura lectura) throws Exception {
+
+        if (remotePolicia == null)
+            remotePolicia = new RemotePolicia(fragment, listView, barcode, lectura);
+
+        return remotePolicia;
     }
 
     @Override
@@ -122,6 +132,7 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
 
             }
         }
+        remotePolicia = null;
         super.onPostExecute(error);
     }
 

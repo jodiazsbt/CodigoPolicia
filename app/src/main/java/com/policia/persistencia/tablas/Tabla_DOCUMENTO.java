@@ -14,4 +14,5 @@ public class Tabla_DOCUMENTO {
     public String URL;
     public boolean ACTIVO;
     public String TIPO_ARCHIVO_ID;
+    public String UBICACION;
 }

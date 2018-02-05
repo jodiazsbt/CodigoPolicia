@@ -1,11 +1,13 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_LIBRO;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_CAPITULO;
 import com.policia.persistencia.tablas.Tabla_LIBRO;
 
 import java.util.ArrayList;
@@ -50,6 +52,41 @@ public class Rutinas_LIBRO {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'LIBRO' SET LIBRO_ESP=?,VIGENTE=?,NIVEL_ID=?,FECHA=?,LIBRO_ENG=? WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM LIBRO WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_LIBRO libro) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", libro.ID);
+        parameters.put("LIBRO_ESP", libro.LIBRO_ESP);
+        parameters.put("VIGENTE", libro.VIGENTE);
+        parameters.put("NIVEL_ID", libro.NIVEL_ID);
+        parameters.put("FECHA", libro.FECHA);
+        parameters.put("LIBRO_ENG", libro.LIBRO_ENG);
+        parameters.put("RECURSO_ID", libro.RECURSO_ID);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'LIBRO'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
     public ArrayList<Modelo_LIBRO> Libros(String Idioma) {

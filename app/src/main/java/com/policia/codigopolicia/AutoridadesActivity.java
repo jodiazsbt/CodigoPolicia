@@ -135,7 +135,7 @@ public class AutoridadesActivity extends AppCompatActivity {
                                 geo.Longitud = String.valueOf(mLastKnownLocation.getLongitude()).replace(".", ",");
                                 geo.Tipo = tipoCompetencia;//Buscar todos los sitios que se puedan encontrar
 
-                                new RemoteGEO(activity, listView, webviewMap).execute(geo);
+                                RemoteGEO.newInstance(activity, listView, webviewMap).execute(geo);
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");

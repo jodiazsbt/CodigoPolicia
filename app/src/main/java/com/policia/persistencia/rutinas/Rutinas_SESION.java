@@ -69,7 +69,7 @@ public class Rutinas_SESION {
         return id > 0;
     }
 
-    public boolean existeSesionUsuario(String usuarioId) {
+    public boolean exists(String usuarioId) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
         String[] parameters = new String[]{

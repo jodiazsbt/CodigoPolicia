@@ -21,19 +21,26 @@ public class RemoteTipoDocumento extends AsyncTask<Void, Void, Void> {
 
     private RNMCTIPOSDOCResponse responseTipoDocumento;
 
-    public RemoteTipoDocumento(Activity activity, IComparendoConsulta IComparendoConsulta) {
+    private static RemoteTipoDocumento remoteTipoDocumento;
+
+    private RemoteTipoDocumento(Activity activity, IComparendoConsulta IComparendoConsulta) {
 
         try {
             this.terminado = false;
-
             this.activity = activity;
-
             this.IComparendoConsulta = IComparendoConsulta;
-
             this.remoteClient = new RemoteClient(activity);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static RemoteTipoDocumento newInstance(Activity activity, IComparendoConsulta IComparendoConsulta) {
+
+        if (remoteTipoDocumento == null)
+            remoteTipoDocumento = new RemoteTipoDocumento(activity, IComparendoConsulta);
+
+        return remoteTipoDocumento;
     }
 
     @Override
@@ -56,5 +63,6 @@ public class RemoteTipoDocumento extends AsyncTask<Void, Void, Void> {
         if (terminado) {
             IComparendoConsulta.consultaTipoDocumento(responseTipoDocumento);
         }
+        remoteTipoDocumento = null;
     }
 }

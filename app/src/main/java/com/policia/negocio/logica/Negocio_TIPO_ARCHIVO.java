@@ -43,7 +43,11 @@ public class Negocio_TIPO_ARCHIVO {
                 tipo_archivo.ACTIVO = result.aCTIVOTIPOARCHIVO;
                 tipo_archivo.TIPO_ARCHIVO_ENG = String.valueOf(result.tIPOARCHIVOENG);
                 tipo_archivo.FECHA = String.valueOf(result.fECHAACTTIPOARCHIVO);
-                rutinasTipoArchivo.update(tipo_archivo);
+
+                if (rutinasTipoArchivo.exists(tipo_archivo.ID))
+                    rutinasTipoArchivo.update(tipo_archivo);
+                else
+                    rutinasTipoArchivo.create(tipo_archivo);
             }
             return response.tIPOSARCHIVOSResult.size();
         } catch (Exception e) {

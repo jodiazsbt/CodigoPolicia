@@ -1,11 +1,13 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_TITULO;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_TIPO_ARCHIVO;
 import com.policia.persistencia.tablas.Tabla_TITULO;
 
 import java.util.ArrayList;
@@ -51,6 +53,41 @@ public class Rutinas_TITULO {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'TITULO' SET TITULO_ESP=?,VIGENTE=?,NIVEL_ID=?,LIBRO_ID=?,FECHA=?,TITULO_ENG=? WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM TITULO WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_TITULO titulo) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", titulo.ID);
+        parameters.put("TITULO_ESP", titulo.TITULO_ESP);
+        parameters.put("VIGENTE", titulo.VIGENTE);
+        parameters.put("NIVEL_ID", titulo.NIVEL_ID);
+        parameters.put("LIBRO_ID", titulo.LIBRO_ID);
+        parameters.put("FECHA", titulo.FECHA);
+        parameters.put("TITULO_ENG", titulo.TITULO_ENG);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'TITULO'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
     public ArrayList<Modelo_TITULO> TitulosPorLibro(String Idioma, String Libro) {

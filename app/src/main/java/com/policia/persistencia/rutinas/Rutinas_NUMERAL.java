@@ -1,11 +1,13 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_NUMERAL;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_NIVEL;
 import com.policia.persistencia.tablas.Tabla_NUMERAL;
 
 import java.util.ArrayList;
@@ -52,6 +54,41 @@ public class Rutinas_NUMERAL {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'NUMERAL' SET NUMERAL_ESP=?,NUMERAL_ENG=?,VIGENTE=?,NIVEL_ID=?,ARTICULO_ID=?,FECHA=? WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM NUMERAL WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_NUMERAL numeral) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", numeral.ID);
+        parameters.put("NUMERAL_ESP", numeral.NUMERAL_ESP);
+        parameters.put("NUMERAL_ENG", numeral.NUMERAL_ENG);
+        parameters.put("VIGENTE", numeral.VIGENTE);
+        parameters.put("NIVEL_ID", numeral.NIVEL_ID);
+        parameters.put("ARTICULO_ID", numeral.ARTICULO_ID);
+        parameters.put("FECHA", numeral.FECHA);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'NUMERAL'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
     public ArrayList<Modelo_NUMERAL> NumeralesPorArticulo(String Idioma, String Articulo) {

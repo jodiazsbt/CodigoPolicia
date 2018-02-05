@@ -1,11 +1,13 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_TIPO_ARCHIVO;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_NUMERAL;
 import com.policia.persistencia.tablas.Tabla_TIPO_ARCHIVO;
 
 import java.util.ArrayList;
@@ -50,6 +52,39 @@ public class Rutinas_TIPO_ARCHIVO {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'TIPO_ARCHIVO' SET TIPO_ARCHIVO_ESP=?,ACTIVO=?,TIPO_ARCHIVO_ENG=?,FECHA=? WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM TIPO_ARCHIVO WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_TIPO_ARCHIVO tipo_archivo) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", tipo_archivo.ID);
+        parameters.put("TIPO_ARCHIVO_ESP", tipo_archivo.TIPO_ARCHIVO_ESP);
+        parameters.put("ACTIVO", tipo_archivo.ACTIVO);
+        parameters.put("TIPO_ARCHIVO_ENG", tipo_archivo.TIPO_ARCHIVO_ENG);
+        parameters.put("FECHA", tipo_archivo.FECHA);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'TIPO_ARCHIVO'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
     public ArrayList<Modelo_TIPO_ARCHIVO> TipoArchivos(String Idioma) {

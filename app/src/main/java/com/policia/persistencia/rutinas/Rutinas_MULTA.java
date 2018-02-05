@@ -1,11 +1,13 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_MULTA;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_METADATA;
 import com.policia.persistencia.tablas.Tabla_MULTA;
 
 import java.util.ArrayList;
@@ -88,5 +90,41 @@ public class Rutinas_MULTA {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'MULTA' SET CATEGORIA_ID=?,VIGENTE=?,FECHA=? WHERE NUMERAL_ID=? AND MEDIDA_ID=? AND TIPOMULTA_ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String NUMERAL_ID, String MEDIDA_ID, String TIPOMULTA_ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                NUMERAL_ID + "",
+                MEDIDA_ID + "",
+                TIPOMULTA_ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM MULTA WHERE NUMERAL_ID=? AND MEDIDA_ID=? AND TIPOMULTA_ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_MULTA multa) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("NUMERAL_ID", multa.NUMERAL_ID);
+        parameters.put("MEDIDA_ID", multa.MEDIDA_ID);
+        parameters.put("VIGENTE", multa.VIGENTE);
+        parameters.put("FECHA", multa.FECHA);
+        parameters.put("TIPOMULTA_ID", multa.TIPOMULTA_ID);
+        parameters.put("CATEGORIA_ID", multa.CATEGORIA_ID);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'MULTA'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 }

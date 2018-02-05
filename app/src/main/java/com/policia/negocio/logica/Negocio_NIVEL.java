@@ -36,14 +36,18 @@ public class Negocio_NIVEL {
 
             niveles = remoteClient.sincronizarNIVEL(rutinasNivel.maxFecha());
 
-            for (NivelesResult nivel : niveles.nivelesResult) {
-                Tabla_NIVEL tablaNivel = new Tabla_NIVEL();
-                tablaNivel.ID = String.valueOf(nivel.idNivel);
-                tablaNivel.NIVEL_ESP = String.valueOf(nivel.nombreNivelESP);
-                tablaNivel.VIGENTE = nivel.vigenteNivel;
-                tablaNivel.FECHA = String.valueOf(nivel.fechaNivel);
-                tablaNivel.NIVEL_ENG = String.valueOf(nivel.nombreNivelENG);
-                rutinasNivel.update(tablaNivel);
+            for (NivelesResult result : niveles.nivelesResult) {
+                Tabla_NIVEL nivel = new Tabla_NIVEL();
+                nivel.ID = String.valueOf(result.idNivel);
+                nivel.NIVEL_ESP = String.valueOf(result.nombreNivelESP);
+                nivel.VIGENTE = result.vigenteNivel;
+                nivel.FECHA = String.valueOf(result.fechaNivel);
+                nivel.NIVEL_ENG = String.valueOf(result.nombreNivelENG);
+                
+                if (rutinasNivel.exists(nivel.ID))
+                    rutinasNivel.update(nivel);
+                else
+                    rutinasNivel.create(nivel);
             }
             return niveles.nivelesResult.size();
         } catch (Exception e) {

@@ -51,7 +51,11 @@ public class Negocio_MULTA {
                 multa.FECHA = String.valueOf(result.fECHAACTMULTAAARTICULO);
                 multa.TIPOMULTA_ID = String.valueOf(result.iDTIPOMULTAMULTAAARTIUCLO);
                 multa.CATEGORIA_ID = String.valueOf(result.iDCATEGORIAMULTAAARTICULO);
-                rutinasMulta.update(multa);
+
+                if (rutinasMulta.exists(multa.NUMERAL_ID, multa.MEDIDA_ID, multa.TIPOMULTA_ID))
+                    rutinasMulta.update(multa);
+                else
+                    rutinasMulta.create(multa);
             }
             return response.mULTAAARTICULOYPARAGRAFOResult.size();
         } catch (Exception e) {

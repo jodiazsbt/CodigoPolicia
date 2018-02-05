@@ -39,15 +39,19 @@ public class Negocio_LIBRO {
 
             libros = remoteClient.sincronizarLIBRO(rutinasLibro.maxFecha());
 
-            for (LibrosResultEntry libro : libros.LibrosResult) {
-                Tabla_LIBRO tablaLibro = new Tabla_LIBRO();
-                tablaLibro.ID = String.valueOf(libro.ID_Libro);
-                tablaLibro.LIBRO_ESP = String.valueOf(libro.NombreLibroESP);
-                tablaLibro.VIGENTE = libro.Vigente_Libro;
-                tablaLibro.NIVEL_ID = String.valueOf(libro.Id_Nivel_Libro);
-                tablaLibro.FECHA = String.valueOf(libro.Fecha_Libro);
-                tablaLibro.LIBRO_ENG = String.valueOf(libro.NombreLibroENG);
-                rutinasLibro.update(tablaLibro);
+            for (LibrosResultEntry result : libros.LibrosResult) {
+                Tabla_LIBRO libro = new Tabla_LIBRO();
+                libro.ID = String.valueOf(result.ID_Libro);
+                libro.LIBRO_ESP = String.valueOf(result.NombreLibroESP);
+                libro.VIGENTE = result.Vigente_Libro;
+                libro.NIVEL_ID = String.valueOf(result.Id_Nivel_Libro);
+                libro.FECHA = String.valueOf(result.Fecha_Libro);
+                libro.LIBRO_ENG = String.valueOf(result.NombreLibroENG);
+
+                if (rutinasLibro.exists(libro.ID))
+                    rutinasLibro.update(libro);
+                else
+                    rutinasLibro.create(libro);
             }
             return libros.LibrosResult.size();
         } catch (Exception e) {

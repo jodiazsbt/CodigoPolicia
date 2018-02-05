@@ -15,4 +15,5 @@ public class Tabla_LIBRO {
     public boolean VIGENTE;
     public String NIVEL_ID;
     public String FECHA;
+    public String RECURSO_ID;
 }

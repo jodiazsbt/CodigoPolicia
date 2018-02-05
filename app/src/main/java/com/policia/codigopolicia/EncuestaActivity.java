@@ -85,7 +85,7 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
         builder.setItems(departamentos, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                new RemoteRESPUESTA(activity, new RequestRESPUESTA(
+                RemoteRESPUESTA.newInstance(activity, new RequestRESPUESTA(
                         encuesta.ID,
                         departamentos[which],
                         "1"
@@ -102,7 +102,7 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
         builder.setItems(departamentos, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                new RemoteRESPUESTA(activity, new RequestRESPUESTA(
+                RemoteRESPUESTA.newInstance(activity, new RequestRESPUESTA(
                         encuesta.ID,
                         departamentos[which],
                         "0"

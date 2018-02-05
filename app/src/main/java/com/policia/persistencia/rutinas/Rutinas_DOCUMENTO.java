@@ -1,5 +1,6 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -66,10 +67,46 @@ public class Rutinas_DOCUMENTO {
                 documento.URL + "",
                 documento.ACTIVO + "",
                 documento.TIPO_ARCHIVO_ID + "",
+                documento.UBICACION + "",
                 documento.ID + ""};
 
         DB = new SQLiteProvider(context).getWritableDatabase();
-        DB.execSQL("UPDATE 'DOCUMENTO' SET DOCUMENTO_ESP=?,URL=?,ACTIVO=?,TIPO_ARCHIVO_ID=? WHERE ID=?", parameters);
+        DB.execSQL("UPDATE 'DOCUMENTO' SET DOCUMENTO_ESP=?,URL=?,ACTIVO=?,TIPO_ARCHIVO_ID=?,UBICACION WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM DOCUMENTO WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_DOCUMENTO documento) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", documento.ID);
+        parameters.put("DOCUMENTO_ESP", documento.DOCUMENTO_ESP);
+        parameters.put("DOCUMENTO_ENG", documento.DOCUMENTO_ENG);
+        parameters.put("URL", documento.URL);
+        parameters.put("ACTIVO", documento.ACTIVO);
+        parameters.put("TIPO_ARCHIVO_ID", documento.TIPO_ARCHIVO_ID);
+        parameters.put("UBICACION", documento.UBICACION);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'DOCUMENTO'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 }

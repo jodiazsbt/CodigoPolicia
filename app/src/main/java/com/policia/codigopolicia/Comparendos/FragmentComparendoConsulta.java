@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.policia.codigopolicia.ComparendosActivity;
 import com.policia.codigopolicia.R;
@@ -67,7 +66,7 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
         buttonAceptar = fragment.findViewById(R.id.buttonAceptar);
         buttonAceptar.setOnClickListener(this);
 
-        new RemoteTipoDocumento(activity, new IComparendoConsulta() {
+        RemoteTipoDocumento.newInstance(activity, new IComparendoConsulta() {
 
             private ArrayAdapter adapter;
 
@@ -79,8 +78,7 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
                 adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                 spinnerTipoDocumento.setAdapter(adapter);
             }
-        }).execute();
-
+        }).execute((Void) null);
         return fragment;
     }
 
@@ -91,7 +89,7 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
 
             RNMCTIPOSDOCResult documento = documentos.rNMCTIPOSDOCResult.get(spinnerTipoDocumento.getSelectedItemPosition());
 
-            new RemoteExpediente(activity, String.valueOf(documento.iDTIPOSDOC), edittextIdentificacion.getText().toString(), new IComparendoExpediente() {
+            RemoteExpediente.newInstance(activity, String.valueOf(documento.iDTIPOSDOC), edittextIdentificacion.getText().toString(), new IComparendoExpediente() {
 
                 @Override
                 public void consultar(RNMCGENERALResponse expediente, String TipoDocumento, String Identificacion) {

@@ -33,7 +33,9 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
 
     private GEOPOCICIONCNPCResponse responseGEO;
 
-    public RemoteGEO(Activity activity, ListView view, WebView webviewMap) {//GoogleMap mMap) {
+    private static RemoteGEO remoteGEO;
+
+    private RemoteGEO(Activity activity, ListView view, WebView webviewMap) {//GoogleMap mMap) {
 
         this.view = view;
         //this.mMap = mMap;
@@ -42,6 +44,12 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
         this.remoteClient = new RemoteClient(activity);
     }
 
+    public static RemoteGEO newInstance(Activity activity, ListView view, WebView webviewMap) {
+
+        if (remoteGEO == null)
+            remoteGEO = new RemoteGEO(activity, view, webviewMap);
+        return remoteGEO;
+    }
 
     @Override
     protected Void doInBackground(RequestGEO... geo) {
@@ -119,7 +127,8 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
                 }
             });
 
-            super.onPostExecute(aVoid);
         }
+        remoteGEO = null;
+        super.onPostExecute(aVoid);
     }
 }

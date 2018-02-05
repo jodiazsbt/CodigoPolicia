@@ -51,7 +51,11 @@ public class Negocio_CATEGORIA {
                 categoria.CATEGORIA_ENG = String.valueOf(result.cATEGORIAENG);
                 categoria.VIGENTE = result.aCTIVOCATEGOTRIAS;
                 categoria.FECHA = String.valueOf(result.fECHAACTCATEGORIA);
-                rutinasCategoria.update(categoria);
+
+                if (rutinasCategoria.exists(categoria.ID))
+                    rutinasCategoria.update(categoria);
+                else
+                    rutinasCategoria.create(categoria);
             }
             return response.cATEGORIASMULTASCNPCResult.size();
         } catch (Exception e) {

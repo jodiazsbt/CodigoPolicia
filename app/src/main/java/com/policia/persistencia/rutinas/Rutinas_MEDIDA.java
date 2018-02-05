@@ -1,11 +1,13 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_MEDIDA;
 import com.policia.persistencia.conexion.SQLiteProvider;
+import com.policia.persistencia.tablas.Tabla_LIBRO;
 import com.policia.persistencia.tablas.Tabla_MEDIDA;
 
 import java.util.ArrayList;
@@ -54,6 +56,43 @@ public class Rutinas_MEDIDA {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'MEDIDA' SET COMPORTAMIENTO_ESP=?,MEDIDA_ESP=?,VIGENTE=?,NIVEL_ID=?,ARTICULO_ID=?,COMPORTAMIENTO_ENG=?,MEDIDA_ENG=?,FECHA=? WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM MEDIDA WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_MEDIDA medida) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", medida.ID);
+        parameters.put("COMPORTAMIENTO_ESP", medida.COMPORTAMIENTO_ESP);
+        parameters.put("MEDIDA_ESP", medida.MEDIDA_ESP);
+        parameters.put("VIGENTE", medida.VIGENTE);
+        parameters.put("NIVEL_ID", medida.NIVEL_ID);
+        parameters.put("ARTICULO_ID", medida.ARTICULO_ID);
+        parameters.put("COMPORTAMIENTO_ENG", medida.COMPORTAMIENTO_ENG);
+        parameters.put("MEDIDA_ENG", medida.MEDIDA_ENG);
+        parameters.put("FECHA", medida.FECHA);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'MEDIDA'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 
     public ArrayList<Modelo_MEDIDA> MedidasPorParagrafo(String Idioma, String Paragrafo) {

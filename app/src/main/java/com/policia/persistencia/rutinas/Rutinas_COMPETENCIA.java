@@ -1,5 +1,6 @@
 package com.policia.persistencia.rutinas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Modelo_COMPENTENCIA;
 import com.policia.persistencia.conexion.SQLiteProvider;
 import com.policia.persistencia.tablas.Tabla_COMPETENCIA;
+import com.policia.persistencia.tablas.Tabla_COMPETENCIA_NUMERAL;
 
 import java.util.ArrayList;
 
@@ -97,5 +99,40 @@ public class Rutinas_COMPETENCIA {
         DB = new SQLiteProvider(context).getWritableDatabase();
         DB.execSQL("UPDATE 'COMPETENCIA' SET COMPETENCIA_ESP=?,COMPETENCIA_ENG=?,INSTANCIA_ESP=?,INSTANCIA_ENG=?,VIGENTE=?,FECHA=? WHERE ID=?", parameters);
         DB.close();
+    }
+
+    public boolean exists(String ID) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                ID + ""};
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM COMPETENCIA WHERE ID=?;", parameters);
+
+        int cantidad = 0;
+        while (cursor.moveToNext()) {
+            cantidad = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return cantidad == 1;
+    }
+
+    public boolean create(Tabla_COMPETENCIA competencia) {
+        long id = 0;
+
+        ContentValues parameters = new ContentValues();
+        parameters.put("ID", competencia.ID);
+        parameters.put("COMPETENCIA_ESP", competencia.COMPETENCIA_ESP);
+        parameters.put("COMPETENCIA_ENG", competencia.COMPETENCIA_ENG);
+        parameters.put("INSTANCIA_ESP", competencia.INSTANCIA_ESP);
+        parameters.put("INSTANCIA_ENG", competencia.INSTANCIA_ENG);
+        parameters.put("VIGENTE", competencia.VIGENTE);
+        parameters.put("FECHA", competencia.FECHA);
+
+        DB = new SQLiteProvider(context).getWritableDatabase();
+        id = DB.insert("'COMPETENCIA'", null, parameters);
+        DB.close();
+        return id > 0;
     }
 }

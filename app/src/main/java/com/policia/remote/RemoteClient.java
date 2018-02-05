@@ -15,6 +15,7 @@ import com.policia.remote.response.ArticulosyParagrafosResponse;
 import com.policia.remote.response.CATEGORIASMULTASCNPCResponse;
 import com.policia.remote.response.COMPETENCIASCNPCResponse;
 import com.policia.remote.response.CONSULTAPOLICIAResponse;
+import com.policia.remote.response.DOCUMENTOSELECCIONADOResponse;
 import com.policia.remote.response.DOCUMENTOSINSTRUCTIVOSCNPCNResponse;
 import com.policia.remote.response.ENCUESTASCNPCResponse;
 import com.policia.remote.response.GEOPOCICIONCNPCResponse;
@@ -354,6 +355,13 @@ public class RemoteClient {
         String body = "RNMC_DETALLE_COMPORTAMIENTO/" + Comportamiento + "," + Expediente;
         StringBuilder builder = getInvoke(direccionServicio + body);
         RNMCDETALLECOMPORTAMIENTOResponse result = new Gson().fromJson(builder.toString(), RNMCDETALLECOMPORTAMIENTOResponse.class);
+        return result;
+    }
+
+    public DOCUMENTOSELECCIONADOResponse DOCUMENTOSELECCIONADO(String URL) throws Exception {
+        String body = "RNMC_GENERAL/" + URL;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        DOCUMENTOSELECCIONADOResponse result = new Gson().fromJson(builder.toString(), DOCUMENTOSELECCIONADOResponse.class);
         return result;
     }
 }

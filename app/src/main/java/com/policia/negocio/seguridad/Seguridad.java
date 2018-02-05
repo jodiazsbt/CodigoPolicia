@@ -160,7 +160,7 @@ public class Seguridad {
             rutinasPreferencia.crearPreferencia(tablaPreferencia);
         }
 
-        if (!rutinasSesion.existeSesionUsuario(usuarioID)) {
+        if (!rutinasSesion.exists(usuarioID)) {
 
             tablaSesion = new Tabla_SESION();
             tablaSesion.USUARIO_ID = usuarioID;

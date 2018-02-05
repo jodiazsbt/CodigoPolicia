@@ -43,7 +43,11 @@ public class Negocio_UVT {
                 UVT.ACTIVO = result.aCTIVOUVTCNCP;
                 UVT.FECHA = String.valueOf(result.fECHAACTUVTCNCP);
                 UVT.ANIO = String.valueOf(result.aOUVTCNCP);
-                rutinasUVT.update(UVT);
+
+                if (rutinasUVT.exists(UVT.ID))
+                    rutinasUVT.update(UVT);
+                else
+                    rutinasUVT.create(UVT);
             }
             return response.uVTCNCPResult.size();
         } catch (Exception e) {
