@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_MULTA;
 import com.policia.persistencia.conexion.SQLiteProvider;
-import com.policia.persistencia.tablas.Tabla_METADATA;
 import com.policia.persistencia.tablas.Tabla_MULTA;
 
 import java.util.ArrayList;

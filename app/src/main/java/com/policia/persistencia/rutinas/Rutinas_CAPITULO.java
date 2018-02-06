@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_CAPITULO;
 import com.policia.persistencia.conexion.SQLiteProvider;
-import com.policia.persistencia.tablas.Tabla_ARTICULO;
 import com.policia.persistencia.tablas.Tabla_CAPITULO;
 
 import java.util.ArrayList;

@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.policia.negocio.modelo.Modelo_COMPENTENCIA;
 import com.policia.persistencia.conexion.SQLiteProvider;
 import com.policia.persistencia.tablas.Tabla_COMPETENCIA;
-import com.policia.persistencia.tablas.Tabla_COMPETENCIA_NUMERAL;
 
 import java.util.ArrayList;
 

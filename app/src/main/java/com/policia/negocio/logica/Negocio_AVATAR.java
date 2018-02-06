@@ -50,7 +50,7 @@ public class Negocio_AVATAR {
                 avatar.ID = String.valueOf(result.idAvatar);
                 avatar.AVATAR = String.valueOf(result.avatarNombre);
                 avatar.FECHA = String.valueOf(result.fechaact);
-                avatar.UBICACION = Almacenamiento.newInstance(context).guardarBitmap(result.imagenAvatar, avatar.AVATAR + ".PNG");
+                //avatar.UBICACION = Almacenamiento.newInstance(context).guardarBitmap(result.imagenAvatar, avatar.AVATAR + ".PNG");
                 rutinasAvatar.update(avatar);
             }
             return response.imagenesAvatarInfo.size();

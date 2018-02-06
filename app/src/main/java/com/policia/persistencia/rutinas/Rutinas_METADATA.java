@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.negocio.modelo.Modelo_Busqueda_Articulo;
 import com.policia.persistencia.conexion.SQLiteProvider;
-import com.policia.persistencia.tablas.Tabla_MEDIDA;
 import com.policia.persistencia.tablas.Tabla_METADATA;
 
 import java.util.ArrayList;

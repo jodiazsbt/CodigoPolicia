@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.policia.persistencia.conexion.SQLiteProvider;
-import com.policia.persistencia.tablas.Tabla_CAPITULO;
 import com.policia.persistencia.tablas.Tabla_COMPETENCIA_NUMERAL;
 
 /**
