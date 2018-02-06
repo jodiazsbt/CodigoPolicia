@@ -41,6 +41,9 @@ public class Negocio_AVATAR {
 
             response = remoteClient.sincronizarAVATAR(rutinasAvatar.maxFecha());
 
+            if (response == null) {
+                return 0;
+            }
             for (ImagenesAvatarInfo result : response.imagenesAvatarInfo) {
                 Tabla_AVATAR avatar = new Tabla_AVATAR();
 

@@ -84,6 +84,8 @@
     <string name="title_activity_puntos">Puntos Referencia</string>
     <string name="title_activity_encuesta">Encuesta</string>
     <string name="title_activity_capacitación">Capacitación</string>
+    <string name="articlo_medidas">MEDIDAS</string>
+    <string name="articlo_comportamiento">COMPORTAMIENTOS</string>
 
     <!--PSC-->
     <string-array name="listadoMenuPsc">
@@ -92,6 +94,8 @@
         <item>REGISTRO DE DOCUMENTOS EXTRAVIADOS</item>
         <item>COMUNICACIÓN DE APERTURA DE ESTABLECIMIENTOS</item>
         <item>REGISTRO PREGUNTAS, QUEJAS, RECLAMOS Y SUGERENCIAS (PQRS)</item>
+        <item>DOCUMENTOS RECUPERADOS</item>
+        <item>DENUNCIAR HURTO DE CELULARES</item>
         <item>SINTONIZAR RADIO INSTITUCIONAL</item>
     </string-array>
 

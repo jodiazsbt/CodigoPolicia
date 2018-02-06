@@ -50,7 +50,7 @@ public class Negocio_ENCUESTA {
     }
 
     public Modelo_ENCUESTA ultimaEncuesta() {
-        return rutinasEncuesta.ultimaEncuesta(sesion.getIdiomaCodigo());
+        return rutinasEncuesta.ultimaEncuesta(sesion.getIdiomaLargo());
     }
 
     public ArrayList<Long> existeEncuesta(String[] IDs) {

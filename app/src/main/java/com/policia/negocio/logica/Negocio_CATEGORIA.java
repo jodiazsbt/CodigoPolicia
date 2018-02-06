@@ -33,7 +33,7 @@ public class Negocio_CATEGORIA {
 
     public ArrayList<Modelo_CATEGORIA> CategoriaPorTipoMulta(String TipoMulta) {
 
-        return rutinasCategoria.CategoriaPorTipoMulta(sesion.getIdiomaCodigo(), TipoMulta);
+        return rutinasCategoria.CategoriaPorTipoMulta(sesion.getIdiomaLargo(), TipoMulta);
     }
 
     public int sincronizar() {

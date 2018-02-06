@@ -30,12 +30,12 @@ public class Negocio_ACCION {
 
     public String accionCiudadano(){
 
-        return rutinasAccion.accionCiudadano(sesion.getIdiomaCodigo());
+        return rutinasAccion.accionCiudadano(sesion.getIdiomaLargo());
     }
 
     public String accionPolicia(){
 
-        return rutinasAccion.accionPolicia(sesion.getIdiomaCodigo());
+        return rutinasAccion.accionPolicia(sesion.getIdiomaLargo());
     }
 
     public int sincronizar() {

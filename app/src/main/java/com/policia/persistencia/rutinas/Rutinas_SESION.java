@@ -30,7 +30,8 @@ public class Rutinas_SESION {
                 "USUARIO.FUNCIONARIO, " +
                 "USUARIO.FISICA, " +
                 "IDIOMA.IDIOMA, " +
-                "PREFERENCIA.IDIOMA_CODIGO " +
+                "IDIOMA.CODIGO, " +
+                "IDIOMA.CODIGO2 " +
                 "FROM USUARIO " +
                 "INNER JOIN SESION ON USUARIO.ID=SESION.USUARIO_ID " +
                 "INNER JOIN PREFERENCIA ON USUARIO.ID=PREFERENCIA.USUARIO_ID " +
@@ -43,7 +44,8 @@ public class Rutinas_SESION {
             sesion.setFuncionario(cursor.getString(1));
             sesion.setFisica(cursor.getString(2));
             sesion.setIdiomaNombre(cursor.getString(3));
-            sesion.setIdiomaCodigo(cursor.getString(4));
+            sesion.setIdiomaLargo(cursor.getString(4));
+            sesion.setIdiomaCorto(cursor.getString(5));
         }
         cursor.close();
         DB.close();

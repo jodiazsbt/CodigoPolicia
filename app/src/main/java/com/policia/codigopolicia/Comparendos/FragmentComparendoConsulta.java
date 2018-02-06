@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.policia.codigopolicia.ComparendosActivity;
 import com.policia.codigopolicia.R;
@@ -73,10 +74,15 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
             @Override
             public void consultaTipoDocumento(RNMCTIPOSDOCResponse response) {
                 documentos = response;
+                if (documentos == null) {
+                    activity.finish();
+                    Toast.makeText(activity, "Se necesita estar conectado a internet para realizar esta consulta", Toast.LENGTH_SHORT).show();
+                } else {
 
-                adapter = new ArrayAdapter<RNMCTIPOSDOCResult>(activity.getBaseContext(), android.R.layout.simple_spinner_item, response.rNMCTIPOSDOCResult);
-                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                spinnerTipoDocumento.setAdapter(adapter);
+                    adapter = new ArrayAdapter<RNMCTIPOSDOCResult>(activity.getBaseContext(), android.R.layout.simple_spinner_item, response.rNMCTIPOSDOCResult);
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                    spinnerTipoDocumento.setAdapter(adapter);
+                }
             }
         }).execute((Void) null);
         return fragment;

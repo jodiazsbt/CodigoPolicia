@@ -63,6 +63,6 @@ public class Negocio_NUMERAL {
 
     public ArrayList<Modelo_NUMERAL> NumeralesPorArticulo(String Articulo){
 
-        return rutinasNumeral.NumeralesPorArticulo(sesion.getIdiomaCodigo(), Articulo);
+        return rutinasNumeral.NumeralesPorArticulo(sesion.getIdiomaLargo(), Articulo);
     }
 }

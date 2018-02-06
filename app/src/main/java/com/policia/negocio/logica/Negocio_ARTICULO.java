@@ -70,7 +70,7 @@ public class Negocio_ARTICULO {
 
     public ArrayList<Modelo_ARTICULO> ArticulosPorCapitulo(String Capitulo, int position) {
 
-        return rutinasArticulo.ArticulosPorCapitulo(sesion.getIdiomaCodigo(), Capitulo, position);
+        return rutinasArticulo.ArticulosPorCapitulo(sesion.getIdiomaLargo(), Capitulo, position);
     }
 
     public int CantidadArticulosPorMultaCategoria(String Multa, String Categoria) {
@@ -80,6 +80,6 @@ public class Negocio_ARTICULO {
 
     public ArrayList<Modelo_ARTICULO> ArticulosPorMultaCategoria(String Multa, String Categoria, int position) {
 
-        return rutinasArticulo.ArticulosPorMultaCategoria(sesion.getIdiomaCodigo(), Multa, Categoria, position);
+        return rutinasArticulo.ArticulosPorMultaCategoria(sesion.getIdiomaLargo(), Multa, Categoria, position);
     }
 }

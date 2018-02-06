@@ -32,7 +32,7 @@ public class AdapterComportamiento extends BaseAdapter {
         try {
             for (RNMCDETALLECOMPORTAMIENTOResult comportamiento : comportamientos) {
 
-                if (Seguridad.Sesion(activity).getIdiomaCodigo().equals("ESP")) {
+                if (Seguridad.Sesion(activity).getIdiomaLargo().equals("ESP")) {
 
                     this.valores.add(new ValuePar("ARTICULO", comportamiento.aRTICULOCOMPORTAMIENTORNMCESP));
                     this.valores.add(new ValuePar("NUMERAL", comportamiento.nUMERALCOMPORTAMIENTORNMCESP));

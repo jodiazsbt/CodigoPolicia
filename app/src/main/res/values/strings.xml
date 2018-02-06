@@ -23,6 +23,8 @@
         <item>https://www.policia.gov.co/documentos-extraviados</item>
         <item>https://www.policia.gov.co/codigo-nacional-policia/comunicaci%C3%B3n-apertura-establecimientos</item>
         <item>https://www.policia.gov.co/pqrs</item>
+        <item>https://www.policia.gov.co/documentos-recuperados</item>
+        <item>https://www.policia.gov.co/denuncia-virtual/hurto-personas</item>
         <item>https://radio.policia.gov.co:8080/bogota</item>
     </string-array>
     <string name="title_activity_login">Log in</string>

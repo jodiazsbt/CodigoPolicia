@@ -65,12 +65,12 @@ public class Negocio_MEDIDA {
 
     public ArrayList<Modelo_MEDIDA> MedidasPorParagrafo(String Paragrafo) {
 
-        return rutinasMedida.MedidasPorParagrafo(sesion.getIdiomaCodigo(), Paragrafo);
+        return rutinasMedida.MedidasPorParagrafo(sesion.getIdiomaLargo(), Paragrafo);
     }
 
     public ArrayList<Modelo_MEDIDA> ComparendosNumeral(String Numeral) {
 
-        return rutinasMedida.ComparendosNumeral(sesion.getIdiomaCodigo(), Numeral);
+        return rutinasMedida.ComparendosNumeral(sesion.getIdiomaLargo(), Numeral);
     }
 
     public int countComparendosNumeral(String Numeral) {

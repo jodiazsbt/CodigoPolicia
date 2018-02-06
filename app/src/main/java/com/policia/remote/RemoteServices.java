@@ -101,23 +101,28 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             if (!remoteClient.isServiceOnline())
                 return Long.valueOf(-1);
 
-            sincronizar += negocioNivel.sincronizar();
-            sincronizar += negocioLibro.sincronizar();
-            sincronizar += negocioTitulo.sincronizar();
-            sincronizar += negocioCapitulo.sincronizar();
-            sincronizar += negocioArticulo.sincronizar();
-            sincronizar += negocioNumeral.sincronizar();
-            sincronizar += negocioMetadata.sincronizar();
-            sincronizar += negocioMedida.sincronizar();
-            sincronizar += negocioMulta.sincronizar();
-            sincronizar += negocioTipoArchivo.sincronizar();
-            sincronizar += negocioDocumento.sincronizar();
-            sincronizar += negocioCategoria.sincronizar();
-            sincronizar += negocioCompetencia.sincronizar();
-            sincronizar += negocioCompentenciaNumeral.sincronizar();
-            sincronizar += negocioAccion.sincronizar();
-            sincronizar += negocioUVT.sincronizar();
             sincronizar += negocioAvatar.sincronizar();
+
+            if (sincronizar >= 0) {
+
+                sincronizar += negocioNivel.sincronizar();
+                sincronizar += negocioLibro.sincronizar();
+                sincronizar += negocioTitulo.sincronizar();
+                sincronizar += negocioCapitulo.sincronizar();
+                sincronizar += negocioArticulo.sincronizar();
+                sincronizar += negocioNumeral.sincronizar();
+                sincronizar += negocioMetadata.sincronizar();
+                sincronizar += negocioMedida.sincronizar();
+                sincronizar += negocioMulta.sincronizar();
+                sincronizar += negocioTipoArchivo.sincronizar();
+                sincronizar += negocioDocumento.sincronizar();
+                sincronizar += negocioCategoria.sincronizar();
+                sincronizar += negocioCompetencia.sincronizar();
+                sincronizar += negocioCompentenciaNumeral.sincronizar();
+                sincronizar += negocioAccion.sincronizar();
+                sincronizar += negocioUVT.sincronizar();
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();

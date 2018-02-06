@@ -82,16 +82,16 @@ public class IdiomaActivity extends Activity {
     public void clickAceptar(int posicion) {//View view) {
 
         try {
+            Seguridad sesion = Seguridad.Sesion(activity.getBaseContext());
 
             String idioma = idiomas.get(posicion - 1).CODIGO;
-            Seguridad sesion = Seguridad.Sesion(activity.getBaseContext());
             sesion.actualizarIdiomaSesion(idioma);
 
             Toast.makeText(activity, getString(R.string.toast_locale_success) + " " + sesion.getIdiomaNombre(), Toast.LENGTH_SHORT).show();
-
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
 
             Intent refresh = new Intent(this, PrincipalActivity.class);
             startActivity(refresh);

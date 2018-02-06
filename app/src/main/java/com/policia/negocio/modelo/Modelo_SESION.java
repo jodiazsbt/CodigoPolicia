@@ -13,7 +13,9 @@ public class Modelo_SESION {
     private String funcionario;
 
     private String fisica;
-    private String idiomaCodigo;
+    private String idiomaLargo;
+    private String idiomaCorto;
+
     private String idiomaNombre;
     private Date fecha;
 
@@ -35,14 +37,22 @@ public class Modelo_SESION {
         return funcionario;
     }
 
-    public String getIdiomaCodigo() {
+    public String getIdiomaLargo() {
 
-        return idiomaCodigo;
+        return idiomaLargo;
     }
 
     public String getIdiomaNombre() {
 
         return idiomaNombre;
+    }
+
+    public String getIdiomaCorto() {
+        return idiomaCorto;
+    }
+
+    public void setIdiomaCorto(String idiomaCorto) {
+        this.idiomaCorto = idiomaCorto;
     }
 
     public void setUsuario(String usuario) {
@@ -54,9 +64,9 @@ public class Modelo_SESION {
         this.funcionario = funcionario;
     }
 
-    public void setIdiomaCodigo(String idioma) {
+    public void setIdiomaLargo(String idioma) {
 
-        this.idiomaCodigo = idioma;
+        this.idiomaLargo = idioma;
     }
 
     public void setIdiomaNombre(String idioma) {

@@ -41,6 +41,8 @@ public class PortalActivity extends AppCompatActivity implements View.OnClickLis
                 R.mipmap.extraidos,
                 R.mipmap.apertura,
                 R.mipmap.pqrs,
+                R.mipmap.extraidos,
+                R.mipmap.apertura,
                 R.mipmap.img_11_radio_policia
         };
 

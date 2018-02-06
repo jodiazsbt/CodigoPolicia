@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +37,8 @@ import com.policia.codigopolicia.html.HTML_Plantillas;
 import com.policia.codigopolicia.showcase.ToolbarActionItemTarget;
 import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.negocio.seguridad.Seguridad;
+
+import java.util.Locale;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -57,7 +62,7 @@ public class PrincipalActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         activity = this;
-
+        cargaSesion();
         setContentView(R.layout.principal_activity);
 
         try {
@@ -80,7 +85,6 @@ public class PrincipalActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
-        cargaSesion();
         menuCodigoPolicia(navigationView.getMenu().getItem(1));//codigo de policia
 
         showcaseView = new ShowcaseView.Builder(this)

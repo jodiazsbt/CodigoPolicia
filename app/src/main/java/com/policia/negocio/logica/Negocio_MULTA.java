@@ -32,7 +32,7 @@ public class Negocio_MULTA {
     }
 
     public ArrayList<Modelo_MULTA> Multas() {
-        return rutinasMulta.Multas(sesion.getIdiomaCodigo());
+        return rutinasMulta.Multas(sesion.getIdiomaLargo());
     }
 
     public int sincronizar() {

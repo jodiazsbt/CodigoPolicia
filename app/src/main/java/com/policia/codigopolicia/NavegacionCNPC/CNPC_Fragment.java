@@ -118,8 +118,11 @@ public class CNPC_Fragment extends Fragment {
 
                 ArrayList<Modelo_MEDIDA> medidas = negocioMedida.MedidasPorParagrafo(articulo.ID);
 
+                String articlo_medidas = context.getResources().getString(R.string.articlo_medidas);
+                String articlo_comportamiento = context.getResources().getString(R.string.articlo_comportamiento);
+
                 String filas_medidas = "<tr><td>@Nivel @Comportamiento</td><td style='text-align:justify'>@Medida</td></tr>";
-                String tabla_medidas = "<table><thead><tr><th>COMPORTAMIENTOS</th><th>MEDIDAS CORRECTIVAS</th></tr></thead><tbody>@tr</tbody></table>";
+                String tabla_medidas = "<table><thead><tr><th>" + articlo_comportamiento + "</th><th>" + articlo_medidas + "</th></tr></thead><tbody>@tr</tbody></table>";
                 if (!(medidas.size() == 0)) {
 
                     int pos = 0;

@@ -3,7 +3,6 @@ package com.policia.negocio.seguridad;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.util.DisplayMetrics;
 
 import com.policia.codigopolicia.R;
 import com.policia.negocio.modelo.Modelo_SESION;
@@ -38,6 +37,7 @@ public class Seguridad {
         rutinasPreferencia = new Rutinas_PREFERENCIA(context);
 
         actualizarSesion();
+        cambiarIdiomaRecursos();
     }
 
     private void actualizarSesion() throws Exception {
@@ -50,7 +50,8 @@ public class Seguridad {
         this.usuario = sesion.getUsuario();
         this.funcionario = sesion.getFuncionario();
         this.fisica = sesion.getFisica();
-        this.idiomaCodigo = sesion.getIdiomaCodigo();
+        this.idiomaLargo = sesion.getIdiomaLargo();
+        this.idiomaCorto = sesion.getIdiomaCorto();
         this.idiomaNombre = sesion.getIdiomaNombre();
     }
 
@@ -68,7 +69,8 @@ public class Seguridad {
     private String funcionario;
     private String fisica;
 
-    private String idiomaCodigo;
+    private String idiomaLargo;
+    private String idiomaCorto;
     private String idiomaNombre;
 
     public String getUsuario() {
@@ -83,8 +85,14 @@ public class Seguridad {
         return funcionario;
     }
 
-    public String getIdiomaCodigo() {
-        return idiomaCodigo;
+    public String getIdiomaLargo() {
+
+        return idiomaLargo;
+    }
+
+    public String getIdiomaCorto() {
+
+        return idiomaCorto;
     }
 
     public String getIdiomaNombre() {
@@ -93,20 +101,29 @@ public class Seguridad {
 
     public boolean actualizarIdiomaSesion(String idioma) throws Exception {
 
-        Locale locale = new Locale(idioma);
-        Resources res = context.getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = locale;
-        res.updateConfiguration(conf, dm);
-
         Tabla_PREFERENCIA preferencia = new Tabla_PREFERENCIA();
         preferencia.USUARIO_ID = this.usuario;
         preferencia.IDIOMA_CODIGO = idioma;
         rutinasPreferencia.update(preferencia);
 
         actualizarSesion();
+        cambiarIdiomaRecursos();
         return true;
+    }
+
+    private void cambiarIdiomaRecursos() {
+
+        Locale locale = null;
+        try {
+            locale = new Locale(getIdiomaCorto());
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            Resources resources = context.getResources();
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean cerrarSesionPolicia() throws Exception {

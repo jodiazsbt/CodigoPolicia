@@ -53,7 +53,7 @@ public class Negocio_DOCUMENTO {
         try {
             int sincronizados = 0;
             rutinasTipoArchivo = new Rutinas_TIPO_ARCHIVO(context);
-            for (Modelo_TIPO_ARCHIVO tipo_archivo : rutinasTipoArchivo.TipoArchivos(sesion.getIdiomaCodigo())) {
+            for (Modelo_TIPO_ARCHIVO tipo_archivo : rutinasTipoArchivo.TipoArchivos(sesion.getIdiomaLargo())) {
 
                 response = remoteClient.sincronizarDOCUMENTO(tipo_archivo.ID);
 

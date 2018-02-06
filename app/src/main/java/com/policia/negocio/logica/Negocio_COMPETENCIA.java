@@ -33,7 +33,7 @@ public class Negocio_COMPETENCIA {
     }
 
     public ArrayList<Modelo_COMPENTENCIA> competenciasPorNumeral(String Numeral) {
-        return rutinasCompetencia.competenciasPorNumeral(sesion.getIdiomaCodigo(), Numeral);
+        return rutinasCompetencia.competenciasPorNumeral(sesion.getIdiomaLargo(), Numeral);
     }
 
     public int countCompetenciasPorNumeral(String Numeral) {
