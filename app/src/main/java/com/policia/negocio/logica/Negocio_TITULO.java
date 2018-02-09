@@ -22,7 +22,6 @@ public class Negocio_TITULO {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_TITULO(Context context) throws Exception {
 
@@ -33,11 +32,10 @@ public class Negocio_TITULO {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         TitulosOutput titulos = null;
         try {
 
-            titulos = remoteClient.sincronizarTITULO(rutinasTitulo.maxFecha());
+            titulos = RemoteClient.connect(context).sincronizarTITULO(rutinasTitulo.maxFecha());
             for (TitulosResultEntry resultEntry : titulos.TitulosResult) {
                 Tabla_TITULO titulo = new Tabla_TITULO();
                 titulo.ID = String.valueOf(resultEntry.Id_Titulo);

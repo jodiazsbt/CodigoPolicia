@@ -1,6 +1,5 @@
 package com.policia.codigopolicia;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -102,13 +101,18 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void detener() {
-        textToSpeech.stop();
-        fab.setImageDrawable(getDrawable(R.mipmap.img_03_btn_lectura));
+
+        try {
+            textToSpeech.stop();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                fab.setImageDrawable(getDrawable(R.mipmap.img_03_btn_lectura));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void reproducir() {
 
         final Context context = getBaseContext();
@@ -145,8 +149,11 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
                         texto_articulo += "\r\n" + medida.Nivel + "\t" + medida.Comportamiento + "\t" + medida.Medida;
                     }
                 }
-                fab.setImageDrawable(getDrawable(R.drawable.ic_stop_black_24dp));
+
                 textToSpeech.speak(texto_articulo.replace("<br/>", "\r\n"), TextToSpeech.QUEUE_FLUSH, null);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    fab.setImageDrawable(getDrawable(R.drawable.ic_stop_black_24dp));
+                }
             }
 
         } catch (Exception e) {

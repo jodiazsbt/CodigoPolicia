@@ -260,6 +260,7 @@ CREATE TABLE IF NOT EXISTS TIPO_ARCHIVO (
   ACTIVO BIT NULL,
   TIPO_ARCHIVO_ENG TEXT NULL,
   FECHA TEXT NULL,
+  RECURSO_ID TEXT,
   PRIMARY KEY (ID));
 
 CREATE TABLE IF NOT EXISTS ACCION (
@@ -365,6 +366,11 @@ CREATE TABLE IF NOT EXISTS AVATAR (
   FECHA VARCHAR(1) NULL,
   UBICACION VARCHAR(1) NULL,
   PRIMARY KEY (ID));
+
+  CREATE TABLE IF NOT EXISTS TIPO_DOCUMENTO (
+  ID INT NOT NULL,
+  TIPO_DOCUMENTO TEXT NULL,
+  PRIMARY KEY (`ID`));
 
 INSERT INTO NIVEL (ID, NIVEL_ESP, VIGENTE, FECHA, NIVEL_ENG) VALUES (12, '00', 1, '29/11/17', '00');
 INSERT INTO NIVEL (ID, NIVEL_ESP, VIGENTE, FECHA, NIVEL_ENG) VALUES (13, '01', 1, '29/11/17', '01');
@@ -3061,10 +3067,11 @@ INSERT INTO MULTA (NUMERAL_ID, MEDIDA_ID, VIGENTE, FECHA, TIPOMULTA_ID, CATEGORI
 INSERT INTO MULTA (NUMERAL_ID, MEDIDA_ID, VIGENTE, FECHA, TIPOMULTA_ID, CATEGORIA_ID) VALUES (1676, 1433, 1, '29/11/17', 1003, 10000);
 INSERT INTO MULTA (NUMERAL_ID, MEDIDA_ID, VIGENTE, FECHA, TIPOMULTA_ID, CATEGORIA_ID) VALUES (1677, 1434, 1, '29/11/17', 1002, 10000);
 
-INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA) VALUES (100, 'DOCUMENTOS WORD', 1, 'WORD DOCUMENTS', '29/11/17');
-INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA) VALUES (101, 'DOCUMENTOS PDF', 1, 'DOCUMENTS PDF', '29/11/17');
-INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA) VALUES (102, 'DOCUMENTOS POWERPOINT', 1, 'POWERPOINT DOCUMENTS', '29/11/17');
-INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA) VALUES (103, 'VÍDEOS', 1, 'VIDEOS', '29/11/17');
+INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA, RECURSO_ID) VALUES (100, 'DOCUMENTOS WORD', 1, 'WORD DOCUMENTS', '29/11/17', '@mipmap/icon_word');
+INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA, RECURSO_ID) VALUES (101, 'DOCUMENTOS PDF', 1, 'DOCUMENTS PDF', '29/11/17', '@mipmap/icon_power_point');
+INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA, RECURSO_ID) VALUES (102, 'DOCUMENTOS POWERPOINT', 1, 'POWERPOINT DOCUMENTS', '29/11/17', '@mipmap/icon_pdf');
+INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA, RECURSO_ID) VALUES (103, 'VÍDEOS', 1, 'VIDEOS', '29/11/17', '@mipmap/icon_youtube');
+INSERT INTO TIPO_ARCHIVO (ID, TIPO_ARCHIVO_ESP, ACTIVO, TIPO_ARCHIVO_ENG, FECHA, RECURSO_ID) VALUES (104, 'IMAGEN', 1, 'IMAGEN', '29/11/17', '@mipmap/icon_image');
 
 INSERT INTO ACCION (ID, ACCION_ESP, ACCION_ENG, FECHA, VIGENTE) VALUES (1000, 'Acciones Ciudadano.\nUna vez impuesto el comparendo, el ciudadano tiene las siguientes alternativas:\n\nSi la persona acepta la comisi󮠤el comportamiento contrario a la convivencia sin necesidad de otra actuaci󮠡dministrativa, podrỜn\nA) A cambio del pago de la multa general Tipo 1 y 2, la persona podrᬠdentro de un plazo m⹩mo de cinco (5) d h⣩les siguientes a la expedici󮠤e la orden de comparendo nacional y medidas correctivas, participar voluntariamente en un programa comunitario o actividad pedag󧩣a de convivencia y solicitar a la autoridad de policque se le conmute la multa.\n\nB) Cancelar el cincuenta por ciento (50%) del valor de la multa general en cualquiera de los cuatro tipos dentro de los cinco (5) d h⣩les siguientes a la orden de comparendo nacional y medidas correctivas, lo cual constituye descuento por pronto pago.\n\n\nSi la persona NO estᡤe acuerdo con la aplicaci󮠤e la multa se񡬡da en la orden de comparendo nacional y medidas correctivas o con el cumplimiento de la medida de participaci󮠥n programa comunitario o actividad pedag󧩣a de convivencia, deberỜn\nA) Manifestar de inmediato ante el uniformado de la PolicNacional su deseo de hacer uso del recurso de apelaci󮠥n contra de la orden de polico de la medida correctiva, el cual se concederᡥn el efecto devolutivo y se remitirᡡl inspector de policdentro de las veinticuatro (24) horas siguientes a la imposici󮠤e la orden de comparendo nacional y medidas correctivas, y se resolverᡤentro de los tres (3) d h⣩les siguientes al recibo de la actuaci󮮜n\nB) Ante la orden de comparendo deberᡰresentarse dentro de los tres (3) d h⣩les siguientes ante la autoridad competente, donde se decretar⮠o practicar⮠las pruebas que solicite, o las de oficio que se consideren pertinentes, encaminadas a absolver al inculpado o declararlo responsable del comportamiento contrario a la convivencia.', 'asasas asasas', '29/11/17', 1);
 INSERT INTO ACCION (ID, ACCION_ESP, ACCION_ENG, FECHA, VIGENTE) VALUES (1001, 'Acciones Policia.\nUna vez impuesto el comparendo, el ciudadano tiene las siguientes alternativas:\n\nSi la persona acepta la comisi󮠤el comportamiento contrario a la convivencia sin necesidad de otra actuaci󮠡dministrativa, podrỜn\nA) A cambio del pago de la multa general Tipo 1 y 2, la persona podrᬠdentro de un plazo m⹩mo de cinco (5) d h⣩les siguientes a la expedici󮠤e la orden de comparendo nacional y medidas correctivas, participar voluntariamente en un programa comunitario o actividad pedag󧩣a de convivencia y solicitar a la autoridad de policque se le conmute la multa.\n\nB) Cancelar el cincuenta por ciento (50%) del valor de la multa general en cualquiera de los cuatro tipos dentro de los cinco (5) d h⣩les siguientes a la orden de comparendo nacional y medidas correctivas, lo cual constituye descuento por pronto pago.\n\n\nSi la persona NO estᡤe acuerdo con la aplicaci󮠤e la multa se񡬡da en la orden de comparendo nacional y medidas correctivas o con el cumplimiento de la medida de participaci󮠥n programa comunitario o actividad pedag󧩣a de convivencia, deberỜn\nA) Manifestar de inmediato ante el uniformado de la PolicNacional su deseo de hacer uso del recurso de apelaci󮠥n contra de la orden de polico de la medida correctiva, el cual se concederᡥn el efecto devolutivo y se remitirᡡl inspector de policdentro de las veinticuatro (24) horas siguientes a la imposici󮠤e la orden de comparendo nacional y medidas correctivas, y se resolverᡤentro de los tres (3) d h⣩les siguientes al recibo de la actuaci󮮜n\nB) Ante la orden de comparendo deberᡰresentarse dentro de los tres (3) d h⣩les siguientes ante la autoridad competente, donde se decretar⮠o practicar⮠las pruebas que solicite, o las de oficio que se consideren pertinentes, encaminadas a absolver al inculpado o declararlo responsable del comportamiento contrario a la convivencia.', 'asasas asasas', '29/11/17', 1);
@@ -3694,3 +3701,9 @@ INSERT INTO AVATAR (ID, AVATAR, FECHA, UBICACION) VALUES (107, 'SCREEN_PSC', '31
 INSERT INTO AVATAR (ID, AVATAR, FECHA, UBICACION) VALUES (108, 'SCREEN_LOGIN', '31/01/2018', NULL);
 INSERT INTO AVATAR (ID, AVATAR, FECHA, UBICACION) VALUES (109, 'SCREEN_CAPACITACION', '31/01/2018', NULL);
 INSERT INTO AVATAR (ID, AVATAR, FECHA, UBICACION) VALUES (110, 'SCREEN_ARTICULO', '31/01/2018', NULL);
+
+INSERT INTO TIPO_DOCUMENTO (ID, TIPO_DOCUMENTO) VALUES (10, 'COMPARENDO');
+INSERT INTO TIPO_DOCUMENTO (ID, TIPO_DOCUMENTO) VALUES (55, 'CEDULA');
+INSERT INTO TIPO_DOCUMENTO (ID, TIPO_DOCUMENTO) VALUES (56, 'TARJETA');
+INSERT INTO TIPO_DOCUMENTO (ID, TIPO_DOCUMENTO) VALUES (57, 'CEDULA');
+INSERT INTO TIPO_DOCUMENTO (ID, TIPO_DOCUMENTO) VALUES (58, 'PASAPORTE');

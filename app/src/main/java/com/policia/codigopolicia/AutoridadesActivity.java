@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -80,6 +81,14 @@ public class AutoridadesActivity extends AppCompatActivity {
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .singleShot(R.layout.autoridades_activity)
+                .setStyle(R.style.CustomShowcaseTheme2)
+                .setContentTitle("Autoridades competentes")
+                .setContentText("Consulte el listado de autoridades competentes que estén a un radio de distancia de su ubicación.")
+                .build();
     }
 
     /**

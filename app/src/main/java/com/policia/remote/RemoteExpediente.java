@@ -15,7 +15,6 @@ public class RemoteExpediente extends AsyncTask<Void, Void, Void> {
     private Activity activity;
 
     private boolean terminado;
-    private RemoteClient remoteClient;
 
     private String TipoDocumento;
     private String Identificacion;
@@ -32,7 +31,6 @@ public class RemoteExpediente extends AsyncTask<Void, Void, Void> {
         this.IComparendoExpediente = IComparendoExpediente;
         this.TipoDocumento = TipoDocumento;
         this.Identificacion = Identificacion;
-        this.remoteClient = new RemoteClient(activity);
     }
 
     public static RemoteExpediente newInstance(Activity activity, String TipoDocumento, String Identificacion, IComparendoExpediente IComparendoExpediente) {
@@ -46,8 +44,7 @@ public class RemoteExpediente extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
-
-            response = remoteClient.RNMC_GENERAL(TipoDocumento, Identificacion);
+            response = RemoteClient.connect(activity).RNMC_GENERAL(TipoDocumento, Identificacion);
 
             terminado = true;
         } catch (Exception e) {

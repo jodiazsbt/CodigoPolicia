@@ -15,21 +15,19 @@ public class RemoteComparendos extends AsyncTask<Void, Void, Boolean> {
 
     private Activity activity;
     private String Comportamiento;
-    private RemoteClient remoteClient;
     private RNMCMEDIDACORRECTIVAResponse response;
 
     public RemoteComparendos(Activity activity, String Comportamiento) {
 
         this.activity = activity;
         this.Comportamiento = Comportamiento;
-        this.remoteClient = new RemoteClient(activity);
     }
 
     @Override
     protected Boolean doInBackground(Void... voids) {
 
         try {
-            response = remoteClient.RNMC_MEDIDA_CORRECTIVA(Comportamiento);
+            response = RemoteClient.connect(activity).RNMC_MEDIDA_CORRECTIVA(Comportamiento);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -18,8 +18,6 @@ public class RemoteENCUESTA extends AsyncTask<Void, Void, Void> {
     private Activity activity;
     private static RemoteENCUESTA remoteENCUESTA;
 
-    private RemoteClient remoteClient;
-
     private ENCUESTASCNPCResponse responseEncuesta;
 
     private Negocio_ENCUESTA negocioEncuesta;
@@ -27,7 +25,6 @@ public class RemoteENCUESTA extends AsyncTask<Void, Void, Void> {
     private RemoteENCUESTA(Activity activity) {
 
         this.activity = activity;
-        this.remoteClient = new RemoteClient(activity);
         try {
             this.negocioEncuesta = new Negocio_ENCUESTA(activity);
         } catch (Exception e) {
@@ -49,7 +46,7 @@ public class RemoteENCUESTA extends AsyncTask<Void, Void, Void> {
 
         try {
             existe = false;
-            responseEncuesta = remoteClient.consultarEncuentas();
+            responseEncuesta = RemoteClient.connect(activity).consultarEncuentas();
             int pos = 0;
             String[] encuestas = new String[responseEncuesta.eNCUESTASCNPCResult.size()];
             for (ENCUESTASCNPCResult encuesta : responseEncuesta.eNCUESTASCNPCResult) {

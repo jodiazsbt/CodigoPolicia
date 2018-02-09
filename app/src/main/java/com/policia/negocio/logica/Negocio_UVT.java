@@ -19,7 +19,6 @@ public class Negocio_UVT {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_UVT(Context context) throws Exception {
 
@@ -30,11 +29,10 @@ public class Negocio_UVT {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         UVTCNCPResult response = null;
         try {
 
-            response = remoteClient.sincronizarUVT(rutinasUVT.maxFecha());
+            response = RemoteClient.connect(context).sincronizarUVT(rutinasUVT.maxFecha());
 
             for (UVTCNCPResult_ result : response.uVTCNCPResult) {
                 Tabla_UVT UVT = new Tabla_UVT();

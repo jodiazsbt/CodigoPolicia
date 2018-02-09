@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.policia.codigopolicia.Puntos.PuntosAdapter;
 import com.policia.codigopolicia.Puntos.PuntosCercanos;
 import com.policia.remote.request.RequestGEO;
@@ -26,9 +25,7 @@ import java.util.ArrayList;
 public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
 
     private ListView view;
-    private GoogleMap mMap;
     private Activity activity;
-    private RemoteClient remoteClient;
     private WebView webviewMap;
 
     private GEOPOCICIONCNPCResponse responseGEO;
@@ -41,7 +38,6 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
         //this.mMap = mMap;
         this.activity = activity;
         this.webviewMap = webviewMap;
-        this.remoteClient = new RemoteClient(activity);
     }
 
     public static RemoteGEO newInstance(Activity activity, ListView view, WebView webviewMap) {
@@ -66,7 +62,7 @@ public class RemoteGEO extends AsyncTask<RequestGEO, Void, Void> {
 
                 for (String distancia : distancias) {
 
-                    responseGEO = remoteClient.localizarCompetencias(
+                    responseGEO = RemoteClient.connect(activity).localizarCompetencias(
                             geo[0].Latitud,
                             geo[0].Longitud,
                             geo[0].Tipo,

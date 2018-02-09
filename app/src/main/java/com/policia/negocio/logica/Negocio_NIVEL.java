@@ -19,7 +19,6 @@ public class Negocio_NIVEL {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_NIVEL(Context context) throws Exception {
 
@@ -30,11 +29,10 @@ public class Negocio_NIVEL {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         NivelesResponse niveles = null;
         try {
 
-            niveles = remoteClient.sincronizarNIVEL(rutinasNivel.maxFecha());
+            niveles = RemoteClient.connect(context).sincronizarNIVEL(rutinasNivel.maxFecha());
 
             for (NivelesResult result : niveles.nivelesResult) {
                 Tabla_NIVEL nivel = new Tabla_NIVEL();

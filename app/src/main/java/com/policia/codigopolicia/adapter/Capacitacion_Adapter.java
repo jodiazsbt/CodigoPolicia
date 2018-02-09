@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.policia.codigopolicia.R;
@@ -49,12 +50,22 @@ public class Capacitacion_Adapter extends BaseAdapter {
         view = inflater.inflate(R.layout.capacitacion_item, null);
 
         TextView textviewDocumento = view.findViewById(R.id.textviewDocumento);
-        TextView textviewURL = view.findViewById(R.id.textviewURL);
+        //TextView textviewURL = view.findViewById(R.id.textviewURL);
 
         Modelo_DOCUMENTO documento = documentos.get(position);
 
         textviewDocumento.setText(documento.Documento);
-        textviewURL.setText(documento.URL);
+        //textviewURL.setText(documento.URL);
+
+        if (!(documento.RecursoID == null)) {
+            ImageView imageviewTipoArchivo = view.findViewById(R.id.imageviewTipoArchivo);
+            imageviewTipoArchivo.setImageDrawable(
+                    context.getResources().getDrawable(
+                            context.getResources().getIdentifier(
+                                    documento.RecursoID,
+                                    null,
+                                    context.getPackageName())));
+        }
 
         return view;
     }

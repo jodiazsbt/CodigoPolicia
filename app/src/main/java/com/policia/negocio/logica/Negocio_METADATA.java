@@ -21,7 +21,6 @@ public class Negocio_METADATA {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_METADATA(Context context) throws Exception {
 
@@ -32,11 +31,10 @@ public class Negocio_METADATA {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         MetadataResponse response = null;
         try {
 
-            response = remoteClient.sincronizarMETADATA(rutinasMetadata.maxFecha());
+            response = RemoteClient.connect(context).sincronizarMETADATA(rutinasMetadata.maxFecha());
 
             for (MetadataResult result : response.metadataResult) {
                 Tabla_METADATA metadata = new Tabla_METADATA();

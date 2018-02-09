@@ -22,7 +22,6 @@ public class Negocio_MULTA {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_MULTA(Context context) throws Exception {
 
@@ -37,11 +36,10 @@ public class Negocio_MULTA {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         MULTAAARTICULOYPARAGRAFOResponse response = null;
         try {
 
-            response = remoteClient.sincronizarMULTA(rutinasMulta.maxFecha());
+            response = RemoteClient.connect(context).sincronizarMULTA(rutinasMulta.maxFecha());
 
             for (MULTAAARTICULOYPARAGRAFOResult result : response.mULTAAARTICULOYPARAGRAFOResult) {
                 Tabla_MULTA multa = new Tabla_MULTA();

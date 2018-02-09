@@ -2,12 +2,15 @@ package com.policia.negocio.logica;
 
 import android.content.Context;
 
+import com.policia.negocio.modelo.Modelo_TIPO_ARCHIVO;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_TIPO_ARCHIVO;
 import com.policia.persistencia.tablas.Tabla_TIPO_ARCHIVO;
 import com.policia.remote.RemoteClient;
 import com.policia.remote.response.TIPOSARCHIVOSResponse;
 import com.policia.remote.response.TIPOSARCHIVOSResult;
+
+import java.util.ArrayList;
 
 /**
  * Created by 1085253556 on 23/01/2018.
@@ -19,7 +22,6 @@ public class Negocio_TIPO_ARCHIVO {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_TIPO_ARCHIVO(Context context) throws Exception {
 
@@ -30,11 +32,10 @@ public class Negocio_TIPO_ARCHIVO {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         TIPOSARCHIVOSResponse response = null;
         try {
 
-            response = remoteClient.sincronizarTIPO_ARCHIVO(rutinasTipoArchivo.maxFecha());
+            response = RemoteClient.connect(context).sincronizarTIPO_ARCHIVO(rutinasTipoArchivo.maxFecha());
 
             for (TIPOSARCHIVOSResult result : response.tIPOSARCHIVOSResult) {
                 Tabla_TIPO_ARCHIVO tipo_archivo = new Tabla_TIPO_ARCHIVO();
@@ -54,5 +55,9 @@ public class Negocio_TIPO_ARCHIVO {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public ArrayList<Modelo_TIPO_ARCHIVO> TipoArchivos() {
+        return rutinasTipoArchivo.TipoArchivos(sesion.getIdiomaLargo());
     }
 }

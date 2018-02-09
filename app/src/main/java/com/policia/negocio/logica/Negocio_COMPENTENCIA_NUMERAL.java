@@ -19,7 +19,6 @@ public class Negocio_COMPENTENCIA_NUMERAL {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_COMPENTENCIA_NUMERAL(Context context) throws Exception {
 
@@ -30,11 +29,10 @@ public class Negocio_COMPENTENCIA_NUMERAL {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         RELACIONCOMPETENCIANUMERALMEDIDACNPCResponse response = null;
         try {
 
-            response = remoteClient.sincronizarCOMPETENCIA_NUMERAL(rutinasCompentenciaNumeral.maxFecha());
+            response = RemoteClient.connect(context).sincronizarCOMPETENCIA_NUMERAL(rutinasCompentenciaNumeral.maxFecha());
 
             for (RELACIONCOMPETENCIANUMERALMEDIDACNPCResult result : response.rELACIONCOMPETENCIANUMERALMEDIDACNPCResult) {
                 Tabla_COMPETENCIA_NUMERAL competencia_numeral = new Tabla_COMPETENCIA_NUMERAL();

@@ -56,7 +56,7 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
                     .singleShot(R.layout.encuesta_activity)
                     .setStyle(R.style.CustomShowcaseTheme2)
                     .setContentTitle("Encuesta")
-                    .setContentText("Lanzamos encuestas de una sola pregunta periódicamente como parte de nuestro plan de mejoramiento continuo. Estas encuestas son totalmente anónimas y usted tiene la libertad de responderla o no responderla; para más información consulte nuestra política de privacidad.")
+                    .setContentText("Lanzamos encuestas de una sola pregunta periódicamente como parte de nuestro plan de mejoramiento continuo. Estas encuestas son totalmente anónimas; para más información consulte nuestra política de privacidad.")
                     .build()
                     .show();
         } catch (Exception e) {

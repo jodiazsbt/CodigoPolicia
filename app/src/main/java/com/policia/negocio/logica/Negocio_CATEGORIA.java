@@ -22,7 +22,6 @@ public class Negocio_CATEGORIA {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_CATEGORIA(Context context) throws Exception {
 
@@ -38,11 +37,10 @@ public class Negocio_CATEGORIA {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         CATEGORIASMULTASCNPCResponse response = null;
         try {
 
-            response = remoteClient.sincronizarCATEGORIA(rutinasCategoria.maxFecha());
+            response = RemoteClient.connect(context).sincronizarCATEGORIA(rutinasCategoria.maxFecha());
 
             for (CATEGORIASMULTASCNPCResult result : response.cATEGORIASMULTASCNPCResult) {
                 Tabla_CATEGORIA categoria = new Tabla_CATEGORIA();

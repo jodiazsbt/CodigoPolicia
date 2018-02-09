@@ -4,16 +4,12 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 
-import com.policia.movil.Almacenamiento;
 import com.policia.negocio.modelo.Modelo_DOCUMENTO;
 import com.policia.negocio.modelo.Modelo_TIPO_ARCHIVO;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_DOCUMENTO;
-import com.policia.persistencia.rutinas.Rutinas_TIPO_ARCHIVO;
 import com.policia.persistencia.tablas.Tabla_DOCUMENTO;
 import com.policia.remote.RemoteClient;
-import com.policia.remote.response.DOCUMENTOSELECCIONADOResponse;
-import com.policia.remote.response.DOCUMENTOSELECCIONADOResult;
 import com.policia.remote.response.DOCUMENTOSINSTRUCTIVOSCNPCNResponse;
 import com.policia.remote.response.DOCUMENTOSINSTRUCTIVOSCNPCNResult;
 
@@ -28,12 +24,12 @@ import java.util.ArrayList;
 
 public class Negocio_DOCUMENTO {
 
-    private Rutinas_TIPO_ARCHIVO rutinasTipoArchivo;
     private Rutinas_DOCUMENTO rutinasDocumento;
     private Seguridad sesion;
 
+    private Negocio_TIPO_ARCHIVO negocioTipoArchivo;
+
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_DOCUMENTO(Context context) throws Exception {
 
@@ -46,36 +42,41 @@ public class Negocio_DOCUMENTO {
         return rutinasDocumento.Documentos();
     }
 
+    public int countDocumentos() {
+        return rutinasDocumento.countDocumentos();
+    }
+
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         DOCUMENTOSINSTRUCTIVOSCNPCNResponse response = null;
         try {
             int sincronizados = 0;
-            rutinasTipoArchivo = new Rutinas_TIPO_ARCHIVO(context);
-            for (Modelo_TIPO_ARCHIVO tipo_archivo : rutinasTipoArchivo.TipoArchivos(sesion.getIdiomaLargo())) {
+            negocioTipoArchivo = new Negocio_TIPO_ARCHIVO(context);
+            for (Modelo_TIPO_ARCHIVO tipo_archivo : negocioTipoArchivo.TipoArchivos()) {
 
-                response = remoteClient.sincronizarDOCUMENTO(tipo_archivo.ID);
+                response = RemoteClient.connect(context).sincronizarDOCUMENTO(tipo_archivo.ID);
 
                 for (DOCUMENTOSINSTRUCTIVOSCNPCNResult result : response.dOCUMENTOSINSTRUCTIVOSCNPCNResult) {
 
-                    DOCUMENTOSELECCIONADOResponse responseDocumento = remoteClient.DOCUMENTOSELECCIONADO(result.uRL.replace("/", ","));
+                    /*
+                    DOCUMENTOSELECCIONADOResponse responseDocumento = RemoteClient.connect(context).DOCUMENTOSELECCIONADO(result.uRL.replace("/", ","));
 
                     for (DOCUMENTOSELECCIONADOResult itemDocumento : responseDocumento.dOCUMENTOSELECCIONADOResult) {
 
-                        Tabla_DOCUMENTO documento = new Tabla_DOCUMENTO();
-                        documento.ID = String.valueOf(result.iDDOCUMENTO);
-                        documento.DOCUMENTO_ESP = String.valueOf(result.nOMBREDOCUMENTO);
-                        documento.URL = String.valueOf(result.uRL);
-                        documento.ACTIVO = result.aCTIVODOCUMENTOS;
-                        documento.TIPO_ARCHIVO_ID = String.valueOf(result.iDTIPODOARCHIVO);
-                        documento.UBICACION = Almacenamiento.newInstance(context).guardarDocumento(itemDocumento.documento, itemDocumento.nombreArchivo);
+                    }*/
 
-                        if (rutinasDocumento.exists(documento.ID))
-                            rutinasDocumento.update(documento);
-                        else
-                            rutinasDocumento.create(documento);
-                    }
+                    Tabla_DOCUMENTO documento = new Tabla_DOCUMENTO();
+                    documento.ID = String.valueOf(result.iDDOCUMENTO);
+                    documento.DOCUMENTO_ESP = String.valueOf(result.nOMBREDOCUMENTO);
+                    documento.URL = String.valueOf(result.uRL);
+                    documento.ACTIVO = result.aCTIVODOCUMENTOS;
+                    documento.TIPO_ARCHIVO_ID = String.valueOf(result.iDTIPODOARCHIVO);
+                    documento.UBICACION = null;//Almacenamiento.newInstance(context).guardarDocumento(itemDocumento.documento, itemDocumento.nombreArchivo);
+
+                    if (rutinasDocumento.exists(documento.ID))
+                        rutinasDocumento.update(documento);
+                    else
+                        rutinasDocumento.create(documento);
                 }
 
                 sincronizados += response.dOCUMENTOSINSTRUCTIVOSCNPCNResult.size();

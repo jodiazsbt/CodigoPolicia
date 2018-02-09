@@ -73,6 +73,6 @@ public class CapacitacionActivity extends Activity {
         } catch (Exception e1) {
             return false;
         }
-        return "http".equals(url.getProtocol());
+        return "https".equals(url.getProtocol());
     }
 }

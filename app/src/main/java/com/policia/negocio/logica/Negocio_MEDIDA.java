@@ -22,7 +22,6 @@ public class Negocio_MEDIDA {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_MEDIDA(Context context) throws Exception {
 
@@ -33,11 +32,10 @@ public class Negocio_MEDIDA {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         MedidasCNPCResponse response = null;
         try {
 
-            response = remoteClient.sincronizarMEDIDA(rutinasMedida.maxFecha());
+            response = RemoteClient.connect(context).sincronizarMEDIDA(rutinasMedida.maxFecha());
 
             for (MedidasCNPCResult result : response.medidasCNPCResult) {
                 Tabla_MEDIDA medida = new Tabla_MEDIDA();

@@ -14,7 +14,6 @@ import com.policia.remote.response.RNMCDETALLECOMPORTAMIENTOResponse;
 public class RemoteComportamiento extends AsyncTask<Void, Void, Boolean> {
 
     private Activity activity;
-    private RemoteClient remoteClient;
     private String Comportamiento, Expediente;
     private RNMCDETALLECOMPORTAMIENTOResponse response;
 
@@ -25,7 +24,6 @@ public class RemoteComportamiento extends AsyncTask<Void, Void, Boolean> {
         this.activity = activity;
         this.Expediente = Expediente;
         this.Comportamiento = Comportamiento;
-        this.remoteClient = new RemoteClient(activity);
     }
 
     public static RemoteComportamiento newInstance(Activity activity, String Comportamiento, String Expediente) {
@@ -39,7 +37,7 @@ public class RemoteComportamiento extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... voids) {
 
         try {
-            response = remoteClient.RNMC_DETALLE_COMPORTAMIENTO(Comportamiento, Expediente);
+            response = RemoteClient.connect(activity).RNMC_DETALLE_COMPORTAMIENTO(Comportamiento, Expediente);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

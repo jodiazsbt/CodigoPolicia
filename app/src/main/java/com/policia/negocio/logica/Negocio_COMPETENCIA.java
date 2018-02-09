@@ -23,7 +23,6 @@ public class Negocio_COMPETENCIA {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_COMPETENCIA(Context context) throws Exception {
 
@@ -42,11 +41,10 @@ public class Negocio_COMPETENCIA {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         COMPETENCIASCNPCResponse response = null;
         try {
 
-            response = remoteClient.sincronizarCOMPETENCIA(rutinasCompetencia.maxFecha());
+            response = RemoteClient.connect(context).sincronizarCOMPETENCIA(rutinasCompetencia.maxFecha());
 
             for (COMPETENCIASCNPCResult result : response.cOMPETENCIASCNPCResult) {
                 Tabla_COMPETENCIA competencia = new Tabla_COMPETENCIA();

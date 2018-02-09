@@ -35,7 +35,6 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
     private Fragment fragment;
     private ListView listView;
     private DocumentoPolicia document;
-    private RemoteClient remoteClient;
     private CONSULTAPOLICIAResponse consulta;
 
     private Seguridad seguridad;
@@ -51,7 +50,6 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
         this.listView = listView;
         this.lectura = lectura;
         this.seguridad = Seguridad.Sesion(fragment.getContext());
-        this.remoteClient = new RemoteClient(fragment.getActivity());
     }
 
     public static RemotePolicia newInstance(Fragment fragment, ListView listView, String barcode, Fragment_Identificacion.IDisparadorLectura lectura) throws Exception {
@@ -71,10 +69,10 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
             if (document.getDocumentElement() == null)
                 throw new JSONException("No se reconoce documento de policia");
 
-            consulta = remoteClient.identificacionPolicia(
+            consulta = RemoteClient.connect(fragment.getContext()).identificacionPolicia(
                     String.valueOf(document.getDocumentElement().getTable().getE21()),
-                    "10182780",
-                    //String.valueOf(document.getDocumentElement().getTable().getE2()),
+                    //"10182780",
+                    String.valueOf(document.getDocumentElement().getTable().getE2()),
                     seguridad.getUsuario().equals("1") ? "0" : "1");
             return MotivoErrorLectura.NINGUNO;
         } catch (JSONException e) {

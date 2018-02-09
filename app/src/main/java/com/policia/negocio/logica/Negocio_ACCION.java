@@ -19,8 +19,6 @@ public class Negocio_ACCION {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
-
     public Negocio_ACCION(Context context) throws Exception {
 
         this.context = context;
@@ -40,11 +38,10 @@ public class Negocio_ACCION {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         ACCIONESCIUDADANOYPOLICIACNCPResult response = null;
         try {
 
-            response = remoteClient.sincronizarACCION(rutinasAccion.maxFecha());
+            response = RemoteClient.connect(context).sincronizarACCION(rutinasAccion.maxFecha());
 
             for (ACCIONESCIUDADANOYPOLICIACNCPResult_ result : response.aCCIONESCIUDADANOYPOLICIACNCPResult) {
                 Tabla_ACCION accion = new Tabla_ACCION();

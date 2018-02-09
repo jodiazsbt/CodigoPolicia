@@ -6,21 +6,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- To auto-complete the email text field in LoginPoliciaNalogin form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- BARCODE -->
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -35,9 +25,6 @@
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDgTht78gxEZKTRSFZ1liL9AWgaYdFvN6U" />
 
         <activity
             android:name=".PrincipalActivity"
@@ -87,13 +74,6 @@
             android:label="@string/title_activity_barcode"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ArgisActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PuntosActivity"
-            android:label="@string/title_activity_puntos"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".EncuestaActivity"
             android:label="@string/title_activity_encuesta"
             android:screenOrientation="portrait" />
@@ -103,6 +83,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".AutoridadesActivity"
+            android:label="@string/title_activity_puntos"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PortalActivity"
@@ -110,6 +91,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ComparendosActivity"
+            android:label="@string/title_activity_comparendos"
             android:screenOrientation="portrait" />
     </application>
 

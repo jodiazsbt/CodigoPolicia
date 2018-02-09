@@ -22,7 +22,6 @@ public class RemoteRESPUESTA extends AsyncTask<Void, Void, Void> {
 
     private Activity activity;
     private RequestRESPUESTA respuesta;
-    private RemoteClient remoteClient;
 
     private Negocio_ENCUESTA negocioEncuesta;
 
@@ -34,7 +33,6 @@ public class RemoteRESPUESTA extends AsyncTask<Void, Void, Void> {
 
         this.activity = activity;
         this.respuesta = Respuesta;
-        this.remoteClient = new RemoteClient(activity);
         try {
             this.negocioEncuesta = new Negocio_ENCUESTA(activity);
         } catch (Exception e) {
@@ -54,7 +52,7 @@ public class RemoteRESPUESTA extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
-            responseRespuesta = remoteClient.responderEncuenta(
+            responseRespuesta = RemoteClient.connect(activity).responderEncuenta(
                     this.respuesta.ID,
                     this.respuesta.DEPARTAMENTO,
                     new SimpleDateFormat("dd.MM.yyyy", new Locale("es", "CO")).format(new Date()),

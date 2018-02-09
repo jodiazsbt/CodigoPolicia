@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
-import com.policia.movil.Almacenamiento;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.persistencia.rutinas.Rutinas_AVATAR;
 import com.policia.persistencia.tablas.Tabla_AVATAR;
@@ -24,7 +23,6 @@ public class Negocio_AVATAR {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_AVATAR(Context context) throws Exception {
 
@@ -35,11 +33,10 @@ public class Negocio_AVATAR {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         ImagenesAvatarInfoResponse response = null;
         try {
 
-            response = remoteClient.sincronizarAVATAR(rutinasAvatar.maxFecha());
+            response = RemoteClient.connect(context).sincronizarAVATAR(rutinasAvatar.maxFecha());
 
             if (response == null) {
                 return 0;

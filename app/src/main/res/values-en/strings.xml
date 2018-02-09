@@ -19,6 +19,9 @@
     <string name="nav_header_title">Colombia National Police</string>
     <string name="nav_header_subtitle">National code of police and coexistence to live in peace</string>
 
+    <!-- CAPACITACION -->
+    <string name="capacitacion">Consultation Document</string>
+
     <!--MENU-->
     <string name="menu_idioma">Idioma</string>
     <string name="menu_cnpc">CNPC</string>
@@ -28,9 +31,9 @@
     <string name="menu_psc">PSC</string>
     <string name="menu_games">Games</string>
     <string name="menu_group_title">Section for Policemen</string>
-    <string name="menu_capacitacion">Training</string>
+    <string name="menu_capacitacion">Consultation Document</string>
     <string name="menu_login">Log In</string>
-    <string name="menu_puntos">Reference Locations</string>
+    <string name="menu_puntos">Competent Authorities</string>
     <string name="menu_cerrar">Log Out</string>
 
     <!--CNPC CODIGO POLICIA-->
@@ -78,15 +81,18 @@
     <string name="language">en</string>
     <string name="country">US</string>
     <string name="titulo_multa_categoria">CATEGORIES</string>
+    <string name="articlo_medidas">FINES</string>
+    <string name="articlo_comportamiento">BEHAVIORS</string>
+
+    <!-- ACTIVIDADES -->
     <string name="title_activity_articulo_capitulo">Código de Policía</string>
     <string name="title_activity_portal">Portal Ciudadano</string>
     <string name="title_activity_policia">Identificación Policía</string>
     <string name="title_activity_barcode">Identificación Policía</string>
-    <string name="title_activity_puntos">Puntos Referencia</string>
+    <string name="title_activity_puntos">Competent Authorities</string>
+    <string name="title_activity_comparendos">Citizen Consults</string>
     <string name="title_activity_encuesta">Encuesta</string>
-    <string name="title_activity_capacitación">Capacitación</string>
-    <string name="articlo_medidas">FINES</string>
-    <string name="articlo_comportamiento">BEHAVIORS</string>
+    <string name="title_activity_capacitación">Consultation Document</string>
 
     <!--PSC-->
     <string-array name="listadoMenuPsc">

@@ -6,12 +6,14 @@ package com.policia.negocio.modelo;
 
 public class Modelo_DOCUMENTO {
 
-    public Modelo_DOCUMENTO(String Documento, String URL) {
+    public Modelo_DOCUMENTO(String Documento, String URL, String RecursoID) {
 
         this.Documento = Documento;
         this.URL = URL;
+        this.RecursoID = RecursoID;
     }
 
     public String Documento;
     public String URL;
+    public String RecursoID;
 }

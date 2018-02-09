@@ -12,16 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.policia.codigopolicia.ComparendosActivity;
 import com.policia.codigopolicia.R;
 import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_TIPO_DOCUMENTO;
+import com.policia.negocio.modelo.Modelo_TIPO_DOCUMENTO;
 import com.policia.remote.RemoteExpediente;
-import com.policia.remote.RemoteTipoDocumento;
 import com.policia.remote.response.RNMCGENERALResponse;
-import com.policia.remote.response.RNMCTIPOSDOCResponse;
-import com.policia.remote.response.RNMCTIPOSDOCResult;
+
+import java.util.ArrayList;
 
 /**
  * Created by 1085253556 on 1/02/2018.
@@ -35,7 +35,7 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
     private EditText edittextIdentificacion;
     private Button buttonAceptar;
 
-    private RNMCTIPOSDOCResponse documentos;
+    private ArrayList<Modelo_TIPO_DOCUMENTO> documentos;
 
     public static FragmentComparendoConsulta newInstance(Activity activity) {
 
@@ -57,17 +57,24 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
         try {
             new Negocio_AVATAR(getContext()).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_COMPARENDO,
                     (ImageView) fragment.findViewById(R.id.imageViewCaricatura));
+
+            edittextIdentificacion = fragment.findViewById(R.id.edittextIdentificacion);
+            spinnerTipoDocumento = fragment.findViewById(R.id.spinnerTipoDocumento);
+
+            buttonAceptar = fragment.findViewById(R.id.buttonAceptar);
+            buttonAceptar.setOnClickListener(this);
+
+            ArrayAdapter adapter = null;
+            documentos = new Negocio_TIPO_DOCUMENTO(activity).TiposDocumento();
+            adapter = new ArrayAdapter<Modelo_TIPO_DOCUMENTO>(activity.getBaseContext(), android.R.layout.simple_spinner_item, documentos);
+
+            adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+            spinnerTipoDocumento.setAdapter(adapter);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        edittextIdentificacion = fragment.findViewById(R.id.edittextIdentificacion);
-        spinnerTipoDocumento = fragment.findViewById(R.id.spinnerTipoDocumento);
-
-        buttonAceptar = fragment.findViewById(R.id.buttonAceptar);
-        buttonAceptar.setOnClickListener(this);
-
-        RemoteTipoDocumento.newInstance(activity, new IComparendoConsulta() {
+        /*
+        RemoteDocumentos.newInstance(activity, new IComparendoConsulta() {
 
             private ArrayAdapter adapter;
 
@@ -84,7 +91,7 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
                     spinnerTipoDocumento.setAdapter(adapter);
                 }
             }
-        }).execute((Void) null);
+        }).execute((Void) null);*/
         return fragment;
     }
 
@@ -93,14 +100,18 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
 
         if (view.getId() == R.id.buttonAceptar) {
 
-            RNMCTIPOSDOCResult documento = documentos.rNMCTIPOSDOCResult.get(spinnerTipoDocumento.getSelectedItemPosition());
+            ((ComparendosActivity) activity).inflarFragmentoEsperando();
 
-            RemoteExpediente.newInstance(activity, String.valueOf(documento.iDTIPOSDOC), edittextIdentificacion.getText().toString(), new IComparendoExpediente() {
+            Modelo_TIPO_DOCUMENTO documento = documentos.get(spinnerTipoDocumento.getSelectedItemPosition());
+
+            RemoteExpediente.newInstance(activity, String.valueOf(documento.ID), edittextIdentificacion.getText().toString(), new IComparendoExpediente() {
 
                 @Override
                 public void consultar(RNMCGENERALResponse expediente, String TipoDocumento, String Identificacion) {
 
                     if (expediente.rNMCGENERALResult.size() == 0) {
+
+                        ((ComparendosActivity) activity).inflarFragmentoConsulta();
 
                         new AlertDialog.Builder(activity)
                                 .setTitle("La Policía Nacional de Colombia hace constar")

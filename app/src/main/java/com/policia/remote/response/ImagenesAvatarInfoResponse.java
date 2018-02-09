@@ -7,8 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class ImagenesAvatarInfoResponse implements Serializable
-{
+public class ImagenesAvatarInfoResponse implements Serializable {
 
     @SerializedName("ImagenesAvatarInfo")
     @Expose

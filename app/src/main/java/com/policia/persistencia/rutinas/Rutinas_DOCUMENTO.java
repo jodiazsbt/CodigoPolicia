@@ -25,19 +25,37 @@ public class Rutinas_DOCUMENTO {
         this.context = context;
     }
 
+    public int countDocumentos() {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM DOCUMENTO WHERE DOCUMENTO.ACTIVO=1;", null);
+
+        int count = 0;
+        while (cursor.moveToNext()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        DB.close();
+        return count;
+    }
+
     public ArrayList<Modelo_DOCUMENTO> Documentos() {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
         Cursor cursor = DB.rawQuery("SELECT " +
-                "DOCUMENTO_ESP, " +
-                "URL " +
-                "FROM DOCUMENTO;", null);
+                "DOCUMENTO.DOCUMENTO_ESP, " +
+                "DOCUMENTO.URL, " +
+                "TIPO_ARCHIVO.RECURSO_ID " +
+                "FROM DOCUMENTO " +
+                "INNER JOIN TIPO_ARCHIVO ON DOCUMENTO.TIPO_ARCHIVO_ID=TIPO_ARCHIVO.ID " +
+                "WHERE DOCUMENTO.ACTIVO=1;", null);
 
         ArrayList<Modelo_DOCUMENTO> result = new ArrayList<Modelo_DOCUMENTO>();
         while (cursor.moveToNext()) {
             Modelo_DOCUMENTO documento = new Modelo_DOCUMENTO(
                     cursor.getString(0),//DOCUMENTO
-                    cursor.getString(1)//URL
+                    cursor.getString(1),//URL
+                    cursor.getString(2)//RECURSO_ID
             );
             result.add(documento);
         }
@@ -65,13 +83,13 @@ public class Rutinas_DOCUMENTO {
         String[] parameters = new String[]{
                 documento.DOCUMENTO_ESP + "",
                 documento.URL + "",
-                documento.ACTIVO + "",
+                documento.ACTIVO ? "1" : "0" + "",
                 documento.TIPO_ARCHIVO_ID + "",
                 documento.UBICACION + "",
                 documento.ID + ""};
 
         DB = new SQLiteProvider(context).getWritableDatabase();
-        DB.execSQL("UPDATE 'DOCUMENTO' SET DOCUMENTO_ESP=?,URL=?,ACTIVO=?,TIPO_ARCHIVO_ID=?,UBICACION WHERE ID=?", parameters);
+        DB.execSQL("UPDATE 'DOCUMENTO' SET DOCUMENTO_ESP=?,URL=?,ACTIVO=?,TIPO_ARCHIVO_ID=?,UBICACION=? WHERE ID=?", parameters);
         DB.close();
     }
 
@@ -100,7 +118,7 @@ public class Rutinas_DOCUMENTO {
         parameters.put("DOCUMENTO_ESP", documento.DOCUMENTO_ESP);
         parameters.put("DOCUMENTO_ENG", documento.DOCUMENTO_ENG);
         parameters.put("URL", documento.URL);
-        parameters.put("ACTIVO", documento.ACTIVO);
+        parameters.put("ACTIVO", documento.ACTIVO ? "1" : "0");
         parameters.put("TIPO_ARCHIVO_ID", documento.TIPO_ARCHIVO_ID);
         parameters.put("UBICACION", documento.UBICACION);
 

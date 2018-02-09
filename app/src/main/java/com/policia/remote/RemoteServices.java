@@ -22,6 +22,7 @@ import com.policia.negocio.logica.Negocio_MULTA;
 import com.policia.negocio.logica.Negocio_NIVEL;
 import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.logica.Negocio_TIPO_ARCHIVO;
+import com.policia.negocio.logica.Negocio_TIPO_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_TITULO;
 import com.policia.negocio.logica.Negocio_UVT;
 
@@ -30,8 +31,6 @@ import com.policia.negocio.logica.Negocio_UVT;
  */
 
 public class RemoteServices extends AsyncTask<Void, Void, Long> {
-
-    private RemoteClient remoteClient;
 
     private Activity activity;
     private static RemoteServices remoteServices;
@@ -53,6 +52,7 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     private Negocio_ACCION negocioAccion;
     private Negocio_UVT negocioUVT;
     private Negocio_AVATAR negocioAvatar;
+    private Negocio_TIPO_DOCUMENTO negocioTipoDocumento;
 
     public static RemoteServices newInstance(Activity activity) {
 
@@ -65,7 +65,6 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     private RemoteServices(Activity activity) {
 
         this.activity = activity;
-        this.remoteClient = new RemoteClient(activity);
 
         try {
             this.negocioNivel = new Negocio_NIVEL(activity);
@@ -84,7 +83,8 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             this.negocioCompentenciaNumeral = new Negocio_COMPENTENCIA_NUMERAL(activity);
             this.negocioAccion = new Negocio_ACCION(activity);
             this.negocioUVT = new Negocio_UVT(activity);
-            this.negocioAvatar = new Negocio_AVATAR(activity);
+            //this.negocioAvatar = new Negocio_AVATAR(activity);
+            this.negocioTipoDocumento = new Negocio_TIPO_DOCUMENTO(activity);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,31 +98,33 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
 
         try {
 
-            if (!remoteClient.isServiceOnline())
+            if (!RemoteClient.connect(activity).isServiceOnline())
                 return Long.valueOf(-1);
 
+            /*
             sincronizar += negocioAvatar.sincronizar();
 
             if (sincronizar >= 0) {
 
-                sincronizar += negocioNivel.sincronizar();
-                sincronizar += negocioLibro.sincronizar();
-                sincronizar += negocioTitulo.sincronizar();
-                sincronizar += negocioCapitulo.sincronizar();
-                sincronizar += negocioArticulo.sincronizar();
-                sincronizar += negocioNumeral.sincronizar();
-                sincronizar += negocioMetadata.sincronizar();
-                sincronizar += negocioMedida.sincronizar();
-                sincronizar += negocioMulta.sincronizar();
-                sincronizar += negocioTipoArchivo.sincronizar();
-                sincronizar += negocioDocumento.sincronizar();
-                sincronizar += negocioCategoria.sincronizar();
-                sincronizar += negocioCompetencia.sincronizar();
-                sincronizar += negocioCompentenciaNumeral.sincronizar();
-                sincronizar += negocioAccion.sincronizar();
-                sincronizar += negocioUVT.sincronizar();
-            }
+            }*/
 
+            sincronizar += negocioNivel.sincronizar();
+            sincronizar += negocioLibro.sincronizar();
+            sincronizar += negocioTitulo.sincronizar();
+            sincronizar += negocioCapitulo.sincronizar();
+            sincronizar += negocioArticulo.sincronizar();
+            sincronizar += negocioNumeral.sincronizar();
+            sincronizar += negocioMetadata.sincronizar();
+            sincronizar += negocioMedida.sincronizar();
+            sincronizar += negocioMulta.sincronizar();
+            sincronizar += negocioTipoArchivo.sincronizar();
+            sincronizar += negocioDocumento.sincronizar();
+            sincronizar += negocioCategoria.sincronizar();
+            sincronizar += negocioCompetencia.sincronizar();
+            sincronizar += negocioCompentenciaNumeral.sincronizar();
+            sincronizar += negocioAccion.sincronizar();
+            sincronizar += negocioUVT.sincronizar();
+            sincronizar += negocioTipoDocumento.sincronizar();
 
         } catch (Exception e) {
             e.printStackTrace();

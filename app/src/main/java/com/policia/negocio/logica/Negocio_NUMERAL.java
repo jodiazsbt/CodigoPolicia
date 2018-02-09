@@ -22,7 +22,6 @@ public class Negocio_NUMERAL {
     private Seguridad sesion;
 
     private Context context;
-    private RemoteClient remoteClient;
 
     public Negocio_NUMERAL(Context context) throws Exception {
 
@@ -33,11 +32,10 @@ public class Negocio_NUMERAL {
 
     public int sincronizar() {
 
-        remoteClient = new RemoteClient(context);
         NumeralesResponse response = null;
         try {
 
-            response = remoteClient.sincronizarNUMERAL(rutinasNumeral.maxFecha());
+            response = RemoteClient.connect(context).sincronizarNUMERAL(rutinasNumeral.maxFecha());
 
             for (NumeralesResult result : response.numeralesResult) {
                 Tabla_NUMERAL numeral = new Tabla_NUMERAL();
