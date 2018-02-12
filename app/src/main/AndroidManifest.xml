@@ -44,6 +44,7 @@
         <activity
             android:name=".IdiomaActivity"
             android:label="@string/title_activity_idioma"
+            android:parentActivityName=".PrincipalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ArticuloCapituloActivity"
@@ -56,6 +57,7 @@
         <activity
             android:name=".PortalCiudadano"
             android:label="@string/title_activity_portal"
+            android:parentActivityName=".PrincipalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".GenericWebviewActivity"
@@ -64,10 +66,12 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
+            android:parentActivityName=".PrincipalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PoliciaActivity"
             android:label="@string/title_activity_policia"
+            android:parentActivityName=".PrincipalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".IdentificacionPolicia.BarcodeCaptureActivity"
@@ -80,18 +84,22 @@
         <activity
             android:name=".CapacitacionActivity"
             android:label="@string/title_activity_capacitación"
+            android:parentActivityName=".PrincipalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AutoridadesActivity"
             android:label="@string/title_activity_puntos"
+            android:parentActivityName=".PrincipalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PortalActivity"
             android:label="@string/title_activity_portal"
+            android:parentActivityName=".PrincipalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ComparendosActivity"
             android:label="@string/title_activity_comparendos"
+            android:parentActivityName=".PrincipalActivity"
             android:screenOrientation="portrait" />
     </application>
 

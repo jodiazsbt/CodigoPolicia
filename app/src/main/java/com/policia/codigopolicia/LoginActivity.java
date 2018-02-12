@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.remote.RemoteClient;
@@ -99,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
             sesion = Seguridad.Sesion(getBaseContext());
             usuarioID = sesion.getUsuario();
 
-            new Negocio_AVATAR(this).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_LOGIN,
+            new Negocio_DOCUMENTO(getBaseContext()).drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_LOGIN,
                     (ImageView) findViewById(R.id.imageView2));
         } catch (Exception e) {
             e.printStackTrace();

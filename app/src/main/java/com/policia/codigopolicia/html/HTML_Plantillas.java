@@ -51,6 +51,8 @@ public class HTML_Plantillas {
                 return context.getResources().getString(R.string.html_plantilla_articulos);
             case TERMINOS:
                 return context.getResources().getString(R.string.html_plantilla_terminos);
+            case SHARE:
+                return context.getResources().getString(R.string.html_plantilla_share);
             case PROCEDIMIENTOS:
                 return context.getResources().getString(R.string.html_plantilla_procedimientos);
             default:
@@ -62,6 +64,7 @@ public class HTML_Plantillas {
 
         ARTICULO,
         TERMINOS,
+        SHARE,
         PROCEDIMIENTOS;
     }
 }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.remote.RemoteENCUESTA;
 
 public class CargaActivity extends Activity {
@@ -14,7 +14,7 @@ public class CargaActivity extends Activity {
      **/
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
-    private Negocio_AVATAR negocioAvatar;
+    private Negocio_DOCUMENTO negocioDocumento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class CargaActivity extends Activity {
 
             RemoteENCUESTA.newInstance(this).execute();
 
-            negocioAvatar = new Negocio_AVATAR(this);
-            negocioAvatar.drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_SPLASH
+            negocioDocumento = new Negocio_DOCUMENTO(this);
+            negocioDocumento.drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_SPLASH
                     , (ImageView) findViewById(R.id.imageViewCaricatura));
         } catch (Exception e) {
             e.printStackTrace();

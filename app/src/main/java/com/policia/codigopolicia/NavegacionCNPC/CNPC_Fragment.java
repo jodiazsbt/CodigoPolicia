@@ -76,11 +76,22 @@ public class CNPC_Fragment extends Fragment {
             ArrayList<Modelo_ARTICULO> articulos = null;
             articulos = negocioArticulo.ArticulosPorCapitulo(capitulo, position + 1);
 
+            String html_share = new HTML_Plantillas(getActivity(), HTML_Plantillas.Plantilla.SHARE).getPlantilla();
             String html_plantilla_articulos = new HTML_Plantillas(getActivity(), HTML_Plantillas.Plantilla.ARTICULO).getPlantilla();
 
             for (Modelo_ARTICULO articulo : articulos) {
 
-                html_plantilla_articulos = html_plantilla_articulos.replace("@Nivel", articulo.Nivel)
+                html_plantilla_articulos = html_plantilla_articulos
+                        .replace("@Nivel", articulo.Nivel)
+                        .replace("@Titulo", articulo.Titulo)
+                        .replace("@Capitulo_Nivel", articulo.Capitulo_Nivel)
+                        .replace("@Capitulo_Descripcion", articulo.Capitulo_Descripcion)
+                        .replace("@Articulo_Nivel", articulo.Articulo_Nivel)
+                        .replace("@Articulo_Titulo", articulo.Articulo_Titulo)
+                        .replace("@Articulo_Descripcion", articulo.Articulo_Descripcion);
+
+                html_share = html_share
+                        .replace("@Nivel", articulo.Nivel)
                         .replace("@Titulo", articulo.Titulo)
                         .replace("@Capitulo_Nivel", articulo.Capitulo_Nivel)
                         .replace("@Capitulo_Descripcion", articulo.Capitulo_Descripcion)
@@ -135,7 +146,8 @@ public class CNPC_Fragment extends Fragment {
                     html_plantilla_articulos = html_plantilla_articulos.replace("@tr", "");
                 }
 
-                html_plantilla_articulos = html_plantilla_articulos.replace("@Paragrafos", "");
+                html_plantilla_articulos = html_plantilla_articulos
+                        .replace("@Paragrafos", "");
 
                 break;
             }
@@ -144,9 +156,11 @@ public class CNPC_Fragment extends Fragment {
                 html_plantilla_articulos = html_plantilla_articulos.replace(termino, "<span style='background:green;color:white;'>" + termino + "</span>");//RESALTAR TERMINO DE BÚSQUEDA
             }
 
+            html_plantilla_articulos = html_plantilla_articulos
+                    .replace("@share", html_share);
             webViewArticulo = view.findViewById(R.id.webViewArticulo);
-            webViewArticulo.loadData(html_plantilla_articulos, "text/html; charset=utf-8", null);
             webViewArticulo.getSettings().setJavaScriptEnabled(true);
+            webViewArticulo.loadData(html_plantilla_articulos, "text/html; charset=utf-8", null);
             webViewArticulo.addJavascriptInterface(new WebViewInterface(getActivity()), "Android");
             return view;
         } catch (Exception e) {

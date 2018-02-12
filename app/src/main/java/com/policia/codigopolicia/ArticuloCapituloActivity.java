@@ -17,7 +17,7 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.policia.codigopolicia.NavegacionCNPC.CNPC_FragmentStatePagerAdapter;
 import com.policia.codigopolicia.NavegacionCNPC.WrapContentViewPager;
 import com.policia.negocio.logica.Negocio_ARTICULO;
-import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_MEDIDA;
 import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
@@ -79,7 +79,7 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
                 }
             });
 
-            new Negocio_AVATAR(getBaseContext()).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_ARTICULO,
+            new Negocio_DOCUMENTO(getBaseContext()).drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_ARTICULO,
                     (ImageView) findViewById(R.id.imageViewCaricatura));
 
             viewPagerArticulos = findViewById(R.id.viewPagerArticulos);

@@ -64,6 +64,23 @@ public class Rutinas_DOCUMENTO {
         return result;
     }
 
+    public String locationAVATAR(String nombre) {
+        DB = new SQLiteProvider(context).getReadableDatabase();
+
+        String[] parameters = new String[]{
+                nombre};
+
+        Cursor cursor = DB.rawQuery("SELECT UBICACION FROM DOCUMENTO WHERE DOCUMENTO_ESP=?;", parameters);
+
+        String location = "";
+        while (cursor.moveToNext()) {
+            location = cursor.getString(0);
+        }
+        cursor.close();
+        DB.close();
+        return location;
+    }
+
     public String maxFecha() {
         DB = new SQLiteProvider(context).getReadableDatabase();
 

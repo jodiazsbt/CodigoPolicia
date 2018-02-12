@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.policia.codigopolicia.PrincipalActivity;
 import com.policia.negocio.logica.Negocio_ACCION;
 import com.policia.negocio.logica.Negocio_ARTICULO;
-import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_CAPITULO;
 import com.policia.negocio.logica.Negocio_CATEGORIA;
 import com.policia.negocio.logica.Negocio_COMPENTENCIA_NUMERAL;
@@ -51,7 +50,6 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     private Negocio_COMPENTENCIA_NUMERAL negocioCompentenciaNumeral;
     private Negocio_ACCION negocioAccion;
     private Negocio_UVT negocioUVT;
-    private Negocio_AVATAR negocioAvatar;
     private Negocio_TIPO_DOCUMENTO negocioTipoDocumento;
 
     public static RemoteServices newInstance(Activity activity) {
@@ -83,7 +81,6 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
             this.negocioCompentenciaNumeral = new Negocio_COMPENTENCIA_NUMERAL(activity);
             this.negocioAccion = new Negocio_ACCION(activity);
             this.negocioUVT = new Negocio_UVT(activity);
-            //this.negocioAvatar = new Negocio_AVATAR(activity);
             this.negocioTipoDocumento = new Negocio_TIPO_DOCUMENTO(activity);
 
         } catch (Exception e) {

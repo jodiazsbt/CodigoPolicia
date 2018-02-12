@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.adapter.Capacitacion_Adapter;
-import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.modelo.Modelo_DOCUMENTO;
 
@@ -39,7 +38,7 @@ public class CapacitacionActivity extends Activity {
 
 
             View header = getLayoutInflater().inflate(R.layout.articulo_header, null);
-            new Negocio_AVATAR(this).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_CAPACITACION,
+            new Negocio_DOCUMENTO(getBaseContext()).drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_CAPACITACION,
                     (ImageView) header.findViewById(R.id.imageViewCaricatura));
             listviewCapacitacion.addHeaderView(header, null, false);
 

@@ -3,7 +3,10 @@ package com.policia.negocio.logica;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.ImageView;
 
+import com.policia.movil.Almacenamiento;
 import com.policia.negocio.modelo.Modelo_DOCUMENTO;
 import com.policia.negocio.modelo.Modelo_TIPO_ARCHIVO;
 import com.policia.negocio.seguridad.Seguridad;
@@ -14,6 +17,7 @@ import com.policia.remote.response.DOCUMENTOSINSTRUCTIVOSCNPCNResponse;
 import com.policia.remote.response.DOCUMENTOSINSTRUCTIVOSCNPCNResult;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,14 +75,20 @@ public class Negocio_DOCUMENTO {
                     documento.URL = String.valueOf(result.uRL);
                     documento.ACTIVO = result.aCTIVODOCUMENTOS;
                     documento.TIPO_ARCHIVO_ID = String.valueOf(result.iDTIPODOARCHIVO);
-                    documento.UBICACION = null;//Almacenamiento.newInstance(context).guardarDocumento(itemDocumento.documento, itemDocumento.nombreArchivo);
+                    documento.UBICACION = null;
+
+                    if (tipo_archivo.TipoArchivo.equals("AVATAR")) {
+                        documento.ACTIVO = false;
+                        documento.UBICACION = Almacenamiento.newInstance(context).guardarAVATAR(documento.URL);
+                    } else {
+                        documento.UBICACION = null;//Almacenamiento.newInstance(context).guardarDocumento(itemDocumento.documento, itemDocumento.nombreArchivo);
+                    }
 
                     if (rutinasDocumento.exists(documento.ID))
                         rutinasDocumento.update(documento);
                     else
                         rutinasDocumento.create(documento);
                 }
-
                 sincronizados += response.dOCUMENTOSINSTRUCTIVOSCNPCNResult.size();
             }
             return sincronizados;
@@ -110,5 +120,38 @@ public class Negocio_DOCUMENTO {
             }
         }
         return avatar.getAbsolutePath();
+    }
+
+    public void drawAVATAR(Negocio_DOCUMENTO.AVATAR avatar, ImageView image) {
+        try {
+            String location = rutinasDocumento.locationAVATAR(avatar.toString());
+            if (!location.equals("")) {/*
+                image.setImageDrawable(
+                        context.getResources().getDrawable(
+                                context.getResources().getIdentifier(
+                                        "@mipmap/background_green",
+                                        null,
+                                        context.getPackageName())));
+            } else {*/
+                image.setImageBitmap(BitmapFactory.decodeStream(new FileInputStream(location)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public enum AVATAR {
+        SCREEN_MENU,
+        SCREEN_SPLASH,
+        SCREEN_CNPC,
+        SCREEN_IDIOMA,
+        SCREEN_MULTA,
+        SCREEN_COMPARENDO,
+        SCREEN_PDF417,
+        SCREEN_PSC,
+        SCREEN_LOGIN,
+        SCREEN_CAPACITACION,
+        SCREEN_ARTICULO;
+
     }
 }

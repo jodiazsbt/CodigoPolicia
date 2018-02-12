@@ -125,4 +125,5 @@
     <string name="comparendos_tipo_documento">Tipo Documento</string>
     <string name="button_comparendos_buscar">BUSCAR</string>
     <string name="comparendos_identificacion">Identificación</string>
+    <string name="compartir_articulo">Comparte este artículo con alguna aplicación</string>
 </resources>

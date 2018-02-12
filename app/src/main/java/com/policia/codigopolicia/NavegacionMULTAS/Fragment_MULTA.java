@@ -20,8 +20,8 @@ import com.policia.codigopolicia.ArticuloMultaActivity;
 import com.policia.codigopolicia.R;
 import com.policia.codigopolicia.html.HTML_Plantillas;
 import com.policia.negocio.logica.Negocio_ACCION;
-import com.policia.negocio.logica.Negocio_AVATAR;
 import com.policia.negocio.logica.Negocio_CATEGORIA;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_MULTA;
 import com.policia.negocio.modelo.Modelo_CATEGORIA;
 
@@ -100,7 +100,7 @@ public class Fragment_MULTA extends Fragment implements View.OnClickListener {
 
             negocio_categoria = new Negocio_CATEGORIA(getContext());
 
-            new Negocio_AVATAR(getContext()).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_MULTA,
+            new Negocio_DOCUMENTO(getContext()).drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_MULTA,
                     (ImageView) header.findViewById(R.id.imageViewCaricatura));
 
             listviewMulta = getView().findViewById(R.id.listviewMulta);

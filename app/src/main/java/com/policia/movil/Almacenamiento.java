@@ -2,12 +2,12 @@ package com.policia.movil;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 
 /**
  * Created by 1085253556 on 5/02/2018.
@@ -31,49 +31,27 @@ public class Almacenamiento {
         return almacenamiento;
     }
 
-    public String guardarBitmap(byte[] image, String name) {
-        ContextWrapper cw = new ContextWrapper(context);
-        File directory = cw.getDir("avatar_app", Context.MODE_PRIVATE);
-        File avatar = new File(directory, name);
+    public String guardarAVATAR(String uri) {
 
-        FileOutputStream fileOutputStream = null;
+        File image = null;
         try {
-            fileOutputStream = new FileOutputStream(avatar);
+            URL url = new URL(uri);
+            InputStream input = url.openStream();
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);// Use the compress method on the BitMap object to write image to the OutputStream
+            ContextWrapper contextWrapper = new ContextWrapper(context);
+            File directory = contextWrapper.getDir("avatar", Context.MODE_PRIVATE);
+            image = new File(directory, uri.substring(uri.lastIndexOf("/")+1));
+            OutputStream output = new FileOutputStream(image);
+            byte[] buffer = new byte[1024];
+            int bytesRead = 0;
+            while ((bytesRead = input.read(buffer, 0, buffer.length)) >= 0) {
+                output.write(buffer, 0, bytesRead);
+            }
+            input.close();
+            output.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
-        almacenamiento = null;
-        return avatar.getAbsolutePath();
-    }
-
-    public String guardarDocumento(byte[] file, String name) {
-        ContextWrapper cw = new ContextWrapper(context);
-        File directory = cw.getDir("documento_app", Context.MODE_PRIVATE);
-        File documento = new File(directory, name);
-
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = new FileOutputStream(documento);
-            fileOutputStream.write(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        almacenamiento = null;
-        return documento.getAbsolutePath();
+        return image.getAbsolutePath();
     }
 }

@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.policia.codigopolicia.adapter.CustomListAdapter;
-import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 
 public class PortalActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,79 +46,86 @@ public class PortalActivity extends AppCompatActivity implements View.OnClickLis
                 R.mipmap.img_11_radio_policia
         };
 
-        CustomListAdapter adapter = new CustomListAdapter(this, menuList, imgid);
-        list = (ListView) findViewById(R.id.list);
-        list.setAdapter(adapter);
-
         try {
             View header = getLayoutInflater().inflate(R.layout.portal_header, null);
-            new Negocio_AVATAR(this).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_PSC,
+            new Negocio_DOCUMENTO(getBaseContext()).drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_PSC,
                     (ImageView) header.findViewById(R.id.overview_image));
+
+            list = findViewById(R.id.list);
             list.addHeaderView(header, null, false);
+
+            CustomListAdapter adapter = new CustomListAdapter(this, menuList, imgid);
+            list.setAdapter(adapter);
+
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                    String title = "";
+                    String text = "";
+
+                    counter = position - 1;
+                    switch (counter) {
+                        case 0:
+                            title = "!A Denunciar¡";
+                            text = "Esta herramienta le permite tramitar su denuncia virtual y oportunamente. Personal de la policía judicial está dispuesto a agilizar su denuncia en el menor tiempo posible.";
+                            break;
+                        case 1:
+                            title = "Consulta Antecedentes";
+                            text = "El acceso a la consulta de Antecedentes Judiciales por Internet es un servicio de carácter permanente que presta la Policía Nacional de Colombia conforme a lo establecido en el artículo 94 del Decreto 019 de 2012, para que los ciudadanos puedan validar su información judicial personal.";
+                            break;
+                        case 2:
+                            title = "Documentos Extraviados";
+                            text = "Trámites de constancias por pérdida de documentos y/o elementos, ante la Policía Nacional.";
+                            break;
+                        case 3:
+                            title = "Apertura Establecimientos";
+                            text = "Es obligatorio, para el ejercicio de cualquier actividad: comercial, industrial, de servicios, social, cultural, de recreación, de entretenimiento, de diversión; con o sin ánimo de lucro, o que siendo privadas, trasciendan a lo público; que se desarrolle o no a través de establecimientos abiertos o cerrados al público.";
+                            break;
+                        case 4:
+                            title = "Documentos Recuperados";
+                            text = "Consulte la base de datos de documentos recuperados.";
+                            break;
+                        case 5:
+                            title = "Denuncia Hurto Celular";
+                            text = "Haga la denuncia de su teléfono en el menor tiempo sin necesidad de filas ni trámites.";
+                            break;
+                        case 6:
+                            title = "Preguntas, Quejas, Reclamos y Sugerencias";
+                            text = "Las oficinas de atención al ciudadano de la Policía Nacional, recepcionan, tramitan, gestionan e informan sobre las peticiones, quejas o reclamos, reconocimientos del servicio y sugerencias, como también monitorean los espacios de participación ciudadana adelantadas por la institución, facilitando al ciudadano la intervención, vigilancia y evaluación a los procesos, así mismo el acceso a consulta e información y contribuir a formar al ciudadano en la cultura de la participación.";
+                            break;
+                        case 7:
+                            title = "Sintonizar Radio Policía Nacional";
+                            text = "Sintonice y escuche la frecuencia de la Radio Policía Nacional de Colombia en la ciudad de Bogotá.";
+                            break;
+                    }
+
+                    showcaseView = new ShowcaseView.Builder(activity)
+                            .withMaterialShowcase()
+                            .singleShot(Long.parseLong(position + "" + R.layout.portal_layout))
+                            .setStyle(R.style.CustomShowcaseTheme2)
+                            .setContentTitle(title)
+                            .setContentText(text)
+                            .setOnClickListener((View.OnClickListener) activity)
+                            .build();
+
+                    if (!showcaseView.isShown())
+                        mostrar(false);
+                }
+            });
+
+            new ShowcaseView.Builder(this)
+                    .withMaterialShowcase()
+                    .singleShot(R.layout.portal_layout)
+                    .setStyle(R.style.CustomShowcaseTheme2)
+                    .setContentTitle("Portal ciudadano")
+                    .setContentText("Gestione sus diferentes trámites ante la Policía Nacional de Colombia.")
+                    .build();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-        final Activity activity = this;
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
-                String title = "";
-                String text = "";
-
-                counter = position - 1;
-                switch (counter) {
-                    case 0:
-                        title = "!A Denunciar¡";
-                        text = "Esta herramienta le permite tramitar su denuncia virtual y oportunamente. Personal de la policía judicial está dispuesto a agilizar su denuncia en el menor tiempo posible.";
-                        break;
-                    case 1:
-                        title = "Consulta Antecedentes";
-                        text = "El acceso a la consulta de Antecedentes Judiciales por Internet es un servicio de carácter permanente que presta la Policía Nacional de Colombia conforme a lo establecido en el artículo 94 del Decreto 019 de 2012, para que los ciudadanos puedan validar su información judicial personal.";
-                        break;
-                    case 2:
-                        title = "Documentos Extraviados";
-                        text = "Trámites de constancias por pérdida de documentos y/o elementos, ante la Policía Nacional.";
-                        break;
-                    case 3:
-                        title = "Apertura Establecimientos";
-                        text = "Es obligatorio, para el ejercicio de cualquier actividad: comercial, industrial, de servicios, social, cultural, de recreación, de entretenimiento, de diversión; con o sin ánimo de lucro, o que siendo privadas, trasciendan a lo público; que se desarrolle o no a través de establecimientos abiertos o cerrados al público.";
-                        break;
-                    case 4:
-                        title = "Preguntas, Quejas, Reclamos y Sugerencias";
-                        text = "Las oficinas de atención al ciudadano de la Policía Nacional, recepcionan, tramitan, gestionan e informan sobre las peticiones, quejas o reclamos, reconocimientos del servicio y sugerencias, como también monitorean los espacios de participación ciudadana adelantadas por la institución, facilitando al ciudadano la intervención, vigilancia y evaluación a los procesos, así mismo el acceso a consulta e información y contribuir a formar al ciudadano en la cultura de la participación.";
-                        break;
-                    case 5:
-                        title = "Sintonizar Radio Policía Nacional";
-                        text = "Sintonice y escuche la frecuencia de la Radio Policía Nacional de Colombia en la ciudad de Bogotá.";
-                        break;
-                }
-
-                showcaseView = new ShowcaseView.Builder(activity)
-                        .withMaterialShowcase()
-                        .singleShot(Long.parseLong(position + "" + R.layout.portal_layout))
-                        .setStyle(R.style.CustomShowcaseTheme2)
-                        .setContentTitle(title)
-                        .setContentText(text)
-                        .setOnClickListener((View.OnClickListener) activity)
-                        .build();
-
-                if (!showcaseView.isShown())
-                    mostrar(false);
-            }
-        });
-
-        new ShowcaseView.Builder(this)
-                .withMaterialShowcase()
-                .singleShot(R.layout.portal_layout)
-                .setStyle(R.style.CustomShowcaseTheme2)
-                .setContentTitle("Portal ciudadano")
-                .setContentText("Gestione sus diferentes trámites ante la Policía Nacional de Colombia.")
-                .build();
     }
 
     private boolean isPackageInstalled(String packagename, PackageManager packageManager) {

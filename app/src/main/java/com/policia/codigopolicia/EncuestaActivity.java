@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_ENCUESTA;
 import com.policia.negocio.modelo.Modelo_ENCUESTA;
 import com.policia.remote.RemoteRESPUESTA;
@@ -23,7 +23,8 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
     private Button buttonCancelar;
     private Modelo_ENCUESTA encuesta;
     private Negocio_ENCUESTA negocioEncuesta;
-    private Negocio_AVATAR negocioAvatar;
+
+    private Negocio_DOCUMENTO negocioDocumento;
 
     private final Activity activity = this;
 
@@ -33,12 +34,12 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.encuesta_activity);
 
         try {
-            negocioAvatar = new Negocio_AVATAR(this);
+            negocioDocumento = new Negocio_DOCUMENTO(this);
             negocioEncuesta = new Negocio_ENCUESTA(this);
 
             encuesta = negocioEncuesta.ultimaEncuesta();
 
-            negocioAvatar.drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_IDIOMA, (ImageView) findViewById(R.id.imageViewCaricatura));
+            negocioDocumento.drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_IDIOMA, (ImageView) findViewById(R.id.imageViewCaricatura));
 
             TextView textViewPregunta = findViewById(R.id.textViewPregunta);
             textViewPregunta.setText(encuesta.Pregunta);

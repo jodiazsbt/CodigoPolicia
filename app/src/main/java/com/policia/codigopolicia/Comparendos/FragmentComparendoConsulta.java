@@ -15,7 +15,7 @@ import android.widget.Spinner;
 
 import com.policia.codigopolicia.ComparendosActivity;
 import com.policia.codigopolicia.R;
-import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_TIPO_DOCUMENTO;
 import com.policia.negocio.modelo.Modelo_TIPO_DOCUMENTO;
 import com.policia.remote.RemoteExpediente;
@@ -55,7 +55,7 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
         View fragment = inflater.inflate(R.layout.comparendos_consulta, container, false);
 
         try {
-            new Negocio_AVATAR(getContext()).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_COMPARENDO,
+            new Negocio_DOCUMENTO(getContext()).drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_COMPARENDO,
                     (ImageView) fragment.findViewById(R.id.imageViewCaricatura));
 
             edittextIdentificacion = fragment.findViewById(R.id.edittextIdentificacion);

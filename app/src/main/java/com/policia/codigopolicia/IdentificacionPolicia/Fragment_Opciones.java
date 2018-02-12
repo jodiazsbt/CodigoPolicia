@@ -10,7 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.policia.codigopolicia.R;
-import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 
 /**
  * Created by 1085253556 on 21/12/2017.
@@ -38,7 +38,7 @@ public class Fragment_Opciones extends Fragment implements View.OnClickListener 
         View fragment = inflater.inflate(R.layout.policia_fragment_opciones, container, false);
 
         try {
-            new Negocio_AVATAR(getContext()).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_PDF417,
+            new Negocio_DOCUMENTO(getContext()).drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_PDF417,
                     (ImageView) fragment.findViewById(R.id.imageViewCaricatura));
         } catch (Exception e) {
             e.printStackTrace();

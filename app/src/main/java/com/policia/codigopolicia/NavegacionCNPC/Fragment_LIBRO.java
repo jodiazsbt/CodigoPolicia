@@ -9,7 +9,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.policia.codigopolicia.R;
-import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_LIBRO;
 
 /**
@@ -20,7 +20,7 @@ public class Fragment_LIBRO extends Fragment {
 
     private ExpandableListView expandableLibro;
 
-    private Negocio_AVATAR negocioAvatar;
+    private Negocio_DOCUMENTO negocioDocumento;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -35,10 +35,10 @@ public class Fragment_LIBRO extends Fragment {
         super.onActivityCreated(state);
 
         try {
-            negocioAvatar = new Negocio_AVATAR(getContext());
+            negocioDocumento = new Negocio_DOCUMENTO(getContext());
 
             View header = getLayoutInflater().inflate(R.layout.libro_expandable_header, null);
-            negocioAvatar.drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_CNPC, (ImageView) header.findViewById(R.id.imageViewCaricatura));
+            negocioDocumento.drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_CNPC, (ImageView) header.findViewById(R.id.imageViewCaricatura));
 
             expandableLibro = getView().findViewById(R.id.expandableLibro);
             expandableLibro.addHeaderView(header, null, false);

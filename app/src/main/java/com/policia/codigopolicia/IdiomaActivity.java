@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.idioma.Idioma_Adapter;
-import com.policia.negocio.logica.Negocio_AVATAR;
+import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_IDIOMA;
 import com.policia.negocio.modelo.Modelo_IDIOMA;
 import com.policia.negocio.seguridad.Seguridad;
@@ -35,7 +35,7 @@ public class IdiomaActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.idioma_activity);
         negocioIdioma = new Negocio_IDIOMA(getBaseContext());
 
@@ -54,7 +54,7 @@ public class IdiomaActivity extends Activity {
         try {
             header = getLayoutInflater().inflate(R.layout.idioma_header, null);
 
-            new Negocio_AVATAR(this).drawAVATAR(Negocio_AVATAR.AVATAR.SCREEN_IDIOMA,
+            new Negocio_DOCUMENTO(getBaseContext()).drawAVATAR(Negocio_DOCUMENTO.AVATAR.SCREEN_IDIOMA,
                     (ImageView) header.findViewById(R.id.imageViewCaricatura));
 
             listViewIdiomas.addHeaderView(header, null, false);
@@ -64,7 +64,6 @@ public class IdiomaActivity extends Activity {
         adapter = new Idioma_Adapter(activity, idiomas);
         listViewIdiomas.setAdapter(adapter);
         listViewIdiomas.setItemChecked(posicionIdioma(), true);
-        super.onCreate(savedInstanceState);
     }
 
     private int posicionIdioma() {

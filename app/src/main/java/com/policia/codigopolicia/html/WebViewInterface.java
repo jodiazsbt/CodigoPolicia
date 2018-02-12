@@ -55,6 +55,14 @@ public class WebViewInterface {
     }
 
     @JavascriptInterface
+    public void compartir(String articulo){
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/text");
+        share.putExtra(Intent.EXTRA_TEXT, articulo);
+
+        mActivity.startActivity(Intent.createChooser(share, mActivity.getResources().getString(R.string.compartir_articulo)));
+    }
+    @JavascriptInterface
     public void dialogNumeral(final String ID) {
         final String[] items = mActivity.getResources().getStringArray(R.array.listaMedidas);
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
