@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
-        android:src="@mipmap/img_policia_activity"
+        android:src="@mipmap/img_login"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

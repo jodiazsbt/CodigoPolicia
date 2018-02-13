@@ -43,6 +43,23 @@ public class Fragment_Identificacion extends Fragment {
 
     public void mostrarCarnet(String barcode) {
         //barcode = "Codigo de barras generado por Robotec, fecha 19/11/2016 11:19:48 a.m.<DocumentElement><Table><E2>79998944</E2><E4>OLAYA POLOCHE</E4><E5>CESAR AUGUSTO</E5><E8>2021-07-25T12:00:00-05:00</E8><E11>SUBINTENDENTE</E11><E13>1978-07-25T00:00:00-05:00</E13><E15>94169484</E15><E16>O </E16><E19>MA</E19><E21>CC</E21><E22>PO</E22><E25>79998944/2016/11/19:11:08:24</E25></Table></DocumentElement>";
+        barcode = "Codigo de barras generado por Robotec, fecha 11/10/2016 04:42:37 p.m.\n" +
+                "<DocumentElement>\n" +
+                "  <Table>\n" +
+                "    <E2>71794221</E2>\n" +
+                "    <E4>RESTREPO CORREA</E4>\n" +
+                "    <E5>JOHN DARIO</E5>\n" +
+                "    <E8>2021-09-07T12:00:00-05:00</E8>\n" +
+                "    <E11>TENIENTE</E11>\n" +
+                "    <E13>1979-09-07T00:00:00-05:00</E13>\n" +
+                "    <E15>559510</E15>\n" +
+                "    <E16>A </E16>\n" +
+                "    <E19>MA</E19>\n" +
+                "    <E21>CC</E21>\n" +
+                "    <E22>PO</E22>\n" +
+                "    <E25>71794221/2016/10/11:04:32:00</E25>\n" +
+                "  </Table>\n" +
+                "</DocumentElement>";
         ListView listviewIdentificacion = getView().findViewById(R.id.listviewIdentificacion);
         try {
 

@@ -120,11 +120,11 @@ public class RemotePolicia extends AsyncTask<Void, Void, RemotePolicia.MotivoErr
 
                 }
 
-                View header = fragment.getLayoutInflater().inflate(R.layout.policia_identificacion_header, null);
-                ImageView image = header.findViewById(R.id.imageViewCaricatura);
+                ImageView image = fragment.getView().findViewById(R.id.imageViewCaricatura);
+                //ImageView image = header.findViewById(R.id.imageViewCaricatura);
                 image.setImageBitmap(BitmapFactory.decodeByteArray(identificacion.imagen, 0, identificacion.imagen.length));
-                image.setCropToPadding(true);
-                listView.addHeaderView(header, null, false);
+                //image.setCropToPadding(true);
+                //listView.addHeaderView(header, null, false);
 
                 listView.setAdapter(new IdentificacionAdapter(fragment, valores));
 

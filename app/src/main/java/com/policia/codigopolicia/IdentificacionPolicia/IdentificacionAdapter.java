@@ -45,17 +45,14 @@ public class IdentificacionAdapter extends BaseAdapter {
     @Override
     public View getView(int pos, View view, ViewGroup viewGroup) {
 
-        if (view == null) {
-            LayoutInflater inflater = fragment.getLayoutInflater();
-            view = inflater.inflate(R.layout.policia_identificacion_item, null);
+        LayoutInflater inflater = fragment.getLayoutInflater();
+        view = inflater.inflate(R.layout.policia_identificacion_item, null);
 
-            TextView textViewLabel = view.findViewById(R.id.textViewLabel);
-            TextView textViewValue = view.findViewById(R.id.textViewValue);
+        TextView textViewLabel = view.findViewById(R.id.textViewLabel);
+        TextView textViewValue = view.findViewById(R.id.textViewValue);
 
-            textViewLabel.setText(valores.get(pos).getLabel());
-            textViewValue.setText(valores.get(pos).getValue());
-        }
-
+        textViewLabel.setText(valores.get(pos).getLabel());
+        textViewValue.setText(valores.get(pos).getValue());
         return view;
     }
 }
