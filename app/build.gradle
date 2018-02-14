@@ -43,4 +43,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-vision:11.8.0'
     compile 'com.google.android.gms:play-services-location:11.8.0'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
+    compile 'com.github.beyka:androidtiffbitmapfactory:0.9.8.3'
 }

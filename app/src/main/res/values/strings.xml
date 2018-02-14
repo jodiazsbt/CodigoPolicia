@@ -12,9 +12,9 @@
     <string name="dbversion">1</string>
     <string name="SCRIPT">SCRIPT.sql</string>
 
-    <string name="ping">https://srvdenuncia.policia.gov.co:444</string>
-    <string name="srvappmoviles">https://srvdenuncia.policia.gov.co:444/wsCnpcApp/CNPC.svc/</string>
+    <string name="srvappmoviles">https://apiadenunciarrnmc.policia.gov.co/wsCnpcApp/CNPC.svc/</string>
     <!--
+    <string name="srvappmoviles">https://srvdenuncia.policia.gov.co:444/wsCnpcApp/CNPC.svc/</string>
     <string name="srvappmoviles">https://srvappmoviles.policia.gov.co/wsCnpcApp/CNPC.svc/</string>-->
 
     <string-array name="listadoUrlPsc">

@@ -3,6 +3,7 @@ package com.policia.movil;
 import android.content.Context;
 import android.content.ContextWrapper;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -40,7 +41,7 @@ public class Almacenamiento {
 
             ContextWrapper contextWrapper = new ContextWrapper(context);
             File directory = contextWrapper.getDir("avatar", Context.MODE_PRIVATE);
-            image = new File(directory, uri.substring(uri.lastIndexOf("/")+1));
+            image = new File(directory, uri.substring(uri.lastIndexOf("/") + 1));
             OutputStream output = new FileOutputStream(image);
             byte[] buffer = new byte[1024];
             int bytesRead = 0;
@@ -48,6 +49,29 @@ public class Almacenamiento {
                 output.write(buffer, 0, bytesRead);
             }
             input.close();
+            output.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image.getAbsolutePath();
+    }
+
+    public String guardarImagen(byte[] bytes, String archivoNombre) {
+
+        File image = null;
+        try {
+            InputStream inputStream = new ByteArrayInputStream(bytes);
+
+            ContextWrapper contextWrapper = new ContextWrapper(context);
+            File directory = contextWrapper.getDir("policia", Context.MODE_PRIVATE);
+            image = new File(directory, archivoNombre);
+            OutputStream output = new FileOutputStream(image);
+            byte[] buffer = new byte[1024];
+            int bytesRead = 0;
+            while ((bytesRead = inputStream.read(buffer, 0, buffer.length)) >= 0) {
+                output.write(buffer, 0, bytesRead);
+            }
+            inputStream.close();
             output.close();
         } catch (Exception e) {
             e.printStackTrace();
