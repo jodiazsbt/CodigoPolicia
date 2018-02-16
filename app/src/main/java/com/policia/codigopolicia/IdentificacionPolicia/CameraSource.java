@@ -1146,6 +1146,7 @@ public class CameraSource {
          */
         @Override
         public void run() {
+
             Frame outputFrame;
             ByteBuffer data;
 

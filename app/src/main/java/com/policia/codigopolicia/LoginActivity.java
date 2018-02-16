@@ -24,6 +24,8 @@ import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.remote.RemoteClient;
 import com.policia.remote.response.LoginPoliciaNalResult;
+import com.policia.remote.response.PoliciaLoginResponse;
+import com.policia.remote.response.PoliciaPerfilResponse;
 
 /**
  * A LoginPoliciaNal screen that offers LoginPoliciaNal via email/password.
@@ -221,7 +223,8 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
 
             try {
-                LoginPoliciaNalResult result = RemoteClient.connect(activity).LoginPoliciaNal(mUsuario, mContrasena);
+                PoliciaLoginResponse login = RemoteClient.connect(activity).LoginOID(mUsuario, mContrasena);
+                PoliciaPerfilResponse perfil = RemoteClient.connect(activity).PerfilOID(login);
 
                 int count = new Negocio_DOCUMENTO(activity).countDocumentos();
                 if (count == 0) {
@@ -229,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
                     new Negocio_DOCUMENTO(activity).sincronizar();
                 }
 
-                return Seguridad.Sesion(activity).abrirSesionPolicia(result);
+                return Seguridad.Sesion(activity).abrirSesionPolicia(perfil);
             } catch (Exception e) {
                 e.printStackTrace();
             }

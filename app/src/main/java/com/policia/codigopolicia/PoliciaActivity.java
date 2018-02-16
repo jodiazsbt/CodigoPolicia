@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -31,7 +32,12 @@ import com.policia.codigopolicia.IdentificacionPolicia.BarcodeCaptureActivity;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Identificacion;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Opciones;
 import com.policia.codigopolicia.IdentificacionPolicia.IClickScan;
+import com.policia.codigopolicia.zxing.CustomScannerActivity;
+import com.policia.codigopolicia.zxing.google.zxing.integration.android.IntentIntegrator;
+import com.policia.codigopolicia.zxing.google.zxing.integration.android.IntentResult;
 import com.policia.remote.RemotePolicia;
+
+import java.util.Arrays;
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
@@ -94,7 +100,11 @@ public class PoliciaActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void abrirCamara(boolean autoFocus, boolean useFlash) {
-
+        /*
+        new IntentIntegrator(this)
+                .setOrientationLocked(false)
+                .setCaptureActivity(CustomScannerActivity.class)
+                .initiateScan();*/
         Intent intent = new Intent(activity, BarcodeCaptureActivity.class);
         intent.putExtra(BarcodeCaptureActivity.AutoFocus, autoFocus);
         intent.putExtra(BarcodeCaptureActivity.UseFlash, useFlash);
@@ -168,11 +178,30 @@ public class PoliciaActivity extends AppCompatActivity implements View.OnClickLi
             } else {
                 //statusMessage.setText(String.format(getString(R.string.barcode_error),
                 //       CommonStatusCodes.getStatusCodeString(resultCode)));
+                Toast.makeText(activity, "Existe error", Toast.LENGTH_SHORT).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                lectura = false;
+            } else {
+
+                if (fragment instanceof Fragment_Identificacion) {
+                    ((Fragment_Identificacion) fragment).mostrarCarnet(result.getContents());
+                }
+            }
+        } else {
+            // This is important, otherwise the result will not be passed to the fragment
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }*/
 
     public void clickCancelar(View v) {
 

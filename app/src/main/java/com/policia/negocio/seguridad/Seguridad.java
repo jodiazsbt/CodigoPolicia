@@ -13,6 +13,7 @@ import com.policia.persistencia.tablas.Tabla_PREFERENCIA;
 import com.policia.persistencia.tablas.Tabla_SESION;
 import com.policia.persistencia.tablas.Tabla_USUARIO;
 import com.policia.remote.response.LoginPoliciaNalResult;
+import com.policia.remote.response.PoliciaPerfilResponse;
 
 import java.util.Date;
 import java.util.Locale;
@@ -140,7 +141,7 @@ public class Seguridad {
         return true;
     }
 
-    public boolean abrirSesionPolicia(LoginPoliciaNalResult usuario) throws Exception {
+    public boolean abrirSesionPolicia(PoliciaPerfilResponse usuario) throws Exception {
 
         String usuarioID = "0";
 
@@ -148,25 +149,23 @@ public class Seguridad {
         Tabla_USUARIO tablaUsuario = null;
         Tabla_PREFERENCIA tablaPreferencia = null;
 
-        if (!rutinasUsuario.existeUsuario(usuario.Placa)) {
+        if (!rutinasUsuario.existeUsuario(usuario.identificacion)) {
 
             tablaUsuario = new Tabla_USUARIO();
-            tablaUsuario.CONSECUTIVO = usuario.Consecutivo;
-            tablaUsuario.FISICA = usuario.Fisica;
-            tablaUsuario.FUNCIONARIO = usuario.Funcionario;
-            tablaUsuario.GRADO = usuario.Grado;
-            tablaUsuario.IDENTIFICACION = usuario.Identificacion;
-            tablaUsuario.PLACA = usuario.Placa;
-            tablaUsuario.UNDECONSECUTIVO = usuario.UndeConsecutivo;
-            tablaUsuario.UNDEFUERZA = usuario.UndeFuerza;
-            tablaUsuario.UNDELABORA = usuario.UnderLabora;
-            tablaUsuario.UNIDAD = usuario.Unidad;
-            tablaUsuario.VERIFICA = usuario.Verifica == 1;
+            tablaUsuario.IDENTIFICACION = usuario.identificacion;
+            tablaUsuario.SIGLAPAPA = usuario.siglaPapa;
+            tablaUsuario.SIGLAFISICA = usuario.siglaFisica;
+            tablaUsuario.GRADOALFABETICO = usuario.gradoAlfabetico;
+            tablaUsuario.APELLIDOS = usuario.apellidos;
+            tablaUsuario.NOMBRES = usuario.nombres;
+            tablaUsuario.SITUACIONLABORAL = usuario.situacionLaboral;
+            tablaUsuario.NOMBREGRADO = usuario.nombreGrado;
+            tablaUsuario.CARGOACTUAL = usuario.cargoActual;
 
             rutinasUsuario.crearUsuario(tablaUsuario);
         }
 
-        usuarioID = rutinasUsuario.usuarioID(usuario.Placa);
+        usuarioID = rutinasUsuario.usuarioID(usuario.identificacion);
 
         if (!rutinasPreferencia.existePreferenciaUsuario(usuarioID)) {
 

@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -263,7 +264,17 @@ public class PrincipalActivity extends AppCompatActivity
         //super.onActivityResult(requestCode, resultCode, data);
 
         try {
-            if (requestCode == 1) {
+            if (requestCode == 0) {
+                if (resultCode == RESULT_OK) {
+                    String contents = data.getStringExtra("SCAN_RESULT");
+                    String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+                    Log.d("SCAN", format);
+                    Log.d("SCAN", contents);
+                    // Handle successful scan
+                } else if (resultCode == RESULT_CANCELED) {
+                    // Handle cancel
+                }
+            } else if (requestCode == 1) {
                 if (resultCode == Activity.RESULT_OK) {
                     finish();
                 }

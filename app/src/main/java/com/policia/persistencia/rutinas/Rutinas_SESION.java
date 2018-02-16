@@ -27,8 +27,8 @@ public class Rutinas_SESION {
 
         Cursor cursor = DB.rawQuery("SELECT " +
                 "USUARIO.ID," +
-                "USUARIO.FUNCIONARIO, " +
-                "USUARIO.FISICA, " +
+                "USUARIO.APELLIDOS || '-' || USUARIO.NOMBRES, " +
+                "USUARIO.SIGLAFISICA, " +
                 "IDIOMA.IDIOMA, " +
                 "IDIOMA.CODIGO, " +
                 "IDIOMA.CODIGO2 " +

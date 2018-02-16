@@ -3,6 +3,7 @@ package com.policia.remote;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.util.Base64;
 
 import com.google.gson.Gson;
@@ -27,6 +28,8 @@ import com.policia.remote.response.MedidasCNPCResponse;
 import com.policia.remote.response.MetadataResponse;
 import com.policia.remote.response.NivelesResponse;
 import com.policia.remote.response.NumeralesResponse;
+import com.policia.remote.response.PoliciaLoginResponse;
+import com.policia.remote.response.PoliciaPerfilResponse;
 import com.policia.remote.response.RELACIONCOMPETENCIANUMERALMEDIDACNPCResponse;
 import com.policia.remote.response.RESPUESTAENCUESTAResponse;
 import com.policia.remote.response.RNMCDETALLECOMPORTAMIENTOResponse;
@@ -37,16 +40,23 @@ import com.policia.remote.response.TIPOSARCHIVOSResponse;
 import com.policia.remote.response.UVTCNCPResult;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpParams;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 1085253556 on 12/12/2017.
@@ -58,11 +68,13 @@ public class RemoteClient {
     private DefaultHttpClient client;
     private static RemoteClient instancia;
 
+    private String direccionApi;
     private String direccionServicio;
 
     private RemoteClient(Context context) {
         this.context = context;
         this.client = new DefaultHttpClient();
+        this.direccionApi = context.getResources().getString(R.string.srvapplogin);
         this.direccionServicio = context.getResources().getString(R.string.srvappmoviles);
     }
 
@@ -130,38 +142,10 @@ public class RemoteClient {
             } else
                 throw new Exception(statusLine.getReasonPhrase());
         } catch (Exception e) {
-            //Toast.makeText(this.context, "No tienes acceso a Internet!", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
         return builder;
-
-    }
-
-    private InputStream postInputStream(String operation) throws Exception {
-        InputStream content = null;
-        try {
-
-            if (!isServiceOnline())
-                return null;
-
-            HttpPost request = new HttpPost(operation);
-            request.setHeader("accept", "application/json");
-            request.setHeader("content-type", "application/json; charset=utf-8");
-
-            HttpResponse response = client.execute(request);
-            StatusLine statusLine = response.getStatusLine();
-            int statusCode = statusLine.getStatusCode();
-            if (statusCode == 200) {
-                content = response.getEntity().getContent();
-            } else
-                throw new Exception(statusLine.getReasonPhrase());
-        } catch (Exception e) {
-            //Toast.makeText(this.context, "No tienes acceso a Internet!", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-
-        return content;
 
     }
 
@@ -200,6 +184,82 @@ public class RemoteClient {
 
     }
 
+    private StringBuilder postLogin(String uri, String usuario, String contrasena) throws Exception {
+
+        StringBuilder builder = new StringBuilder();
+        try {
+
+            if (!isServiceOnline())
+                return null;
+
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("grant_type", "password"));
+            nameValuePairs.add(new BasicNameValuePair("password", contrasena));
+            nameValuePairs.add(new BasicNameValuePair("username", usuario));
+            nameValuePairs.add(new BasicNameValuePair("scope", "rnmc"));
+
+            HttpPost request = new HttpPost(uri);
+            request.setHeader("accept", "application/json");
+            request.setHeader("content-type", "application/x-www-form-urlencoded");
+            request.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            HttpResponse response = client.execute(request);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            if (statusCode == 200) {
+                InputStream content = response.getEntity().getContent();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(content));
+                builder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+                content.close();
+            } else
+                throw new Exception(statusLine.getReasonPhrase());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return builder;
+
+    }
+
+    private StringBuilder postPerfil(String uri, PoliciaLoginResponse login) throws Exception {
+
+        StringBuilder builder = new StringBuilder();
+        try {
+
+            if (!isServiceOnline())
+                return null;
+
+            HttpGet request = new HttpGet(uri);
+            request.setHeader("accept", "application/json");
+            request.setHeader("authorization", "@type @token".replace("@type", login.tokenType).replace("@token", login.accessToken));
+
+            HttpResponse response = client.execute(request);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            if (statusCode == 200) {
+                InputStream content = response.getEntity().getContent();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(content));
+                builder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+                content.close();
+            } else
+                throw new Exception(statusLine.getReasonPhrase());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return builder;
+    }
+
     public LoginPoliciaNalResult LoginPoliciaNal(String usuario, String contrasena) throws Exception {
         String body = "LoginPoliciaNal/" + usuario + "," + Base64.encodeToString(contrasena.getBytes(), Base64.DEFAULT).replace("\n", "") + ",172.28.3.23,CNPC";
         StringBuilder builder = postInvoke(direccionServicio + body);
@@ -208,6 +268,20 @@ public class RemoteClient {
             return null;
         }
         return result.LoginPoliciaNalResult.get(0);
+    }
+
+    public PoliciaLoginResponse LoginOID(String usuario, String contrasena) throws Exception {
+        String uri = "ciudadano/token";
+        StringBuilder builder = postLogin(Uri.parse(direccionApi + uri).toString(), usuario, contrasena);
+        PoliciaLoginResponse result = new Gson().fromJson(builder.toString(), PoliciaLoginResponse.class);
+        return result;
+    }
+
+    public PoliciaPerfilResponse PerfilOID(PoliciaLoginResponse login) throws Exception {
+        String uri = "policia/perfil";
+        StringBuilder builder = postPerfil(Uri.parse(direccionApi + uri).toString(), login);
+        PoliciaPerfilResponse result = new Gson().fromJson(builder.toString(), PoliciaPerfilResponse.class);
+        return result;
     }
 
     public NivelesResponse sincronizarNIVEL(String fecha) throws Exception {

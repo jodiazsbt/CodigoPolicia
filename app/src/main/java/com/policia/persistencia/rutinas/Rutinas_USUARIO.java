@@ -25,17 +25,15 @@ public class Rutinas_USUARIO {
         long id = 0;
 
         ContentValues parameters = new ContentValues();
-        parameters.put("CONSECUTIVO", usuario.CONSECUTIVO);
-        parameters.put("FISICA", usuario.FISICA);
-        parameters.put("FUNCIONARIO", usuario.FUNCIONARIO);
-        parameters.put("GRADO", usuario.GRADO);
         parameters.put("IDENTIFICACION", usuario.IDENTIFICACION);
-        parameters.put("PLACA", usuario.PLACA);
-        parameters.put("UNDECONSECUTIVO", usuario.UNDECONSECUTIVO);
-        parameters.put("UNDEFUERZA", usuario.UNDEFUERZA);
-        parameters.put("UNDELABORA", usuario.UNDELABORA);
-        parameters.put("UNIDAD", usuario.UNIDAD);
-        parameters.put("VERIFICA", usuario.VERIFICA);
+        parameters.put("SIGLAPAPA", usuario.SIGLAPAPA);
+        parameters.put("SIGLAFISICA", usuario.SIGLAFISICA);
+        parameters.put("GRADOALFABETICO", usuario.GRADOALFABETICO);
+        parameters.put("APELLIDOS", usuario.APELLIDOS);
+        parameters.put("NOMBRES", usuario.NOMBRES);
+        parameters.put("SITUACIONLABORAL", usuario.SITUACIONLABORAL);
+        parameters.put("NOMBREGRADO", usuario.NOMBREGRADO);
+        parameters.put("CARGOACTUAL", usuario.CARGOACTUAL);
 
         DB = new SQLiteProvider(context).getWritableDatabase();
         id = DB.insert("'USUARIO'", null, parameters);
@@ -43,13 +41,13 @@ public class Rutinas_USUARIO {
         return id > 0;
     }
 
-    public boolean existeUsuario(String Placa) {
+    public boolean existeUsuario(String IDENTIFICACION) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
         String[] parameters = new String[]{
-                Placa + ""};
+                IDENTIFICACION + ""};
 
-        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM 'USUARIO' WHERE PLACA=?;", parameters);
+        Cursor cursor = DB.rawQuery("SELECT COUNT(*) FROM 'USUARIO' WHERE IDENTIFICACION=?;", parameters);
 
         int cantidad = 0;
         while (cursor.moveToNext()) {
@@ -60,13 +58,13 @@ public class Rutinas_USUARIO {
         return cantidad == 1;
     }
 
-    public String usuarioID(String Placa) {
+    public String usuarioID(String IDENTIFICACION) {
         DB = new SQLiteProvider(context).getReadableDatabase();
 
         String[] parameters = new String[]{
-                Placa + ""};
+                IDENTIFICACION + ""};
 
-        Cursor cursor = DB.rawQuery("SELECT ID FROM 'USUARIO' WHERE PLACA=?;", parameters);
+        Cursor cursor = DB.rawQuery("SELECT ID FROM 'USUARIO' WHERE IDENTIFICACION=?;", parameters);
 
         String ID = "0";
         while (cursor.moveToNext()) {

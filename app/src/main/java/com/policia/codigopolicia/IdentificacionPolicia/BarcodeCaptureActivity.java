@@ -54,7 +54,7 @@ import java.io.IOException;
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and ID of each barcode.
  */
-public final class BarcodeCaptureActivity extends AppCompatActivity implements QRCodeDetectedInterface{
+public final class BarcodeCaptureActivity extends AppCompatActivity implements QRCodeDetectedInterface {
     private static final String TAG = "Barcode-reader";
 
     // intent request code to handle updating play services if needed.
@@ -366,13 +366,11 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements Q
                 data.putExtra(BarcodeObject, barcode);
                 setResult(CommonStatusCodes.SUCCESS, data);
                 finish();
-            }
-            else {
+            } else {
                 Log.d(TAG, "barcode data is null");
             }
-        }
-        else {
-            Log.d(TAG,"no barcode detected");
+        } else {
+            Log.d(TAG, "no barcode detected");
         }
     }
 
@@ -439,5 +437,9 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements Q
         }
     }
 
-
+    @Override
+    public void finish() {
+        super.finish();
+        setResult(CommonStatusCodes.INTERNAL_ERROR);
+    }
 }

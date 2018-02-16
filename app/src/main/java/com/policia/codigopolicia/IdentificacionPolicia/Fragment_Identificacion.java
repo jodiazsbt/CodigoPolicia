@@ -3,6 +3,7 @@ package com.policia.codigopolicia.IdentificacionPolicia;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,10 @@ public class Fragment_Identificacion extends Fragment {
 
     public void mostrarCarnet(String barcode) {
         //barcode = "Codigo de barras generado por Robotec, fecha 19/11/2016 11:19:48 a.m.<DocumentElement><Table><E2>79998944</E2><E4>OLAYA POLOCHE</E4><E5>CESAR AUGUSTO</E5><E8>2021-07-25T12:00:00-05:00</E8><E11>SUBINTENDENTE</E11><E13>1978-07-25T00:00:00-05:00</E13><E15>94169484</E15><E16>O </E16><E19>MA</E19><E21>CC</E21><E22>PO</E22><E25>79998944/2016/11/19:11:08:24</E25></Table></DocumentElement>";
+        //barcode = "Codigo de barras generado por Robotec, fecha 05/11/2014 05:10:06 p.m.<DocumentElement><Table><E2>88034034</E2><E4>PE�ARANDA LIZCANO</E4><E5>NELSON JAVIER</E5><E8>2019-09-12T12:00:00-05:00</E8><E11>SUBINTENDENTE</E11><E13>1984-09-12T00:00:00-05:00</E13><E15>2690413</E15><E16>A </E16><E19>MA</E19><E21>CC</E21><E22>PO</E22><E25>88034034/2014/11/05:04:49:02</E25></Table></DocumentElement>";
         ListView listviewIdentificacion = getView().findViewById(R.id.listviewIdentificacion);
         try {
-
+            Log.d("Fragment_Identificacion", barcode);
             RemotePolicia.newInstance(this, listviewIdentificacion, barcode, lectura).execute();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".zxing.CustomScannerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <com.policia.codigopolicia.zxing.barcodescanner.DecoratedBarcodeView
+            android:id="@+id/zxing_barcode_scanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:zxing_scanner_layout="@layout/custom_barcode_scanner">
+        </com.policia.codigopolicia.zxing.barcodescanner.DecoratedBarcodeView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="-20dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="top|center_horizontal"
+            android:padding="16dp"
+            android:text="@string/scanning_for_otp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/img_tutorial_policia" />
+    </LinearLayout>
+
+</LinearLayout>

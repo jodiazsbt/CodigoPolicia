@@ -10,4 +10,8 @@
 
     <dimen name="custom_showcase_width">96dip</dimen>
     <dimen name="custom_showcase_height">48dip</dimen>
+
+    <!--zxing-->
+    <dimen name="standard_padding">8dip</dimen>
+    <dimen name="half_padding">4dip</dimen>
 </resources>

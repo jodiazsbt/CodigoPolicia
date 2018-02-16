@@ -12,6 +12,7 @@
     <string name="dbversion">1</string>
     <string name="SCRIPT">SCRIPT.sql</string>
 
+    <string name="srvapplogin">https://apiadenunciarrnmc.policia.gov.co/ponal_api/usuario/</string>
     <string name="srvappmoviles">https://apiadenunciarrnmc.policia.gov.co/wsCnpcApp/CNPC.svc/</string>
     <!--
     <string name="srvappmoviles">https://srvdenuncia.policia.gov.co:444/wsCnpcApp/CNPC.svc/</string>
@@ -89,5 +90,4 @@
     <string name="html_plantilla_share">SHARE.txt</string>
     <string name="html_plantilla_procedimientos">PROCEDIMIENTOS.html</string>
     <string name="scanning_for_otp">Solicite al Policía el carné de identificación y coloque la cámara sobre el código de barras del documento.</string>
-
 </resources>

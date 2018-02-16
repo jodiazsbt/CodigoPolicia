@@ -10,15 +10,13 @@ public class Tabla_USUARIO {
     }
 
     public String ID;
-    public String CONSECUTIVO;
-    public String FISICA;
-    public String FUNCIONARIO;
-    public String GRADO;
     public String IDENTIFICACION;
-    public String PLACA;
-    public String UNDECONSECUTIVO;
-    public String UNDEFUERZA;
-    public String UNDELABORA;
-    public String UNIDAD;
-    public boolean VERIFICA;
+    public String SIGLAPAPA;
+    public String SIGLAFISICA;
+    public String GRADOALFABETICO;
+    public String APELLIDOS;
+    public String NOMBRES;
+    public String SITUACIONLABORAL;
+    public String NOMBREGRADO;
+    public String CARGOACTUAL;
 }

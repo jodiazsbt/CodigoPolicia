@@ -159,17 +159,15 @@ CREATE INDEX IX_NUMERAL_NIVEL ON NUMERAL (NIVEL_ID ASC);
 
 CREATE TABLE IF NOT EXISTS USUARIO (
   ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  CONSECUTIVO INT NULL,
-  FISICA TEXT NULL,
-  FUNCIONARIO TEXT NULL,
-  GRADO TEXT NULL,
   IDENTIFICACION TEXT NULL,
-  PLACA TEXT NULL,
-  UNDECONSECUTIVO INT NULL,
-  UNDEFUERZA INT NULL,
-  UNDELABORA INT NULL,
-  UNIDAD TEXT NULL,
-  VERIFICA BIT NULL);
+  SIGLAPAPA TEXT NULL,
+  SIGLAFISICA TEXT NULL,
+  GRADOALFABETICO TEXT NULL,
+  APELLIDOS TEXT NULL,
+  NOMBRES TEXT NULL,
+  SITUACIONLABORAL TEXT NULL,
+  NOMBREGRADO TEXT NULL,
+  CARGOACTUAL TEXT NULL);
 
 CREATE TABLE IF NOT EXISTS SESION (
   USUARIO_ID INT NOT NULL,
@@ -2705,7 +2703,7 @@ INSERT INTO NUMERAL (ID, NUMERAL_ESP, NUMERAL_ENG, VIGENTE, NIVEL_ID, ARTICULO_I
 INSERT INTO NUMERAL (ID, NUMERAL_ESP, NUMERAL_ENG, VIGENTE, NIVEL_ID, ARTICULO_ID, FECHA) VALUES (1819, 'Cumplimiento o ejecución de la orden de Policía o la medida correctiva. Una vez ejecutoriada la decisión que contenga una orden de Policía o una medida correctiva, esta se cumplirá en un término máximo de cinco (5) días.', 'Compliance or execution of the Police order or corrective measure. Once the decision that contains a police order or a corrective measure has been executed, it will be fulfilled within a maximum term of five (5) days.', 1, 301, 553, '29/11/17');
 INSERT INTO NUMERAL (ID, NUMERAL_ESP, NUMERAL_ENG, VIGENTE, NIVEL_ID, ARTICULO_ID, FECHA) VALUES (1733, 'Infracción urbanística. A quien incurra en cualquiera de las infracciones urbanísticas señaladas en el Libro II del presente Código o en las disposiciones normativas vigentes, se le impondrá además de otras medidas correctivas que sean aplicables y las sanciones de tipo penal a que haya lugar, multa por metro cuadrado de construcción bajo cubierta, de área de suelo afectado o urbanizado o de intervención sobre el suelo, según la gravedad del comportamiento, de conformidad con el estrato en que se encuentre ubicado el inmueble, así: \n a) Estratos 1 y 2: de cinco (5) a doce (12) salarios mínimos legales mensuales vigentes; \n b) Estratos 3 y 4: de ocho (8) a veinte (20) salarios mínimos legales mensuales vigentes; \n c) Estratos 5 y 6: de quince (15) a veinticinco (25) salarios mínimos legales mensuales vigentes. \n Cuando la infracción urbanística se realice en bienes de uso público o en suelo de protección ambiental, la multa se aumentará desde un 25% hasta en un 100%. \n Tratándose de infracción por usos, cuando la actividad desarrollada es comercial o industrial del nivel de más alto impacto, según las normas urbanísticas del municipio o distrito, la multa se incrementará en un 25%. \n En ningún caso, la multa podrá superar los doscientos (200) salarios mínimos legales mensuales vigentes y el valor del total de las multas impuestas y liquidadas, no podrá ser superior al valor catastral del inmueble. \n Para la adopción de decisión sobre infracciones urbanísticas, se seguirá el procedimiento establecido en el presente Código. \n La medida de multa por comportamientos contrarios a la in tegridad urbanística no se impondrá a través de comparendo. El personal uniformado de la Policía Nacional pondrá en conocimiento de estos comportamientos mediante informe al inspector de Policía.', 'Urban infraction. Anyone who incurs in any of the urban infractions indicated in Book II of this Code or in the normative provisions in force, will be imposed in addition to other corrective measures that are applicable and the penal sanctions of any kind, fine per square meter of construction under cover, of affected or urbanized ground area or intervention on the ground, according to the severity of the behavior, in accordance with the stratum in which the building is located, as follows:  an) Strata 1 and 2: five (5) to twelve (12) minimum monthly legal salaries in force;  n b) Strata 3 and 4: from eight (8) to twenty (20) minimum legal monthly salaries in force;  n c) Strata 5 and 6: from fifteen (15) to twenty-five (25) minimum monthly legal salaries in force.  n When the urban infringement is carried out on goods for public use or on environmental protection land, the fine will be increased from 25% up to 100%.  n In case of infringement by uses, when the activity developed is commercial or industrial of the highest impact level, according to the urbanistic norms of the municipality or district, the fine will be increased by 25%.  n In any case, the fine may exceed the two hundred (200) legal monthly minimum wages in force and the value of the total fines imposed and settled, may not be higher than the cadastral value of the property.  n For the adoption of decision on urban infractions, the procedure established in this Code will be followed.  n The fine measure for behaviors against urban integrity will not be imposed by means of a subpoena. The uniformed personnel of the National Police will inform about these behaviors by means of a report to the Police Inspector.', 1, 298, 486, '29/11/17');
 
-INSERT INTO USUARIO (ID, CONSECUTIVO, FISICA, FUNCIONARIO, GRADO, IDENTIFICACION, PLACA, UNDECONSECUTIVO, UNDEFUERZA, UNDELABORA, UNIDAD, VERIFICA) VALUES (1, 0, 'COLOMBIA', 'COLOMBIA', 'COLOMBIA', 'COLOMBIA', 'COLOMBIA', 0, 0, 0, 'INVITADO', 1);
+INSERT INTO USUARIO (ID, IDENTIFICACION, SIGLAPAPA, SIGLAFISICA, GRADOALFABETICO, APELLIDOS, NOMBRES, SITUACIONLABORAL, NOMBREGRADO, CARGOACTUAL) VALUES (1, '-', '-', '-', '-', '-', '-', '-', '-', '-');
 
 INSERT INTO SESION (USUARIO_ID, FECHA) VALUES (1, '2017-12-06');
 
