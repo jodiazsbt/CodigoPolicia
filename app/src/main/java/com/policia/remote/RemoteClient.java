@@ -45,10 +45,8 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpParams;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -226,7 +224,7 @@ public class RemoteClient {
 
     }
 
-    private StringBuilder postPerfil(String uri, PoliciaLoginResponse login) throws Exception {
+    private StringBuilder getPerfil(String uri, PoliciaLoginResponse login) throws Exception {
 
         StringBuilder builder = new StringBuilder();
         try {
@@ -279,7 +277,7 @@ public class RemoteClient {
 
     public PoliciaPerfilResponse PerfilOID(PoliciaLoginResponse login) throws Exception {
         String uri = "policia/perfil";
-        StringBuilder builder = postPerfil(Uri.parse(direccionApi + uri).toString(), login);
+        StringBuilder builder = getPerfil(Uri.parse(direccionApi + uri).toString(), login);
         PoliciaPerfilResponse result = new Gson().fromJson(builder.toString(), PoliciaPerfilResponse.class);
         return result;
     }
