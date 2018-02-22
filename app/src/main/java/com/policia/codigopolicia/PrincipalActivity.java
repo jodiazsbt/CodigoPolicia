@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -35,6 +36,7 @@ import com.policia.codigopolicia.html.HTML_Plantillas;
 import com.policia.codigopolicia.showcase.ToolbarActionItemTarget;
 import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.negocio.seguridad.Seguridad;
+import com.policia.remote.RemoteServices;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -52,6 +54,10 @@ public class PrincipalActivity extends AppCompatActivity
     DrawerLayout drawer;
 
     Seguridad sesion;
+
+    public NavigationView getNavigation() {
+        return navigationView;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +87,14 @@ public class PrincipalActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
-        menuCodigoPolicia(navigationView.getMenu().getItem(1));//codigo de policia
+        menuCodigoPolicia(navigationView.getMenu().getItem(2));//codigo de policia
 
         showcaseView = new ShowcaseView.Builder(this)
                 .withMaterialShowcase()
                 .singleShot(R.layout.principal_activity)
                 .setStyle(R.style.CustomShowcaseTheme2)
                 .setContentTitle("Bienvenido")
-                .setContentText("Policía Nacional de Colombia lo invita a usar esta nueva herramienta de carácter preventivo para ayudar a generar más conciencia y buscar una mejor convivencia ciudadana en el territorio nacional. Conozca sus derechos, deberes y obligaciones de las personas naturales y jurídicas, explorando los libros, títulos y capítulos que componen la ley 1801 de 2016.")
+                .setContentText("Por favor lea atentamente los tutoriales de navegación. Policía Nacional de Colombia lo invita a usar esta nueva herramienta de carácter preventivo para ayudar a generar más conciencia y buscar una mejor convivencia ciudadana en el territorio nacional. Conozca sus derechos, deberes y obligaciones de las personas naturales y jurídicas, explorando los libros, títulos y capítulos que componen la ley 1801 de 2016.")
                 .setOnClickListener(this)
                 .build();
         showcaseView.setButtonText(getResources().getString(R.string.showcaseSiguiente));
@@ -146,13 +152,29 @@ public class PrincipalActivity extends AppCompatActivity
         navigationView.getMenu().findItem(R.id.nav_capacitacion).setVisible(!sesion.getUsuario().equals("1"));
     }
 
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, getResources().getString(R.string.twice_backpressed), Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
         }
     }
 
@@ -229,6 +251,8 @@ public class PrincipalActivity extends AppCompatActivity
 
         if (id == R.id.nav_language) {
             menuIdioma(item);
+        } else if (id == R.id.nav_actualizar) {
+            RemoteServices.newInstance(this).execute();
         } else if (id == R.id.nav_funcionario) {
             menuConsultaComparendo(item);
         } else if (id == R.id.nav_policia) {
@@ -416,7 +440,7 @@ public class PrincipalActivity extends AppCompatActivity
                 break;
             case 2:
                 showcaseView.setContentTitle("Aplicaciones preinstaladas");
-                showcaseView.setContentText("Para una experiencia de navegación completa se sugiere tener instaladas las aplicaciónes Google MAPS, POLIS y !A Denunciar¡");
+                showcaseView.setContentText("Para una experiencia de navegación completa se sugiere tener instaladas la suite de JUEGOS CNPC y las aplicaciónes Google MAPS, teclado de Google (Gboard), POLIS y !A Denunciar¡");
                 break;
             case 3:
 

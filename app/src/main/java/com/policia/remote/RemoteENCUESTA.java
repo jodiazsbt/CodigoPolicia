@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.policia.codigopolicia.EncuestaActivity;
+import com.policia.codigopolicia.PrincipalActivity;
 import com.policia.negocio.logica.Negocio_ENCUESTA;
 import com.policia.remote.response.ENCUESTASCNPCResponse;
 import com.policia.remote.response.ENCUESTASCNPCResult;
@@ -75,17 +76,16 @@ public class RemoteENCUESTA extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-
+        Intent intent;
         if (existe) {
-
-            Intent intent = new Intent(this.activity, EncuestaActivity.class);
-            this.activity.startActivity(intent);
-            this.activity.finish();
-
+            intent = new Intent(this.activity, EncuestaActivity.class);
         } else {
 
-            RemoteServices.newInstance(this.activity).execute();
+            intent = new Intent(this.activity, PrincipalActivity.class);
         }
+
+        this.activity.startActivity(intent);
+        this.activity.finish();
 
         remoteENCUESTA = null;
         super.onPostExecute(aVoid);

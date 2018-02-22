@@ -3,6 +3,8 @@ package com.policia.remote;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.PrincipalActivity;
@@ -68,6 +70,22 @@ public class RemoteRESPUESTA extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        if (alertDialog == null) {
+            alertDialog = new AlertDialog.Builder(activity)
+                    .setTitle("Enviando...")
+                    .setMessage("Por favor espere...")
+                    .setCancelable(false)
+                    .setView(new ProgressBar(activity))
+                    .show();
+        }
+    }
+
+    AlertDialog alertDialog;
+
+    @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         Toast.makeText(activity, "Gracias por participar", Toast.LENGTH_SHORT).show();
@@ -76,5 +94,10 @@ public class RemoteRESPUESTA extends AsyncTask<Void, Void, Void> {
         this.activity.startActivity(intent);
         this.activity.finish();
         remoteRESPUESTA = null;
+
+        if (!(alertDialog == null)) {
+            alertDialog.dismiss();
+            alertDialog = null;
+        }
     }
 }

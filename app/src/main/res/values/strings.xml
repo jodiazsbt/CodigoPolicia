@@ -355,5 +355,16 @@
     <string name="zxing_button_ok">OK</string>
     <string name="zxing_msg_camera_framework_bug">Sorry, the Android camera encountered a problem. You may need to restart the device.</string>
     <string name="zxing_msg_default_status">Place a barcode inside the viewfinder rectangle to scan it.</string>
+    <string name="menu_actualizar">Actualizar</string>
+    <string name="twice_backpressed">Presione dos veces para salir</string>
+    <string name="remote_services_title">¿Desea continuar?</string>
+    <string name="remote_services_menssage">Esta actualización puede tomar varios minutos y se sugiere hacerlo conectado a una red Wi-Fi</string>
+    <string name="remote_service_negative">En otro momento</string>
+    <string name="remote_service_positive">Actualizar</string>
+    <string name="remote_service_subtitle">Buscando actualizaciones...</string>
+    <string name="remote_service_submessage">Por favor espere...</string>
+    <string name="remote_service_subnegative">Cancelar</string>
+    <string name="remote_service_subpositive">Ocultar proceso</string>
+    <string name="autoridades_no_location_permiss">Debe habilitar los permisos para utilizar su ubicación</string>
 
 </resources>

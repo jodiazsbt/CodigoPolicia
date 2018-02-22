@@ -1,12 +1,16 @@
 package com.policia.remote;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.policia.codigopolicia.PrincipalActivity;
+import com.policia.codigopolicia.R;
 import com.policia.negocio.logica.Negocio_ACCION;
 import com.policia.negocio.logica.Negocio_ARTICULO;
 import com.policia.negocio.logica.Negocio_CAPITULO;
@@ -30,6 +34,8 @@ import com.policia.negocio.logica.Negocio_UVT;
  */
 
 public class RemoteServices extends AsyncTask<Void, Void, Long> {
+
+    private AlertDialog alertDialog;
 
     private Activity activity;
     private static RemoteServices remoteServices;
@@ -123,6 +129,58 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        /*
+        if (alertDialog == null) {
+        } else {
+            alertDialog.show();
+        }*/
+
+        new AlertDialog.Builder(activity)
+                .setTitle(activity.getResources().getString(R.string.remote_services_title))
+                .setMessage(activity.getResources().getString(R.string.remote_services_menssage))
+                .setNegativeButton(activity.getResources().getString(R.string.remote_service_negative), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        remoteServices.cancel(true);
+                        remoteServices = null;
+                    }
+                })
+                .setPositiveButton(activity.getResources().getString(R.string.remote_service_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        ((PrincipalActivity) activity).getNavigation().getMenu().getItem(0).setVisible(false);
+
+                        alertDialog = new AlertDialog.Builder(activity)
+                                .setTitle(activity.getResources().getString(R.string.remote_service_subtitle))
+                                .setView(new ProgressBar(activity))
+                                .setMessage(activity.getResources().getString(R.string.remote_service_submessage))
+                                .setCancelable(false)
+                                .setNegativeButton(activity.getResources().getString(R.string.remote_service_subnegative), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        remoteServices.cancel(true);
+                                        remoteServices = null;
+
+                                        ((PrincipalActivity) activity).getNavigation().getMenu().getItem(0).setVisible(true);
+                                    }
+                                })
+                                .setPositiveButton(activity.getResources().getString(R.string.remote_service_subpositive), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        alertDialog.hide();
+                                    }
+                                })
+                                .show();
+                    }
+                })
+                .show();
+    }
+
+    @Override
     protected void onPostExecute(Long aLong) {
         super.onPostExecute(aLong);
 
@@ -135,10 +193,13 @@ public class RemoteServices extends AsyncTask<Void, Void, Long> {
         } else
             Toast.makeText(activity, "Su base de datos ha sido actualizada", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this.activity, PrincipalActivity.class);
-        this.activity.startActivity(intent);
-        this.activity.finish();
+        if (!(alertDialog == null)) {
+            alertDialog.dismiss();
+            alertDialog = null;
+        }
 
         remoteServices = null;
+
+        ((PrincipalActivity) activity).getNavigation().getMenu().getItem(0).setVisible(true);
     }
 }

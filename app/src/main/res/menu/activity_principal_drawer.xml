@@ -4,6 +4,10 @@
     tools:showIn="navigation_view">
 
     <item
+        android:id="@+id/nav_actualizar"
+        android:icon="@drawable/img_01_btn_reload"
+        android:title="@string/menu_actualizar" />
+    <item
         android:id="@+id/nav_language"
         android:icon="@mipmap/img_01_btn_idioma"
         android:title="@string/menu_idioma" />
