@@ -192,7 +192,7 @@ public class PrincipalActivity extends AppCompatActivity
                 if (hasFocus) {
                     busquedaCodigoPolicia();
                 } else {
-                    menuCodigoPolicia(navigationView.getMenu().getItem(1));//codigo de policia
+                    menuCodigoPolicia(navigationView.getMenu().getItem(2));//codigo de policia
                 }
             }
         });

@@ -76,28 +76,29 @@ public class CNPC_Fragment extends Fragment {
             ArrayList<Modelo_ARTICULO> articulos = null;
             articulos = negocioArticulo.ArticulosPorCapitulo(capitulo, position + 1);
 
+            String busqueda = "<span style='background:green;color:white;'>@termino</span>";
             String html_share = new HTML_Plantillas(getActivity(), HTML_Plantillas.Plantilla.SHARE).getPlantilla();
             String html_plantilla_articulos = new HTML_Plantillas(getActivity(), HTML_Plantillas.Plantilla.ARTICULO).getPlantilla();
 
             for (Modelo_ARTICULO articulo : articulos) {
 
                 html_plantilla_articulos = html_plantilla_articulos
-                        .replace("@Nivel", articulo.Nivel)
-                        .replace("@Titulo", articulo.Titulo)
-                        .replace("@Capitulo_Nivel", articulo.Capitulo_Nivel)
-                        .replace("@Capitulo_Descripcion", articulo.Capitulo_Descripcion)
-                        .replace("@Articulo_Nivel", articulo.Articulo_Nivel)
-                        .replace("@Articulo_Titulo", articulo.Articulo_Titulo)
-                        .replace("@Articulo_Descripcion", articulo.Articulo_Descripcion);
+                        .replace("@Nivel", termino.equals("") ? articulo.Nivel : articulo.Nivel.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Titulo", termino.equals("") ? articulo.Titulo : articulo.Titulo.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Capitulo_Nivel", termino.equals("") ? articulo.Capitulo_Nivel : articulo.Capitulo_Nivel.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Capitulo_Descripcion", termino.equals("") ? articulo.Capitulo_Descripcion : articulo.Capitulo_Descripcion.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Articulo_Nivel", termino.equals("") ? articulo.Articulo_Nivel : articulo.Articulo_Nivel.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Articulo_Titulo", termino.equals("") ? articulo.Articulo_Titulo : articulo.Articulo_Titulo.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Articulo_Descripcion", termino.equals("") ? articulo.Articulo_Descripcion : articulo.Articulo_Descripcion.replace(termino, busqueda.replace("@termino", termino)));
 
                 html_share = html_share
-                        .replace("@Nivel", articulo.Nivel)
-                        .replace("@Titulo", articulo.Titulo)
-                        .replace("@Capitulo_Nivel", articulo.Capitulo_Nivel)
-                        .replace("@Capitulo_Descripcion", articulo.Capitulo_Descripcion)
-                        .replace("@Articulo_Nivel", articulo.Articulo_Nivel)
-                        .replace("@Articulo_Titulo", articulo.Articulo_Titulo)
-                        .replace("@Articulo_Descripcion", articulo.Articulo_Descripcion);
+                        .replace("@Nivel", termino.equals("") ? articulo.Nivel : articulo.Nivel.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Titulo", termino.equals("") ? articulo.Titulo : articulo.Titulo.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Capitulo_Nivel", termino.equals("") ? articulo.Capitulo_Nivel : articulo.Capitulo_Nivel.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Capitulo_Descripcion", termino.equals("") ? articulo.Capitulo_Descripcion : articulo.Capitulo_Descripcion.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Articulo_Nivel", termino.equals("") ? articulo.Articulo_Nivel : articulo.Articulo_Nivel.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Articulo_Titulo", termino.equals("") ? articulo.Articulo_Titulo : articulo.Articulo_Titulo.replace(termino, busqueda.replace("@termino", termino)))
+                        .replace("@Articulo_Descripcion", termino.equals("") ? articulo.Articulo_Descripcion : articulo.Articulo_Descripcion.replace(termino, busqueda.replace("@termino", termino)));
 
                 ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
 
@@ -121,7 +122,10 @@ public class CNPC_Fragment extends Fragment {
                             parrafo_numeral = parrafo_numeral.replace("@TAG", tag.replace("@ID", numeral.ID));
                         }
 
-                        html_plantilla_articulos = html_plantilla_articulos.replace("@Numerales", parrafo_numeral.replace("@Nivel", numeral.Nivel).replace("@Numeral", numeral.Numeral) + "@Numerales");
+                        html_plantilla_articulos = html_plantilla_articulos
+                                .replace("@Numerales", parrafo_numeral
+                                        .replace("@Nivel", termino.equals("") ? numeral.Nivel : numeral.Nivel.replace(termino, busqueda.replace("@termino", termino)))
+                                        .replace("@Numeral", termino.equals("") ? numeral.Numeral : numeral.Numeral.replace(termino, busqueda.replace("@termino", termino))) + "@Numerales");
                     } while (pos < numerales.size());
                 }
 
@@ -139,7 +143,10 @@ public class CNPC_Fragment extends Fragment {
                     int pos = 0;
                     do {
                         Modelo_MEDIDA medida = medidas.get(pos++);
-                        tabla_medidas = tabla_medidas.replace("@tr", filas_medidas.replace("@Nivel", medida.Nivel).replace("@Comportamiento", medida.Comportamiento).replace("@Medida", medida.Medida) + "@tr");
+                        tabla_medidas = tabla_medidas.replace("@tr", filas_medidas
+                                .replace("@Nivel", termino.equals("") ? medida.Nivel : medida.Nivel.replace(termino, busqueda.replace("@termino", termino)))
+                                .replace("@Comportamiento", termino.equals("") ? medida.Comportamiento : medida.Comportamiento.replace(termino, busqueda.replace("@termino", termino)))
+                                .replace("@Medida", termino.equals("") ? medida.Medida : medida.Medida.replace(termino, busqueda.replace("@termino", termino))) + "@tr");
                     } while (pos < medidas.size());
 
                     html_plantilla_articulos = html_plantilla_articulos.replace("@Paragrafos", tabla_medidas);
@@ -150,10 +157,6 @@ public class CNPC_Fragment extends Fragment {
                         .replace("@Paragrafos", "");
 
                 break;
-            }
-
-            if (!termino.equals("")) {
-                html_plantilla_articulos = html_plantilla_articulos.replace(termino, "<span style='background:green;color:white;'>" + termino + "</span>");//RESALTAR TERMINO DE BÚSQUEDA
             }
 
             html_plantilla_articulos = html_plantilla_articulos
