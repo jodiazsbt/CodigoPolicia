@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.remote.RemoteClient;
-import com.policia.remote.response.LoginPoliciaNalResult;
 import com.policia.remote.response.PoliciaLoginResponse;
 import com.policia.remote.response.PoliciaPerfilResponse;
 

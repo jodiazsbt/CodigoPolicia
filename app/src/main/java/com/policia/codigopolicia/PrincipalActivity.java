@@ -233,7 +233,7 @@ public class PrincipalActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.action_terminos) {
             WebView wv = new WebView(this);
-            wv.loadData(new HTML_Plantillas(this, HTML_Plantillas.Plantilla.TERMINOS).getPlantilla(), "text/html", "utf-8");
+            wv.loadData(new HTML_Plantillas(this, HTML_Plantillas.Plantilla.TERMINOS).getPlantilla(), "text/html; charset=utf-8", null);
             new AlertDialog.Builder(this)
                     .setView(wv)
                     .show();

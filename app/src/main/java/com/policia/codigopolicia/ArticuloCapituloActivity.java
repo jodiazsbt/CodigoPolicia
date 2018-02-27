@@ -8,6 +8,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
 import com.policia.negocio.modelo.Modelo_MEDIDA;
 import com.policia.negocio.modelo.Modelo_NUMERAL;
+import com.rd.PageIndicatorView;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -32,6 +34,7 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
     WrapContentViewPager viewPagerArticulos;
     PagerAdapter pagerAdapterArticulo;
     FloatingActionButton fab;
+    PageIndicatorView pageIndicatorView;
 
     private int counter = 0;
     private int reproduccion = 0;
@@ -86,7 +89,6 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
             pagerAdapterArticulo = new CNPC_FragmentStatePagerAdapter(getSupportFragmentManager(), capitulo, termino, paginas);
             viewPagerArticulos.setAdapter(pagerAdapterArticulo);
             viewPagerArticulos.setCurrentItem(posicion);
-
             showcaseView = new ShowcaseView.Builder(this)
                     .withMaterialShowcase()
                     .singleShot(Long.parseLong("1" + R.layout.articulo_activity))

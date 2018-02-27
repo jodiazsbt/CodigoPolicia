@@ -136,7 +136,7 @@ public class MULTAS_Fragment extends Fragment {
             }
 
             html_plantilla_articulos = html_plantilla_articulos
-                    .replace("@share", html_share);
+                    .replace("@share", html_share.replace("\"","'"));
             webViewArticulo = view.findViewById(R.id.webViewArticulo);
             webViewArticulo.getSettings().setJavaScriptEnabled(true);
             webViewArticulo.loadData(html_plantilla_articulos, "text/html; charset=utf-8", null);

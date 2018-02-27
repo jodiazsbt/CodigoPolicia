@@ -7,8 +7,8 @@ android {
         vectorDrawables.useSupportLibrary true
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1062
-        versionName "1.0.62"
+        versionCode 1063
+        versionName "1.0.63"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     repositories {
@@ -46,4 +46,6 @@ dependencies {
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
     compile 'com.github.beyka:androidtiffbitmapfactory:0.9.8.3'
     compile 'com.google.zxing:core:3.3.0'
+    compile 'com.romandanylyk:pageindicatorview:0.0.7'
+
 }

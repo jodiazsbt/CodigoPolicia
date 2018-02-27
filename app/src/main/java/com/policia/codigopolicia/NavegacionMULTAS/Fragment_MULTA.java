@@ -69,7 +69,7 @@ public class Fragment_MULTA extends Fragment implements View.OnClickListener {
                         String html_plantilla_procedimientos = new HTML_Plantillas(getActivity(), HTML_Plantillas.Plantilla.PROCEDIMIENTOS).getPlantilla();
 
                         final WebView webView = new WebView(getActivity());
-                        webView.loadData(html_plantilla_procedimientos.replace("@accion", negocioAccion.accionCiudadano()), "text/html", "utf-8");
+                        webView.loadData(html_plantilla_procedimientos.replace("@accion", negocioAccion.accionCiudadano()), "text/html; charset=utf-8", null);
                         new AlertDialog.Builder(getActivity())
                                 .setTitle("PROCEDIMIENTO CIUDADANO")
                                 .setView(webView)

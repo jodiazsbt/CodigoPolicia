@@ -32,12 +32,7 @@ import com.policia.codigopolicia.IdentificacionPolicia.BarcodeCaptureActivity;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Identificacion;
 import com.policia.codigopolicia.IdentificacionPolicia.Fragment_Opciones;
 import com.policia.codigopolicia.IdentificacionPolicia.IClickScan;
-import com.policia.codigopolicia.zxing.CustomScannerActivity;
-import com.policia.codigopolicia.zxing.google.zxing.integration.android.IntentIntegrator;
-import com.policia.codigopolicia.zxing.google.zxing.integration.android.IntentResult;
 import com.policia.remote.RemotePolicia;
-
-import java.util.Arrays;
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that

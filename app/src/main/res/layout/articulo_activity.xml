@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:attrs="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,7 +9,7 @@
         android:id="@+id/scrollViewArticulo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@id/imageViewFranja"
+        app:layout_constraintBottom_toTopOf="@id/pageIndicatorView"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -39,12 +40,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:clickable="false"
+        android:src="@mipmap/img_03_btn_lectura"
         android:tint="@color/colorPrimaryDark"
         app:backgroundTint="@android:color/white"
         app:elevation="4dp"
         app:layout_anchor="@id/imageViewCaricatura"
-        app:layout_anchorGravity="bottom|right|end"
-        android:src="@mipmap/img_03_btn_lectura"/>
+        app:layout_anchorGravity="bottom|right|end" />
 
     <ImageView
         android:id="@+id/imageViewFranja"
@@ -52,5 +53,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:src="@mipmap/img_franja_ponal" />
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/pageIndicatorView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        app:layout_anchor="@id/imageViewFranja"
+        app:layout_anchorGravity="bottom|center"
+        app:piv_animationType="scale"
+        app:piv_interactiveAnimation="true"
+        app:piv_selectedColor="@color/colorPrimaryDark"
+        app:piv_unselectedColor="@color/colorCentro"
+        app:piv_viewPager="@id/viewPagerArticulos"
+        attrs:piv_padding="12dp"
+        attrs:piv_radius="8dp" />
 
 </android.support.design.widget.CoordinatorLayout>

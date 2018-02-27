@@ -12,7 +12,6 @@ import com.policia.persistencia.rutinas.Rutinas_USUARIO;
 import com.policia.persistencia.tablas.Tabla_PREFERENCIA;
 import com.policia.persistencia.tablas.Tabla_SESION;
 import com.policia.persistencia.tablas.Tabla_USUARIO;
-import com.policia.remote.response.LoginPoliciaNalResult;
 import com.policia.remote.response.PoliciaPerfilResponse;
 
 import java.util.Date;

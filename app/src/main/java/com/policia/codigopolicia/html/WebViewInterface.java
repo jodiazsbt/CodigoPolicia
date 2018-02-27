@@ -80,7 +80,7 @@ public class WebViewInterface {
                                 String html_plantilla_procedimientos = new HTML_Plantillas(mActivity, HTML_Plantillas.Plantilla.PROCEDIMIENTOS).getPlantilla();
 
                                 final WebView webView = new WebView(mActivity);
-                                webView.loadData(html_plantilla_procedimientos.replace("@accion", negocioAccion.accionCiudadano()), "text/html", "utf-8");
+                                webView.loadData(html_plantilla_procedimientos.replace("@accion", negocioAccion.accionCiudadano()), "text/html; charset=utf-8", null);
                                 new AlertDialog.Builder(mActivity)
                                         .setTitle(items[item])
                                         .setView(webView)
