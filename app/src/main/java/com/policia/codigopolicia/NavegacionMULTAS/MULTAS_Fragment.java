@@ -12,6 +12,7 @@ import com.policia.codigopolicia.R;
 import com.policia.codigopolicia.html.HTML_Plantillas;
 import com.policia.codigopolicia.html.WebViewInterface;
 import com.policia.negocio.logica.Negocio_ARTICULO;
+import com.policia.negocio.logica.Negocio_COMPETENCIA;
 import com.policia.negocio.logica.Negocio_MEDIDA;
 import com.policia.negocio.logica.Negocio_NUMERAL;
 import com.policia.negocio.modelo.Modelo_ARTICULO;
@@ -29,6 +30,7 @@ public class MULTAS_Fragment extends Fragment {
     private Negocio_ARTICULO negocioArticulo;
     private Negocio_NUMERAL negocioNumeral;
     private Negocio_MEDIDA negocioMedida;
+    private Negocio_COMPETENCIA negocioCompetencia;
 
     private int position;
     private String multa;
@@ -70,6 +72,7 @@ public class MULTAS_Fragment extends Fragment {
             negocioArticulo = new Negocio_ARTICULO(context);
             negocioNumeral = new Negocio_NUMERAL(context);
             negocioMedida = new Negocio_MEDIDA(context);
+            negocioCompetencia = new Negocio_COMPETENCIA(context);
 
             ArrayList<Modelo_ARTICULO> articulos = null;
             articulos = negocioArticulo.ArticulosPorMultaCategoria(multa, categoria, position + 1);
@@ -99,13 +102,31 @@ public class MULTAS_Fragment extends Fragment {
 
                 ArrayList<Modelo_NUMERAL> numerales = negocioNumeral.NumeralesPorArticulo(articulo.ID);
 
-                String parrafo_numeral = "<p align='justify'>@Nivel &#09; @Numeral</p>";
+                String parrafo_numeral = "<p align='justify'>@Nivel &#09; @Numeral@TAG</p>";
+                String tag = " <small><a href='javascript:dialogNumeral(@ID)'>(" + getString(R.string.ver_procedimiento) + ")</a></small>";
                 if (!(numerales.size() == 0)) {
+
+                    int medidas = 0;
+                    int competencias = 0;
 
                     int pos = 0;
                     do {
                         Modelo_NUMERAL numeral = numerales.get(pos++);
-                        html_plantilla_articulos = html_plantilla_articulos.replace("@Numerales", parrafo_numeral.replace("@Nivel", numeral.Nivel).replace("@Numeral", numeral.Numeral) + "@Numerales");
+
+                        medidas = negocioMedida.countComparendosNumeral(numeral.ID);
+                        competencias = negocioCompetencia.countCompetenciasPorNumeral(numeral.ID);
+                        String parrafo = "";
+                        if ((competencias + medidas) == 0) {
+                            parrafo = parrafo_numeral
+                                    .replace("@TAG", "");
+                        } else {
+                            parrafo = parrafo_numeral
+                                    .replace("@TAG", tag.replace("@ID", numeral.ID));
+                        }
+                        html_plantilla_articulos = html_plantilla_articulos
+                                .replace("@Numerales", parrafo
+                                        .replace("@Nivel", numeral.Nivel)
+                                        .replace("@Numeral", numeral.Numeral) + "@Numerales");
                     } while (pos < numerales.size());
                 }
 

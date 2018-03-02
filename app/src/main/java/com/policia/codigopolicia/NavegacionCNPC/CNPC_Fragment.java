@@ -115,15 +115,16 @@ public class CNPC_Fragment extends Fragment {
 
                         medidas = negocioMedida.countComparendosNumeral(numeral.ID);
                         competencias = negocioCompetencia.countCompetenciasPorNumeral(numeral.ID);
-
+                        String parrafo = "";
                         if ((competencias + medidas) == 0) {
-                            parrafo_numeral = parrafo_numeral.replace("@TAG", "");
+                            parrafo = parrafo_numeral
+                                    .replace("@TAG", "");
                         } else {
-                            parrafo_numeral = parrafo_numeral.replace("@TAG", tag.replace("@ID", numeral.ID));
+                            parrafo = parrafo_numeral
+                                    .replace("@TAG", tag.replace("@ID", numeral.ID));
                         }
-
                         html_plantilla_articulos = html_plantilla_articulos
-                                .replace("@Numerales", parrafo_numeral
+                                .replace("@Numerales", parrafo
                                         .replace("@Nivel", termino.equals("") ? numeral.Nivel : numeral.Nivel.replace(termino, busqueda.replace("@termino", termino)))
                                         .replace("@Numeral", termino.equals("") ? numeral.Numeral : numeral.Numeral.replace(termino, busqueda.replace("@termino", termino))) + "@Numerales");
                     } while (pos < numerales.size());
@@ -160,7 +161,7 @@ public class CNPC_Fragment extends Fragment {
             }
 
             html_plantilla_articulos = html_plantilla_articulos
-                    .replace("@share", html_share.replace("\"","'"));
+                    .replace("@share", html_share.replace("\"", "'"));
             webViewArticulo = view.findViewById(R.id.webViewArticulo);
             webViewArticulo.getSettings().setJavaScriptEnabled(true);
             webViewArticulo.loadData(html_plantilla_articulos, "text/html; charset=utf-8", null);
