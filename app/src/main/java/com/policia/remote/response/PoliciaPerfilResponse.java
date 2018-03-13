@@ -1,13 +1,12 @@
 
 package com.policia.remote.response;
 
+import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 
 public class PoliciaPerfilResponse implements Serializable, Parcelable
 {
@@ -24,10 +23,10 @@ public class PoliciaPerfilResponse implements Serializable, Parcelable
     @SerializedName("gradoAlfabetico")
     @Expose
     public String gradoAlfabetico;
-    @SerializedName("Apellidos")
+    @SerializedName("apellidos")
     @Expose
     public String apellidos;
-    @SerializedName("Nombres")
+    @SerializedName("nombres")
     @Expose
     public String nombres;
     @SerializedName("situacionLaboral")
@@ -39,6 +38,27 @@ public class PoliciaPerfilResponse implements Serializable, Parcelable
     @SerializedName("cargoActual")
     @Expose
     public String cargoActual;
+    @SerializedName("consecutivo")
+    @Expose
+    public String consecutivo;
+    @SerializedName("undeConsecutivo")
+    @Expose
+    public String undeConsecutivo;
+    @SerializedName("undeFuerza")
+    @Expose
+    public String undeFuerza;
+    @SerializedName("funcionario")
+    @Expose
+    public String funcionario;
+    @SerializedName("unidad")
+    @Expose
+    public String unidad;
+    @SerializedName("placa")
+    @Expose
+    public String placa;
+    @SerializedName("undeConsecutivoLaborando")
+    @Expose
+    public String undeConsecutivoLaborando;
     public final static Creator<PoliciaPerfilResponse> CREATOR = new Creator<PoliciaPerfilResponse>() {
 
 
@@ -55,7 +75,7 @@ public class PoliciaPerfilResponse implements Serializable, Parcelable
 
     }
     ;
-    private final static long serialVersionUID = 7129722396589717370L;
+    private final static long serialVersionUID = -1483129843080704L;
 
     protected PoliciaPerfilResponse(Parcel in) {
         this.identificacion = ((String) in.readValue((int.class.getClassLoader())));
@@ -67,6 +87,13 @@ public class PoliciaPerfilResponse implements Serializable, Parcelable
         this.situacionLaboral = ((String) in.readValue((String.class.getClassLoader())));
         this.nombreGrado = ((String) in.readValue((String.class.getClassLoader())));
         this.cargoActual = ((String) in.readValue((String.class.getClassLoader())));
+        this.consecutivo = ((String) in.readValue((int.class.getClassLoader())));
+        this.undeConsecutivo = ((String) in.readValue((int.class.getClassLoader())));
+        this.undeFuerza = ((String) in.readValue((int.class.getClassLoader())));
+        this.funcionario = ((String) in.readValue((String.class.getClassLoader())));
+        this.unidad = ((String) in.readValue((String.class.getClassLoader())));
+        this.placa = ((String) in.readValue((int.class.getClassLoader())));
+        this.undeConsecutivoLaborando = ((String) in.readValue((int.class.getClassLoader())));
     }
 
     public PoliciaPerfilResponse() {
@@ -82,6 +109,13 @@ public class PoliciaPerfilResponse implements Serializable, Parcelable
         dest.writeValue(situacionLaboral);
         dest.writeValue(nombreGrado);
         dest.writeValue(cargoActual);
+        dest.writeValue(consecutivo);
+        dest.writeValue(undeConsecutivo);
+        dest.writeValue(undeFuerza);
+        dest.writeValue(funcionario);
+        dest.writeValue(unidad);
+        dest.writeValue(placa);
+        dest.writeValue(undeConsecutivoLaborando);
     }
 
     public int describeContents() {

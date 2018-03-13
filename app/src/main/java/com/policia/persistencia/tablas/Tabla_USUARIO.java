@@ -19,4 +19,11 @@ public class Tabla_USUARIO {
     public String SITUACIONLABORAL;
     public String NOMBREGRADO;
     public String CARGOACTUAL;
+    public String CONSECUTIVO;
+    public String UNDECONSECUTIVO;
+    public String UNDEFUERZA;
+    public String FUNCIONARIO;
+    public String UNIDAD;
+    public String PLACA;
+    public String UNDECONSECUTIVOLABORANDO;
 }

@@ -34,6 +34,13 @@ public class Rutinas_USUARIO {
         parameters.put("SITUACIONLABORAL", usuario.SITUACIONLABORAL);
         parameters.put("NOMBREGRADO", usuario.NOMBREGRADO);
         parameters.put("CARGOACTUAL", usuario.CARGOACTUAL);
+        parameters.put("CONSECUTIVO", usuario.CONSECUTIVO);
+        parameters.put("UNDECONSECUTIVO", usuario.UNDECONSECUTIVO);
+        parameters.put("UNDEFUERZA", usuario.UNDEFUERZA);
+        parameters.put("FUNCIONARIO", usuario.FUNCIONARIO);
+        parameters.put("UNIDAD", usuario.UNIDAD);
+        parameters.put("PLACA", usuario.PLACA);
+        parameters.put("UNDECONSECUTIVOLABORANDO", usuario.UNDECONSECUTIVOLABORANDO);
 
         DB = new SQLiteProvider(context).getWritableDatabase();
         id = DB.insert("'USUARIO'", null, parameters);

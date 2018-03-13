@@ -160,6 +160,13 @@ public class Seguridad {
             tablaUsuario.SITUACIONLABORAL = usuario.situacionLaboral;
             tablaUsuario.NOMBREGRADO = usuario.nombreGrado;
             tablaUsuario.CARGOACTUAL = usuario.cargoActual;
+            tablaUsuario.CONSECUTIVO = usuario.consecutivo;
+            tablaUsuario.UNDECONSECUTIVO = usuario.undeConsecutivo;
+            tablaUsuario.UNDEFUERZA = usuario.undeFuerza;
+            tablaUsuario.FUNCIONARIO = usuario.funcionario;
+            tablaUsuario.UNIDAD = usuario.unidad;
+            tablaUsuario.PLACA = usuario.placa;
+            tablaUsuario.UNDECONSECUTIVOLABORANDO = usuario.undeConsecutivoLaborando;
 
             rutinasUsuario.crearUsuario(tablaUsuario);
         }
