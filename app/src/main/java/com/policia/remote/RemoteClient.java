@@ -53,6 +53,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -416,7 +417,7 @@ public class RemoteClient {
     }
 
     public RESPUESTAENCUESTAResponse responderEncuenta(String ID, String Departamento, String Fecha, String Opcion) throws Exception {
-        String body = "RESPUESTAENCUESTA/" + ID + "," + Departamento + "," + Fecha + "," + Opcion + "";
+        String body = "RESPUESTAENCUESTA/" + ID + "," + Departamento.replaceAll(" ", "%20") + "," + Fecha + "," + Opcion + "";
         StringBuilder builder = postInvoke(direccionServicio + body);
         RESPUESTAENCUESTAResponse result = new Gson().fromJson(builder.toString(), RESPUESTAENCUESTAResponse.class);
         return result;

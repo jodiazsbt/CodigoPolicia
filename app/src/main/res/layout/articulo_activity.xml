@@ -8,9 +8,7 @@
     <ScrollView
         android:id="@+id/scrollViewArticulo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@id/pageIndicatorView"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
         app:layout_anchor="@id/imageViewFranja"
         app:layout_anchorGravity="bottom|center"
         app:piv_animationType="scale"
@@ -67,7 +65,7 @@
         app:piv_selectedColor="@color/colorPrimaryDark"
         app:piv_unselectedColor="@color/colorCentro"
         app:piv_viewPager="@id/viewPagerArticulos"
-        attrs:piv_padding="12dp"
-        attrs:piv_radius="8dp" />
+        attrs:piv_padding="6dp"
+        attrs:piv_radius="4dp" />
 
 </android.support.design.widget.CoordinatorLayout>

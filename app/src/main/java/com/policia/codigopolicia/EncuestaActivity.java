@@ -54,7 +54,7 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
 
             new ShowcaseView.Builder(this)
                     .withMaterialShowcase()
-                    .singleShot(R.layout.encuesta_activity)
+                    //.singleShot(R.layout.encuesta_activity)
                     .setStyle(R.style.CustomShowcaseTheme2)
                     .setContentTitle("Encuesta")
                     .setContentText("Lanzamos encuestas de una sola pregunta periódicamente como parte de nuestro plan de mejoramiento continuo. Estas encuestas son totalmente anónimas; para más información consulte nuestra política de privacidad.")
