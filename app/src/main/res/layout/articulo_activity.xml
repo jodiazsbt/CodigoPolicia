@@ -8,7 +8,9 @@
     <ScrollView
         android:id="@+id/scrollViewArticulo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        app:layout_anchorGravity="bottom">
 
         <LinearLayout
             android:layout_width="match_parent"
