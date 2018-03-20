@@ -5,7 +5,7 @@ import android.os.HandlerThread;
 
 /**
  * Singleton thread that is started and stopped on demand.
- *
+ * <p>
  * Any access to Camera / CameraManager should happen on this thread, through CameraInstance.
  */
 class CameraThread {
@@ -33,7 +33,7 @@ class CameraThread {
 
     /**
      * Call from main thread or camera thread.
-     *
+     * <p>
      * Enqueues a task on the camera thread.
      *
      * @param runnable the task to enqueue
@@ -47,10 +47,10 @@ class CameraThread {
 
     /**
      * Call from main thread or camera thread.
-     *
+     * <p>
      * Enqueues a task on the camera thread.
      *
-     * @param runnable the task to enqueue
+     * @param runnable    the task to enqueue
      * @param delayMillis the delay in milliseconds before executing the runnable
      */
     protected void enqueueDelayed(Runnable runnable, long delayMillis) {

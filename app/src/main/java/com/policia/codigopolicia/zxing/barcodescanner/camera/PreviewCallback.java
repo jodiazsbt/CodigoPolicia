@@ -7,5 +7,6 @@ import com.policia.codigopolicia.zxing.barcodescanner.SourceData;
  */
 public interface PreviewCallback {
     void onPreview(SourceData sourceData);
+
     void onPreviewError(Exception e);
 }

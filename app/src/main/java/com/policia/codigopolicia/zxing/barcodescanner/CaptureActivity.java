@@ -33,7 +33,7 @@ public class CaptureActivity extends Activity {
      */
     protected DecoratedBarcodeView initializeContent() {
         setContentView(R.layout.zxing_capture);
-        return (DecoratedBarcodeView)findViewById(R.id.zxing_barcode_scanner);
+        return (DecoratedBarcodeView) findViewById(R.id.zxing_barcode_scanner);
     }
 
     @Override

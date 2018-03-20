@@ -14,9 +14,9 @@ import java.util.List;
 
 /**
  * A class for decoding images.
- *
+ * <p>
  * A decoder contains all the configuration required for the binarization and decoding process.
- *
+ * <p>
  * The actual decoding should happen on a dedicated thread.
  */
 public class Decoder implements ResultPointCallback {
@@ -24,7 +24,7 @@ public class Decoder implements ResultPointCallback {
 
     /**
      * Create a new Decoder with the specified Reader.
-     *
+     * <p>
      * It is recommended to use an instance of MultiFormatReader in most cases.
      *
      * @param reader the reader
@@ -39,7 +39,7 @@ public class Decoder implements ResultPointCallback {
 
     /**
      * Given an image source, attempt to decode the barcode.
-     *
+     * <p>
      * Must not raise an exception.
      *
      * @param source the image source
@@ -51,7 +51,7 @@ public class Decoder implements ResultPointCallback {
 
     /**
      * Given an image source, convert to a binary bitmap.
-     *
+     * <p>
      * Override this to use a custom binarizer.
      *
      * @param source the image source
@@ -88,7 +88,7 @@ public class Decoder implements ResultPointCallback {
 
     /**
      * Call immediately after decode(), from the same thread.
-     *
+     * <p>
      * The result is undefined while decode() is running.
      *
      * @return possible ResultPoints from the last decode.

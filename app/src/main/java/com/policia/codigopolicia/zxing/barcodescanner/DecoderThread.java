@@ -36,7 +36,7 @@ public class DecoderThread {
         public boolean handleMessage(Message message) {
             if (message.what == R.id.zxing_decode) {
                 decode((SourceData) message.obj);
-            } else if(message.what == R.id.zxing_preview_failed) {
+            } else if (message.what == R.id.zxing_preview_failed) {
                 // Error already logged. Try again.
                 requestNextPreview();
             }
@@ -70,7 +70,7 @@ public class DecoderThread {
 
     /**
      * Start decoding.
-     *
+     * <p>
      * This must be called from the UI thread.
      */
     public void start() {
@@ -85,7 +85,7 @@ public class DecoderThread {
 
     /**
      * Stop decoding.
-     *
+     * <p>
      * This must be called from the UI thread.
      */
     public void stop() {
@@ -144,7 +144,7 @@ public class DecoderThread {
         sourceData.setCropRect(cropRect);
         LuminanceSource source = createSource(sourceData);
 
-        if(source != null) {
+        if (source != null) {
             rawResult = decoder.decode(source);
         }
 

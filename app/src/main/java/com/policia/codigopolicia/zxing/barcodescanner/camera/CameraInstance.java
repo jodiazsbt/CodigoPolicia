@@ -12,7 +12,7 @@ import com.policia.codigopolicia.zxing.barcodescanner.Util;
 
 /**
  * Manage a camera instance using a background thread.
- *
+ * <p>
  * All methods must be called from the main thread.
  */
 public class CameraInstance {
@@ -31,7 +31,7 @@ public class CameraInstance {
 
     /**
      * Construct a new CameraInstance.
-     *
+     * <p>
      * A new CameraManager is created.
      *
      * @param context the Android Context
@@ -102,9 +102,8 @@ public class CameraInstance {
     }
 
     /**
-     *
      * @return the camera rotation relative to display rotation, in degrees. Typically 0 if the
-     *    display is in landscape orientation.
+     * display is in landscape orientation.
      */
     public int getCameraRotation() {
         return cameraManager.getCameraRotation();
@@ -253,7 +252,7 @@ public class CameraInstance {
 
     /**
      * Returns the CameraManager used to control the camera.
-     *
+     * <p>
      * The CameraManager is not thread-safe, and must only be used from the CameraThread.
      *
      * @return the CameraManager used
@@ -263,7 +262,6 @@ public class CameraInstance {
     }
 
     /**
-     *
      * @return the CameraThread used to manage the camera
      */
     protected CameraThread getCameraThread() {
@@ -271,7 +269,6 @@ public class CameraInstance {
     }
 
     /**
-     *
      * @return the surface om which the preview is displayed
      */
     protected CameraSurface getSurface() {

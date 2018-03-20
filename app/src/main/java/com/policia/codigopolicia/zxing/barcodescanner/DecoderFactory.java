@@ -13,7 +13,7 @@ public interface DecoderFactory {
 
     /**
      * Create a new Decoder.
-     *
+     * <p>
      * While this method will only be called from a single thread, the created Decoder will
      * be used from a different thread. Each decoder will only be used from a single thread.
      *

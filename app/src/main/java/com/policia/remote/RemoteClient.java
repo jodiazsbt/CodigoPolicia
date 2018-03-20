@@ -45,7 +45,9 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.RequestWrapper;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
@@ -53,7 +55,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,11 +69,13 @@ public class RemoteClient {
     private static RemoteClient instancia;
 
     private String direccionApi;
+    private String direccionRENEC;
     private String direccionServicio;
 
     private RemoteClient(Context context) {
         this.context = context;
         this.client = new DefaultHttpClient();
+        this.direccionRENEC = context.getResources().getString(R.string.srvrenec);
         this.direccionApi = context.getResources().getString(R.string.srvapplogin);
         this.direccionServicio = context.getResources().getString(R.string.srvappmoviles);
     }
@@ -259,6 +262,59 @@ public class RemoteClient {
         return builder;
     }
 
+    private StringBuilder getRENEC(String uri, String Documento) throws Exception {
+
+        StringBuilder builder = new StringBuilder();
+        try {
+
+            if (!isServiceOnline())
+                return null;
+
+            final String NAMESPACE = "https://srvpqrs.policia.gov.co/wsCnp/";
+            final String URL = "http://srvbiometria4.policia.gov.co/ws_renec/ServiciosRenec.asmx";
+            final String SOAP_ACTION = "https://srvpqrs.policia.gov.co/wsCnp/ConsultaPersonasRenec";
+
+            HttpPost request = new HttpPost(URL);
+            request.addHeader("SOAPAction", SOAP_ACTION);
+            request.addHeader("Content-Type", "text/xml");
+            //request.addHeader("Host", "srvbiometria4.policia.gov.co");
+
+            request.setEntity(new StringEntity("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                    "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
+                    "  <soap:Body>\n" +
+                    "    <ConsultaPersonasRenec xmlns=" + NAMESPACE + ">\n" +
+                    "      <Documento>" + Documento + "</Documento>\n" +
+                    "    </ConsultaPersonasRenec>\n" +
+                    "  </soap:Body>\n" +
+                    "</soap:Envelope>"));
+
+            RequestWrapper requestWrapper = new RequestWrapper(request);
+            requestWrapper.setMethod("POST");requestWrapper.removeHeaders("Host");
+            requestWrapper.removeHeaders("Host");
+            requestWrapper.setHeader("Host", "srvbiometria4.policia.gov.co");
+
+            HttpResponse response = client.execute(requestWrapper);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            if (statusCode == 200) {
+                InputStream content = response.getEntity().getContent();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(content));
+                builder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+                content.close();
+            } else
+                throw new Exception(statusLine.getReasonPhrase());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return builder;
+    }
+
     public LoginPoliciaNalResult LoginPoliciaNal(String usuario, String contrasena) throws Exception {
         String body = "LoginPoliciaNal/" + usuario + "," + Base64.encodeToString(contrasena.getBytes(), Base64.DEFAULT).replace("\n", "") + ",172.28.3.23,CNPC";
         StringBuilder builder = postInvoke(direccionServicio + body);
@@ -267,6 +323,12 @@ public class RemoteClient {
             return null;
         }
         return result.LoginPoliciaNalResult.get(0);
+    }
+
+    public PoliciaLoginResponse consultarRENEC(String documento) throws Exception {
+        StringBuilder builder = getRENEC(Uri.parse(direccionRENEC).toString(), documento);
+        PoliciaLoginResponse result = new Gson().fromJson(builder.toString(), PoliciaLoginResponse.class);
+        return result;
     }
 
     public PoliciaLoginResponse LoginOID(String usuario, String contrasena) throws Exception {

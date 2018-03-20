@@ -17,19 +17,19 @@ public class LegacyPreviewScalingStrategy extends PreviewScalingStrategy {
 
     /**
      * Choose the best preview size, based on our display size.
-     *
+     * <p>
      * We prefer:
      * 1. no scaling
      * 2. least downscaling
      * 3. least upscaling
-     *
+     * <p>
      * We do not care much about aspect ratio, since we just crop away extra pixels. We only choose
      * the size to minimize scaling.
-     *
+     * <p>
      * In the future we may consider choosing the biggest possible preview size, to maximize the
      * resolution we have for decoding. We need more testing to see whether or not that is feasible.
      *
-     * @param sizes supported preview sizes, containing at least one size. Sizes are in natural camera orientation.
+     * @param sizes   supported preview sizes, containing at least one size. Sizes are in natural camera orientation.
      * @param desired The desired display size, in the same orientation
      * @return the best preview size, never null
      */
@@ -83,9 +83,9 @@ public class LegacyPreviewScalingStrategy extends PreviewScalingStrategy {
     /**
      * Scale from so that to.fitsIn(size). Tries to scale by powers of two, or by 3/2. Aspect ratio
      * is preserved.
-     *
+     * <p>
      * These scaling factors will theoretically result in fast scaling with minimal quality loss.
-     *
+     * <p>
      * TODO: confirm whether or not this is the case in practice.
      *
      * @param from the start size
@@ -135,10 +135,10 @@ public class LegacyPreviewScalingStrategy extends PreviewScalingStrategy {
 
     /**
      * Scale the preview to cover the viewfinder, then center it.
-     *
+     * <p>
      * Aspect ratio is preserved.
      *
-     * @param previewSize the size of the preview (camera), in current display orientation
+     * @param previewSize    the size of the preview (camera), in current display orientation
      * @param viewfinderSize the size of the viewfinder (display), in current display orientation
      * @return a rect placing the preview
      */

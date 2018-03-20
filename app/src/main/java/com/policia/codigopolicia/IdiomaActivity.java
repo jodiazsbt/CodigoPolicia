@@ -89,8 +89,7 @@ public class IdiomaActivity extends Activity {
             Toast.makeText(activity, getString(R.string.toast_locale_success) + " " + sesion.getIdiomaNombre(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
 
             Intent refresh = new Intent(this, PrincipalActivity.class);
             startActivity(refresh);

@@ -43,11 +43,11 @@ public final class DecodeHintManager {
 
     /**
      * <p>Split a query string into a list of name-value pairs.</p>
-     *
+     * <p>
      * <p>This is an alternative to the {@link Uri#getQueryParameterNames()} and
      * {@link Uri#getQueryParameters(String)}, which are quirky and not suitable
      * for exist-only Uri parameters.</p>
-     *
+     * <p>
      * <p>This method ignores multiple parameters with the same name and returns the
      * first one only. This is technically incorrect, but should be acceptable due
      * to the method of processing Hints: no multiple values for a hint.</p>

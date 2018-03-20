@@ -18,6 +18,7 @@ public class ViewTargets {
 
     /**
      * Highlight the navigation button (the Up or Navigation drawer button) in a Toolbar
+     *
      * @param toolbar The toolbar to search for the view in
      * @return the {@link ViewTarget} to supply to a {@link com.github.amlcurran.showcaseview.ShowcaseView}
      * @throws MissingViewException when the view couldn't be found. Raise an issue on Github if you get this!

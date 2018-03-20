@@ -23,7 +23,7 @@ public class InvertedDecoder extends Decoder {
 
     /**
      * Given an image source, convert to a binary bitmap.
-     *
+     * <p>
      * Override this to use a custom binarizer.
      *
      * @param source the image source

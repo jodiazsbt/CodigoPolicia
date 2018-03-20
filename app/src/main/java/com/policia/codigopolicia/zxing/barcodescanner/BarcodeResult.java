@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * This contains the result of a barcode scan.
- *
+ * <p>
  * This class delegate all read-only fields of {@link Result},
  * and adds a bitmap with scanned barcode.
  */
@@ -94,10 +94,9 @@ public class BarcodeResult {
     }
 
     /**
-     *
      * @return Bitmap preview scale factor
      */
-    public int getBitmapScaleFactor(){
+    public int getBitmapScaleFactor() {
         return mScaleFactor;
     }
 

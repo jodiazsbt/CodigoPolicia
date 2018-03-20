@@ -36,10 +36,10 @@ import java.util.List;
 /**
  * Wrapper to manage the Camera. This is not thread-safe, and the methods must always be called
  * from the same thread.
- *
- *
+ * <p>
+ * <p>
  * Call order:
- *
+ * <p>
  * 1. setCameraSettings()
  * 2. open(), set desired preview size (any order)
  * 3. configure(), setPreviewDisplay(holder) (any order)
@@ -97,7 +97,7 @@ public final class CameraManager {
             PreviewCallback callback = this.callback;
             if (cameraResolution != null && callback != null) {
                 try {
-                    if(data == null) {
+                    if (data == null) {
                         throw new NullPointerException("No preview data received");
                     }
                     int format = camera.getParameters().getPreviewFormat();
@@ -112,7 +112,7 @@ public final class CameraManager {
                 }
             } else {
                 Log.d(TAG, "Got preview callback, but no handler or resolution available");
-                if(callback != null) {
+                if (callback != null) {
                     // Should generally not happen
                     callback.onPreviewError(new Exception("No resolution available"));
                 }
@@ -147,13 +147,13 @@ public final class CameraManager {
 
     /**
      * Configure the camera parameters, including preview size.
-     *
+     * <p>
      * The camera must be opened before calling this.
-     *
+     * <p>
      * Must be called from camera thread.
      */
     public void configure() {
-        if(camera == null) {
+        if (camera == null) {
             throw new RuntimeException("Camera not open");
         }
         setParameters();
@@ -172,7 +172,7 @@ public final class CameraManager {
 
     /**
      * Asks the camera hardware to begin drawing preview frames to the screen.
-     *
+     * <p>
      * Must be called from camera thread.
      */
     public void startPreview() {
@@ -188,7 +188,7 @@ public final class CameraManager {
 
     /**
      * Tells the camera to stop drawing preview frames.
-     *
+     * <p>
      * Must be called from camera thread.
      */
     public void stopPreview() {
@@ -209,7 +209,7 @@ public final class CameraManager {
 
     /**
      * Closes the camera driver if still in use.
-     *
+     * <p>
      * Must be called from camera thread.
      */
     public void close() {
@@ -223,16 +223,15 @@ public final class CameraManager {
      * @return true if the camera rotation is perpendicular to the current display rotation.
      */
     public boolean isCameraRotated() {
-        if(rotationDegrees == -1) {
+        if (rotationDegrees == -1) {
             throw new IllegalStateException("Rotation not calculated yet. Call configure() first.");
         }
         return rotationDegrees % 180 != 0;
     }
 
     /**
-     *
      * @return the camera rotation relative to display rotation, in degrees. Typically 0 if the
-     *    display is in landscape orientation.
+     * display is in landscape orientation.
      */
     public int getCameraRotation() {
         return rotationDegrees;
@@ -419,7 +418,7 @@ public final class CameraManager {
 
     /**
      * A single preview frame will be returned to the supplied callback.
-     *
+     * <p>
      * The thread on which this called is undefined, so a Handler should be used to post the result
      * to the correct thread.
      *
@@ -469,7 +468,7 @@ public final class CameraManager {
                         autoFocusManager.start();
                     }
                 }
-            } catch(RuntimeException e) {
+            } catch (RuntimeException e) {
                 // Camera error. Could happen if the camera is being closed.
                 Log.e(TAG, "Failed to set torch", e);
             }
@@ -477,7 +476,6 @@ public final class CameraManager {
     }
 
     /**
-     *
      * @return true if the torch is on
      * @throws RuntimeException if there is a camera error
      */

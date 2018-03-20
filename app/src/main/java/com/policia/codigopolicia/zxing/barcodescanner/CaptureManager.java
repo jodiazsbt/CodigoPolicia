@@ -38,10 +38,10 @@ import java.util.Map;
  * Manages barcode scanning for a CaptureActivity. This class may be used to have a custom Activity
  * (e.g. with a customized look and feel, or a different superclass), but not the barcode scanning
  * process itself.
- *
+ * <p>
  * This is intended for an Activity that is dedicated to capturing a single barcode and returning
  * it via setResult(). For other use cases, use DefaultBarcodeScannerView or BarcodeView directly.
- *
+ * <p>
  * The following is managed by this class:
  * - Orientation lock
  * - InactivityTimer
@@ -114,7 +114,7 @@ public class CaptureManager {
 
         @Override
         public void cameraClosed() {
-            if(finishWhenClosed) {
+            if (finishWhenClosed) {
                 Log.d(TAG, "Camera closed; finishing activity");
                 finish();
             }
@@ -142,7 +142,7 @@ public class CaptureManager {
     /**
      * Perform initialization, according to preferences set in the intent.
      *
-     * @param intent the intent containing the scanning preferences
+     * @param intent             the intent containing the scanning preferences
      * @param savedInstanceState saved state, containing orientation lock
      */
     public void initializeFromIntent(Intent intent, Bundle savedInstanceState) {
@@ -156,7 +156,7 @@ public class CaptureManager {
             this.orientationLock = savedInstanceState.getInt(SAVED_ORIENTATION_LOCK, ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
 
-        if(intent != null) {
+        if (intent != null) {
             // Only lock the orientation if it's not locked to something else yet
             boolean orientationLocked = intent.getBooleanExtra(Intents.Scan.ORIENTATION_LOCKED, true);
             if (orientationLocked) {
@@ -229,7 +229,7 @@ public class CaptureManager {
      * Call from Activity#onResume().
      */
     public void onResume() {
-        if(Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 23) {
             openCameraWithPermission();
         } else {
             barcodeView.resume();
@@ -244,7 +244,7 @@ public class CaptureManager {
         if (ContextCompat.checkSelfPermission(this.activity, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
             barcodeView.resume();
-        } else if(!askedPermission) {
+        } else if (!askedPermission) {
             ActivityCompat.requestPermissions(this.activity,
                     new String[]{Manifest.permission.CAMERA},
                     cameraPermissionReqCode);
@@ -256,14 +256,15 @@ public class CaptureManager {
 
     /**
      * Call from Activity#onRequestPermissionsResult
-     * @param requestCode The request code passed in {@link ActivityCompat#requestPermissions(Activity, String[], int)}.
-     * @param permissions The requested permissions.
+     *
+     * @param requestCode  The request code passed in {@link ActivityCompat#requestPermissions(Activity, String[], int)}.
+     * @param permissions  The requested permissions.
      * @param grantResults The grant results for the corresponding permissions
-     *     which is either {@link PackageManager#PERMISSION_GRANTED}
-     *     or {@link PackageManager#PERMISSION_DENIED}. Never null.
+     *                     which is either {@link PackageManager#PERMISSION_GRANTED}
+     *                     or {@link PackageManager#PERMISSION_DENIED}. Never null.
      */
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if(requestCode == cameraPermissionReqCode) {
+        if (requestCode == cameraPermissionReqCode) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // permission was granted
                 barcodeView.resume();
@@ -302,7 +303,7 @@ public class CaptureManager {
     /**
      * Create a intent to return as the Activity result.
      *
-     * @param rawResult the BarcodeResult, must not be null.
+     * @param rawResult        the BarcodeResult, must not be null.
      * @param barcodeImagePath a path to an exported file of the Barcode Image, can be null.
      * @return the Intent
      */
@@ -374,7 +375,7 @@ public class CaptureManager {
     }
 
     protected void closeAndFinish() {
-        if(barcodeView.getBarcodeView().isCameraClosed()) {
+        if (barcodeView.getBarcodeView().isCameraClosed()) {
             finish();
         } else {
             finishWhenClosed = true;

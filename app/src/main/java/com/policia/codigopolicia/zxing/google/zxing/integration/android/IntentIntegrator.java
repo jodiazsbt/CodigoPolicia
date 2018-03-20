@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Sean Owen
  * @author Fred Lin
  * @author Isaac Potoczny-Jones
@@ -70,6 +69,7 @@ public class IntentIntegrator {
     protected Class<?> getDefaultCaptureActivity() {
         return CaptureActivity.class;
     }
+
     /**
      * @param activity {@link Activity} invoking the integration
      */
@@ -205,6 +205,7 @@ public class IntentIntegrator {
     /**
      * Initiates a scan for all known barcode types with the default camera.
      * And starts a timer to finish on timeout
+     *
      * @return Activity.RESULT_CANCELED and true on parameter TIMEOUT.
      */
     public IntentIntegrator setTimeout(long timeout) {

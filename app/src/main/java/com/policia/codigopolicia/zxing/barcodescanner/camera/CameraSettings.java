@@ -39,7 +39,7 @@ public class CameraSettings {
 
     /**
      * Default to false.
-     *
+     * <p>
      * Inverted means dark & light colors are inverted.
      *
      * @return true if scan is inverted
@@ -80,7 +80,7 @@ public class CameraSettings {
 
     /**
      * Default to false.
-     *
+     * <p>
      * If enabled, metering is performed to determine focus area.
      *
      * @return true if metering is enabled

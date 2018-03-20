@@ -15,7 +15,7 @@ import com.policia.codigopolicia.R;
  * Created by 1085253556 on 17/01/2018.
  */
 
-public class CustomShowcaseView  implements ShowcaseDrawer {
+public class CustomShowcaseView implements ShowcaseDrawer {
 
     private final float width;
     private final float height;

@@ -47,12 +47,12 @@ public class DetalleExpediente {
         return String.valueOf(comportamiento.iDCOMPORTAMIENTORNMCGENERAL);
     }
 
-    public String getLabel(int posicion){
+    public String getLabel(int posicion) {
 
         return valores.get(posicion).getLabel();
     }
 
-    public String getValor(int posicion){
+    public String getValor(int posicion) {
 
         return valores.get(posicion).getValue();
     }

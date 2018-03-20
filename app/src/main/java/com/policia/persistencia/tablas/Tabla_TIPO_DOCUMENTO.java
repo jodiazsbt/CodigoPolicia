@@ -10,4 +10,5 @@ public class Tabla_TIPO_DOCUMENTO {
 
     public String ID;
     public String TIPO_DOCUMENTO;
+    public boolean ACTIVO;
 }

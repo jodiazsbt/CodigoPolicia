@@ -17,9 +17,9 @@ public interface BarcodeCallback {
 
     /**
      * ResultPoints are detected. This may be called whether or not the scanning was successful.
-     *
+     * <p>
      * This is mainly useful to give some feedback to the user while scanning.
-     *
+     * <p>
      * Do not depend on this being called at any specific point in the decode cycle.
      *
      * @param resultPoints points potentially identifying a barcode

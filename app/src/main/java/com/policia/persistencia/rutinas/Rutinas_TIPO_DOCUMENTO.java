@@ -27,7 +27,7 @@ public class Rutinas_TIPO_DOCUMENTO {
 
     public ArrayList<Modelo_TIPO_DOCUMENTO> TiposDocumento() {
         DB = new SQLiteProvider(context).getReadableDatabase();
-        Cursor cursor = DB.rawQuery("SELECT ID, TIPO_DOCUMENTO FROM TIPO_DOCUMENTO;", null);
+        Cursor cursor = DB.rawQuery("SELECT ID, TIPO_DOCUMENTO FROM TIPO_DOCUMENTO WHERE ACTIVO=1;", null);
 
         ArrayList<Modelo_TIPO_DOCUMENTO> result = new ArrayList<Modelo_TIPO_DOCUMENTO>();
         while (cursor.moveToNext()) {
@@ -58,6 +58,7 @@ public class Rutinas_TIPO_DOCUMENTO {
         ContentValues parameters = new ContentValues();
         parameters.put("ID", tipo_documento.ID);
         parameters.put("TIPO_DOCUMENTO", tipo_documento.TIPO_DOCUMENTO);
+        parameters.put("ACTIVO", "1");
 
         DB = new SQLiteProvider(context).getWritableDatabase();
         id = DB.insert("'TIPO_DOCUMENTO'", null, parameters);

@@ -1,4 +1,3 @@
-
 package com.policia.codigopolicia.parser;
 
 import com.google.gson.annotations.Expose;

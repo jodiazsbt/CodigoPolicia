@@ -24,7 +24,7 @@ import java.util.Set;
 
 /**
  * Encapsulates BarcodeView, ViewfinderView and status text.
- *
+ * <p>
  * To customize the UI, use BarcodeView and ViewfinderView directly.
  */
 public class DecoratedBarcodeView extends FrameLayout {
@@ -93,8 +93,8 @@ public class DecoratedBarcodeView extends FrameLayout {
 
         if (barcodeView == null) {
             throw new IllegalArgumentException(
-                "There is no a com.journeyapps.barcodescanner.BarcodeView on provided layout " +
-                "with the id \"zxing_barcode_surface\".");
+                    "There is no a com.journeyapps.barcodescanner.BarcodeView on provided layout " +
+                            "with the id \"zxing_barcode_surface\".");
         }
 
         // Pass on any preview-related attributes
@@ -105,8 +105,8 @@ public class DecoratedBarcodeView extends FrameLayout {
 
         if (viewFinder == null) {
             throw new IllegalArgumentException(
-                "There is no a com.journeyapps.barcodescanner.ViewfinderView on provided layout " +
-                "with the id \"zxing_viewfinder_view\".");
+                    "There is no a com.journeyapps.barcodescanner.ViewfinderView on provided layout " +
+                            "with the id \"zxing_viewfinder_view\".");
         }
 
         viewFinder.setCameraPreview(barcodeView);
@@ -160,7 +160,7 @@ public class DecoratedBarcodeView extends FrameLayout {
 
     public void setStatusText(String text) {
         // statusView is optional when using a custom layout
-        if(statusView != null) {
+        if (statusView != null) {
             statusView.setText(text);
         }
     }
@@ -236,7 +236,7 @@ public class DecoratedBarcodeView extends FrameLayout {
 
     /**
      * Handles focus, camera, volume up and volume down keys.
-     *
+     * <p>
      * Note that this view is not usually focused, so the Activity should call this directly.
      */
     @Override
