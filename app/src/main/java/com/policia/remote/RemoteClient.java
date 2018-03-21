@@ -33,6 +33,7 @@ import com.policia.remote.response.PoliciaPerfilResponse;
 import com.policia.remote.response.RELACIONCOMPETENCIANUMERALMEDIDACNPCResponse;
 import com.policia.remote.response.RESPUESTAENCUESTAResponse;
 import com.policia.remote.response.RNMCDETALLECOMPORTAMIENTOResponse;
+import com.policia.remote.response.RNMCGENERAL2Response;
 import com.policia.remote.response.RNMCGENERALResponse;
 import com.policia.remote.response.RNMCMEDIDACORRECTIVAResponse;
 import com.policia.remote.response.RNMCTIPOSDOCResponse;
@@ -289,7 +290,8 @@ public class RemoteClient {
                     "</soap:Envelope>"));
 
             RequestWrapper requestWrapper = new RequestWrapper(request);
-            requestWrapper.setMethod("POST");requestWrapper.removeHeaders("Host");
+            requestWrapper.setMethod("POST");
+            requestWrapper.removeHeaders("Host");
             requestWrapper.removeHeaders("Host");
             requestWrapper.setHeader("Host", "srvbiometria4.policia.gov.co");
 
@@ -503,6 +505,13 @@ public class RemoteClient {
         String body = "RNMC_GENERAL/" + TipoDocumento + "," + Identificacion;
         StringBuilder builder = getInvoke(direccionServicio + body);
         RNMCGENERALResponse result = new Gson().fromJson(builder.toString(), RNMCGENERALResponse.class);
+        return result;
+    }
+
+    public RNMCGENERAL2Response RNMC_GENERAL(String TipoDocumento, String Identificacion, String Token, String Expedicion) throws Exception {
+        String body = "RNMC_GENERAL2/" + TipoDocumento + "," + Identificacion + "," + Token + "," + Expedicion;
+        StringBuilder builder = getInvoke(direccionServicio + body);
+        RNMCGENERAL2Response result = new Gson().fromJson(builder.toString(), RNMCGENERAL2Response.class);
         return result;
     }
 

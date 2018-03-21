@@ -7,7 +7,9 @@ import android.view.View;
 
 import com.policia.codigopolicia.Comparendos.FragmentComparendoConsulta;
 import com.policia.codigopolicia.Comparendos.FragmentComparendoExpediente;
+import com.policia.codigopolicia.Comparendos.FragmentoComparendoCedula;
 import com.policia.codigopolicia.Comparendos.FragmentoComparendoEsperando;
+import com.policia.remote.response.RNMCGENERAL2Response;
 import com.policia.remote.response.RNMCGENERALResponse;
 
 public class ComparendosActivity extends AppCompatActivity {
@@ -35,6 +37,15 @@ public class ComparendosActivity extends AppCompatActivity {
     public void inflarFragmentoExpediente(RNMCGENERALResponse expediente) {
 
         fragment = FragmentComparendoExpediente.newInstance(this, expediente);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+    }
+
+    public void inflarFragmentoCedula(RNMCGENERAL2Response expediente) {
+
+        fragment = FragmentoComparendoCedula.newInstance(this, expediente);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fragment)

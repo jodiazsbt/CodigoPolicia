@@ -20,7 +20,8 @@ import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.negocio.logica.Negocio_TIPO_DOCUMENTO;
 import com.policia.negocio.modelo.Modelo_TIPO_DOCUMENTO;
 import com.policia.remote.RemoteExpediente;
-import com.policia.remote.RemoteRENEC;
+import com.policia.remote.response.RNMCGENERAL2Response;
+import com.policia.remote.response.RNMCGENERAL2Result;
 import com.policia.remote.response.RNMCGENERALResponse;
 
 import java.util.ArrayList;
@@ -92,29 +93,17 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
 
             Modelo_TIPO_DOCUMENTO documento = documentos.get(spinnerTipoDocumento.getSelectedItemPosition());
 
-            /*
             if (String.valueOf(documento.ID).equals("55")) {
 
                 verificarExpedicion(documento);
             } else {
 
-                consultarComperandos(documento);
-            }*/
-
-            RemoteRENEC.newInstance(activity, edittextIdentificacion.getText().toString(),
-                    new RemoteRENEC.IConsultaRENEC() {
-                        @Override
-                        public void consultarExpediente() {
-
-                            Modelo_TIPO_DOCUMENTO documento = documentos.get(spinnerTipoDocumento.getSelectedItemPosition());
-
-                            consultarComperandos(documento);
-                        }
-                    }).execute((Void) null);
+                consultarComperandos(documento, "01.01.1900");
+            }
         }
     }
 
-    private void verificarExpedicion(Modelo_TIPO_DOCUMENTO documento) {
+    private void verificarExpedicion(final Modelo_TIPO_DOCUMENTO documento) {
         View comparendos = activity.getLayoutInflater().inflate(R.layout.comparendos_fecha_expedicion, null);
 
         final Spinner spinnerDia = comparendos.findViewById(R.id.spinnerDia);
@@ -164,6 +153,8 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
                             mes = spinnerMes.getSelectedItem().toString();
                             aio = spinnerAio.getSelectedItem().toString();
 
+                            consultarComperandos(documento, dia + "." + mes + "." + aio);
+                            /*
                             RemoteRENEC.newInstance(activity, edittextIdentificacion.getText().toString(),
                                     new RemoteRENEC.IConsultaRENEC() {
                                         @Override
@@ -173,7 +164,7 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
 
                                             consultarComperandos(documento);
                                         }
-                                    }).execute((Void) null);
+                                    }).execute((Void) null);*/
                         } catch (Exception e) {
                         }
                     }
@@ -181,11 +172,11 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
                 .show();
     }
 
-    private void consultarComperandos(Modelo_TIPO_DOCUMENTO documento) {
+    private void consultarComperandos(Modelo_TIPO_DOCUMENTO documento, String Expedicion) {
 
         ((ComparendosActivity) activity).inflarFragmentoEsperando();
 
-        RemoteExpediente.newInstance(activity, String.valueOf(documento.ID), edittextIdentificacion.getText().toString(), new IComparendoExpediente() {
+        RemoteExpediente.newInstance(activity, String.valueOf(documento.ID), edittextIdentificacion.getText().toString(), Expedicion, new IComparendoExpediente() {
 
             @Override
             public void consultar(RNMCGENERALResponse expediente, String TipoDocumento, String Identificacion) {
@@ -201,6 +192,36 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
                 } else {
 
                     ((ComparendosActivity) activity).inflarFragmentoExpediente(expediente);
+                }
+            }
+
+            @Override
+            public void consultarCedula(RNMCGENERAL2Response expediente, String TipoDocumento, String Identificacion) {
+
+                if (expediente.rNMCGENERAL2Result.size() == 0) {
+
+                    ((ComparendosActivity) activity).inflarFragmentoConsulta();
+
+                    new AlertDialog.Builder(activity)
+                            .setTitle("La Policía Nacional de Colombia hace constar")
+                            .setMessage("Que el número de identificación No. " + Identificacion + ", no se encuentra vinculado en el sistema Registro Nacional de Medidas Correctivas RNMC de la Policía Nacional de Colombia como infractor de la Ley 1801 de 2016 Código Nacional de Policía y Convivencia.")
+                            .show();
+                } else {
+
+                    for (RNMCGENERAL2Result comportamiento : expediente.rNMCGENERAL2Result) {
+
+                        if (comportamiento.fECHAHECHOSRNMCGENERAL.equals("00/00/0000")) {
+
+                            ((ComparendosActivity) activity).inflarFragmentoConsulta();
+
+                            new AlertDialog.Builder(activity)
+                                    .setTitle(comportamiento.dESCRIPCIONRNMCGENERAL)
+                                    .setMessage("Por favor corrija la fecha de expedición de la cédula")
+                                    .show();
+                        } else
+
+                            ((ComparendosActivity) activity).inflarFragmentoCedula(expediente);
+                    }
                 }
             }
         }).execute();
