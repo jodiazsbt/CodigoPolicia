@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.policia.codigopolicia.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -18,17 +19,32 @@ import java.io.InputStream;
 
 public class SQLiteProvider extends SQLiteOpenHelper {
 
+    private String path;
+    private String name;
     private final Context context;
 
     public SQLiteProvider(Context context) {
 
         super(context, context.getString(R.string.dbname), null, Integer
                 .parseInt(context.getString(R.string.dbversion)));
+
         this.context = context;
+        this.path = context.getString(R.string.dbpath);
+        this.name = context.getString(R.string.dbname);
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
+
+        executeSQLScript(database, context.getString(R.string.SCRIPT));
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+        //SQLiteDatabase.deleteDatabase(new File(database.getPath()));
+        database.close();
+        context.deleteDatabase(database.getPath());
         executeSQLScript(database, context.getString(R.string.SCRIPT));
     }
 
@@ -60,10 +76,5 @@ public class SQLiteProvider extends SQLiteOpenHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 }

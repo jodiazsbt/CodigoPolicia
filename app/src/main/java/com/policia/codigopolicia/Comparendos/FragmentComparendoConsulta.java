@@ -111,9 +111,9 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
         final Spinner spinnerAio = comparendos.findViewById(R.id.spinnerAio);
 
         anios = new ArrayList<>();
-        int _max_anio = (Calendar.getInstance().get(Calendar.YEAR) - 17);
+        int _max_anio = (Calendar.getInstance().get(Calendar.YEAR) - 00);
         int _min_anio = (Calendar.getInstance().get(Calendar.YEAR) - 99);
-        for (int i = _min_anio; i < _max_anio; i++)
+        for (int i = _min_anio; i <= _max_anio; i++)
             anios.add(String.valueOf(i));
 
         ArrayAdapter adapter = null;
@@ -122,7 +122,7 @@ public class FragmentComparendoConsulta extends Fragment implements View.OnClick
         spinnerAio.setAdapter(adapter);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -18);
+        //calendar.add(Calendar.YEAR, 00);
 
         dia = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
         mes = String.valueOf(activity.getResources().getStringArray(R.array.comparendos_calendario_meses)[calendar.get(calendar.get(Calendar.MONTH))]);

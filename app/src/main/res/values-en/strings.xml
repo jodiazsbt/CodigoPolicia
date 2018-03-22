@@ -195,7 +195,7 @@
 
     <string name="dbpath">/data/data/com.policia.codigopolicia/databases/</string>
     <string name="dbname">codigopolicia</string>
-    <string name="dbversion">1</string>
+    <string name="dbversion">1300</string>
     <string name="SCRIPT">SCRIPT.sql</string>
 
     <string name="token">Q29tcG9ydGFtaWVudG9Qb2xpY2lhbEZJVA==</string>
