@@ -35,9 +35,10 @@ import com.policia.codigopolicia.IdentificacionPolicia.IClickScan;
 import com.policia.remote.RemotePolicia;
 
 /**
- * Main activity demonstrating how to pass extra parameters to an activity that
- * reads barcodes.
- */
+* PoliciaActivity:
+*
+* Esta actividad permite identificar al policia
+* */
 public class PoliciaActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Fragment fragment;

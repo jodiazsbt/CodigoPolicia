@@ -15,6 +15,7 @@ import com.policia.codigopolicia.adapter.CustomListAdapter;
  * Created by 1085253556 on 11/12/2017.
  */
 
+
 public class PortalCiudadano extends Activity {
 
     ListView list;

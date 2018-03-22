@@ -15,6 +15,11 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.policia.codigopolicia.adapter.CustomListAdapter;
 import com.policia.negocio.logica.Negocio_DOCUMENTO;
 
+/**
+* PortalActivity:
+*
+* Esta actividad muestra las opciones para realizar los tramites al ciudadano
+* */
 public class PortalActivity extends AppCompatActivity implements View.OnClickListener {
 
     ListView list;
