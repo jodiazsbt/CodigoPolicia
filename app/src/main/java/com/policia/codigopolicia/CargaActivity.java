@@ -8,11 +8,11 @@ import android.widget.Toast;
 import com.policia.negocio.logica.Negocio_DOCUMENTO;
 import com.policia.remote.RemoteENCUESTA;
 
+/**
+* CargaActivity:
+* Esta actividad es la encargada de iniciar la aplicacion
+* */
 public class CargaActivity extends Activity {
-    /**
-     * Duration of wait
-     **/
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
 
     private Negocio_DOCUMENTO negocioDocumento;
 
@@ -20,21 +20,6 @@ public class CargaActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carga_activity);
-        /*
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                //new RestGetUpdates(getApplicationContext()).execute("LIBROS");
-
-                Intent mainIntent = new Intent(CargaActivity.this, PrincipalActivity.class);
-                CargaActivity.this.startActivity(mainIntent);
-                CargaActivity.this.finish();
-            }
-        }, SPLASH_DISPLAY_LENGTH);
-
-         */
 
         try {
 

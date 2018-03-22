@@ -17,6 +17,11 @@ import com.policia.negocio.modelo.Modelo_DOCUMENTO;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+* CapacitacionActivity:
+*
+* Esta actividad lista los materiales de consulta disponibles para el personal de policia
+* */
 public class CapacitacionActivity extends Activity {
 
     private ListView listviewCapacitacion;

@@ -28,12 +28,16 @@ import com.rd.PageIndicatorView;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+* ArticuloCapituloActivity:
+*
+* Esta actividad permite visualizar los articulos del codigo nacional de policia
+* */
 public class ArticuloCapituloActivity extends FragmentActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener, View.OnClickListener {
 
     WrapContentViewPager viewPagerArticulos;
     PagerAdapter pagerAdapterArticulo;
     FloatingActionButton fab;
-    PageIndicatorView pageIndicatorView;
 
     private int counter = 0;
     private int reproduccion = 0;
@@ -102,6 +106,9 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
         }
     }
 
+    /**
+    * Este metodo detiene el sintetizador de voz incorporado
+    * */
     private void detener() {
 
         try {
@@ -114,6 +121,9 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
         }
     }
 
+    /**
+    * Este metodo inicia el sintetizador de voz incorporado
+    * */
     private void reproducir() {
 
         final Context context = getBaseContext();
@@ -165,15 +175,6 @@ public class ArticuloCapituloActivity extends FragmentActivity implements TextTo
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        /*
-        if (viewPagerArticulos.getCurrentItem() == 0) {
-            //salir si no tiene mas paginas para visualizar
-            super.onBackPressed();
-        } else {
-            //devolverse si tiene mas paginas para visualizar
-            viewPagerArticulos.setCurrentItem(viewPagerArticulos.getCurrentItem() - 1);
-        }
-        */
     }
 
     @Override

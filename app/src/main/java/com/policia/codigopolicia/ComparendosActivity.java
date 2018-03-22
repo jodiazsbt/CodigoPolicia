@@ -12,6 +12,12 @@ import com.policia.codigopolicia.Comparendos.FragmentoComparendoEsperando;
 import com.policia.remote.response.RNMCGENERAL2Response;
 import com.policia.remote.response.RNMCGENERALResponse;
 
+/**
+* ComparendosActivity:
+*
+* Esta actividad se encarga de realizar la consulta de comparendos
+* que se le impusieron a un ciudadano
+* */
 public class ComparendosActivity extends AppCompatActivity {
 
     private Fragment fragment;
@@ -25,6 +31,9 @@ public class ComparendosActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getResources().getString(R.string.menu_funcionario));
     }
 
+    /**
+    * Este metodo infla el fragmento de consulta
+    * */
     public void inflarFragmentoConsulta() {
 
         fragment = FragmentComparendoConsulta.newInstance(this);
@@ -34,6 +43,9 @@ public class ComparendosActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * Este metodo infla el fragmento de los expedientes encontrados
+     * */
     public void inflarFragmentoExpediente(RNMCGENERALResponse expediente) {
 
         fragment = FragmentComparendoExpediente.newInstance(this, expediente);
@@ -43,6 +55,9 @@ public class ComparendosActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * Este metodo infla el fragmento de los expedientes encontrados
+     * */
     public void inflarFragmentoCedula(RNMCGENERAL2Response expediente) {
 
         fragment = FragmentoComparendoCedula.newInstance(this, expediente);
@@ -52,6 +67,9 @@ public class ComparendosActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * Este metodo infla el fragmento de espera
+     * */
     public void inflarFragmentoEsperando() {
 
         fragment = new FragmentoComparendoEsperando();
@@ -61,6 +79,9 @@ public class ComparendosActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * Este metodo devuelve al usuario a la actividad principal
+     * */
     public void clickCancelar(View v) {
 
         finish();

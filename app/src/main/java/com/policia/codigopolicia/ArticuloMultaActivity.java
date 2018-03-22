@@ -29,6 +29,11 @@ import java.util.Locale;
  * Created by 1085253556 on 19/12/2017.
  */
 
+/**
+* ArticuloMultaActivity:
+*
+* Esta actividad permite consultar las multas que contiene el codigo de policia
+* */
 public class ArticuloMultaActivity extends FragmentActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener, View.OnClickListener {
 
     WrapContentViewPager viewPagerArticulos;
@@ -99,6 +104,9 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
         }
     }
 
+    /**
+     * Este metodo detiene el sintetizador de voz incorporado
+     * */
     private void detener() {
 
         try {
@@ -111,6 +119,9 @@ public class ArticuloMultaActivity extends FragmentActivity implements TextToSpe
         }
     }
 
+    /**
+     * Este metodo inicia el sintetizador de voz incorporado
+     * */
     private void reproducir() {
 
         final Context context = getBaseContext();

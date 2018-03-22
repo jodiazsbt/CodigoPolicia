@@ -17,6 +17,16 @@ import com.policia.negocio.modelo.Modelo_ENCUESTA;
 import com.policia.remote.RemoteRESPUESTA;
 import com.policia.remote.request.RequestRESPUESTA;
 
+
+/**
+* EncuestaActivity:
+* Esta actividad se encarga de hacer la encuesta al usuario
+* Si la aplicacion ya fue respondida por el usuario, no se presenta la encuesta
+* Si el usuario no responde la encuesta, se termina la aplicacion
+* Si el usuario responde la encuesta, se redirige al usuario al codigo de policia
+*
+* Si es la primera vez que se ingresa, se muestra el tutorial
+* */
 public class EncuestaActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonCierto;
@@ -78,6 +88,9 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
         //RemoteServices.newInstance(this).execute();
     }
 
+    /**
+    * Este metodo se ejecuta cuando se responde afirmativamente la encuesta
+    * */
     @Override
     public void onClick(View view) {
         final String[] departamentos = getResources().getStringArray(R.array.listaDepartamentos);
@@ -96,6 +109,9 @@ public class EncuestaActivity extends AppCompatActivity implements View.OnClickL
         builder.show();
     }
 
+    /**
+    * Este metodo se ejecuta cuando se responde negativamente la encuesta
+    * */
     public void clickCancelar(View view) {
         final String[] departamentos = getResources().getStringArray(R.array.listaDepartamentos);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

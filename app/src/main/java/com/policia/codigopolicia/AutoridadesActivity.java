@@ -70,11 +70,6 @@ public class AutoridadesActivity extends AppCompatActivity {
             tipoCompetencia = "001";
         else
             tipoCompetencia = getIntent().getExtras().getString("tipo_competencia", "001");
-        /*
-        webviewMap = findViewById(R.id.webviewMap);
-        webviewMap.loadUrl("https://policia.maps.arcgis.com/apps/webappviewer/index.html?id=6016fa41f3a64c3d9ffcee984626dd62&amp;center=4.646748,-74.097120,,,,&amp;level=8");
-        webviewMap.getSettings().setJavaScriptEnabled(true);
-        webviewMap.setWebChromeClient(new WebChromeClient());*/
 
         // Prompt the user for permission.
         getLocationPermission();

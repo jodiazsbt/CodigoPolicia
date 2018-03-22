@@ -19,6 +19,11 @@ import com.policia.negocio.seguridad.Seguridad;
 
 import java.util.ArrayList;
 
+/**
+* IdiomaActivity:
+*
+* Esta actividad permite hacer el cambio de idioma de la aplicacion completa
+* */
 public class IdiomaActivity extends Activity {
 
     private Idioma_Adapter adapter;
@@ -66,6 +71,9 @@ public class IdiomaActivity extends Activity {
         listViewIdiomas.setItemChecked(posicionIdioma(), true);
     }
 
+    /**
+    * Este metodo obtiene el idioma seleccionado
+    * */
     private int posicionIdioma() {
         int posicion = 0;
         for (Modelo_IDIOMA idioma : idiomas) {

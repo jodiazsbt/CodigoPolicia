@@ -27,8 +27,11 @@ import com.policia.remote.response.PoliciaLoginResponse;
 import com.policia.remote.response.PoliciaPerfilResponse;
 
 /**
- * A LoginPoliciaNal screen that offers LoginPoliciaNal via email/password.
- */
+* LoginActivity:
+*
+* Esta actividad permite el ingreso a la sesion como policia
+* ingresando el usuario y la constraseña del PSI
+* */
 public class LoginActivity extends AppCompatActivity {
 
     /**

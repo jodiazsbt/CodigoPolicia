@@ -38,6 +38,14 @@ import com.policia.codigopolicia.showcase.ViewTargets;
 import com.policia.negocio.seguridad.Seguridad;
 import com.policia.remote.RemoteServices;
 
+
+/**
+* PrincipalActivity:
+* Esta es la actividad principal:
+* Se visualiza el codigo de policia
+* Se visualiza el menu principal
+* Se resuelve si la sesion corresponde a un ciudadano o un policia
+* */
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -100,6 +108,11 @@ public class PrincipalActivity extends AppCompatActivity
         showcaseView.setButtonText(getResources().getString(R.string.showcaseSiguiente));
     }
 
+    /**
+    * Este metodo se encarga de iniciar la sesion.
+    *
+    * La sesion se puede inciar como ciudadano o como policia
+    * */
     private void cargaSesion() {
 
         try {
@@ -115,6 +128,9 @@ public class PrincipalActivity extends AppCompatActivity
         }
     }
 
+    /**
+    * Este metodo se encarga de cerrar la sesion del policia
+    * */
     private void cerrarSesionPolicia() {
         try {
             sesion.cerrarSesionPolicia();
@@ -308,35 +324,53 @@ public class PrincipalActivity extends AppCompatActivity
         }
     }
 
+    /**
+    * Este metodo ejecuta la actividad que permite cambiar el idioma
+    * */
     private void menuIdioma(MenuItem item) {
         Intent intent = new Intent(this, IdiomaActivity.class);
         startActivityForResult(intent, 1);
     }
 
+    /**
+    * Este metodo ejecuta la actividad que permite iniciar la sesion
+    * */
     private void menuLogin(MenuItem item) {
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
+    /**
+    * Este metodo ejecuta la actividad que permite visualizar el material de consulta disponible
+    * */
     private void menuCapacitacion(MenuItem item) {
 
         Intent intent = new Intent(this, CapacitacionActivity.class);
         startActivity(intent);
     }
 
+    /**
+    * Este metodo ejecuta la consulta de autoridades competentes
+    * */
     private void menuAutoridades(MenuItem item) {
 
         Intent intent = new Intent(PrincipalActivity.this, AutoridadesActivity.class);
         startActivity(intent);
     }
 
+    /**
+    * Este metodo ejecuta la consulta de comparendos
+    * */
     private void menuConsultaComparendo(MenuItem item) {
 
         Intent intent = new Intent(PrincipalActivity.this, ComparendosActivity.class);
         startActivity(intent);
     }
 
+    /**
+    * Este metodo permite ejecutar los juegos
+    * */
     private void menuJuegos() {
 
         PackageManager pm = getPackageManager();
@@ -353,6 +387,9 @@ public class PrincipalActivity extends AppCompatActivity
         }
     }
 
+    /**
+    * Este metodo infla el fragmento que presenta el codigo de policia
+    * */
     private void menuCodigoPolicia(MenuItem item) {
 
         fragment = new Fragment_LIBRO();
@@ -364,6 +401,9 @@ public class PrincipalActivity extends AppCompatActivity
         getSupportActionBar().setTitle(item.getTitle());
     }
 
+    /**
+    * Este metodo infla el fragmento que permite visualizar las coincidencias con la busqueda realizada
+    * */
     private void busquedaCodigoPolicia() {
 
         fragment = new Fragment_METEDATA();
@@ -373,12 +413,18 @@ public class PrincipalActivity extends AppCompatActivity
                 .commit();
     }
 
+    /**
+    * Este metodo ejecuta el menu del portal del cuidadano
+    * */
     private void menuPSC(MenuItem item) {
 
         Intent intent = new Intent(this, PortalActivity.class);
         startActivity(intent);
     }
 
+    /**
+    * Este metodo ejecuta la aplicacion POLIS
+    * */
     private void menuPOLIS(MenuItem item) {
         //item.setChecked(true);
 
@@ -396,6 +442,9 @@ public class PrincipalActivity extends AppCompatActivity
         }
     }
 
+    /**
+    * Este metodo infla el fragmento que visualiza las multas
+    * */
     private void menuMultas(MenuItem item) {
         fragment = new Fragment_MULTA();
 
@@ -421,6 +470,9 @@ public class PrincipalActivity extends AppCompatActivity
         startActivity(getPackageManager().getLaunchIntentForPackage(packageName));
     }
 
+    /**
+    * Este metodo ejecuta la actividad que inicia la identificacion del policia
+    * */
     private void scanPolicia() {
 
         Intent intent = new Intent(this, PoliciaActivity.class);
